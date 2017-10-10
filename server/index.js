@@ -4,8 +4,7 @@ const express = require('express')
       cors = require('cors'),
       routes = require('./routes'),
       errorHandlers = require('./middleware/error-handlers'),
-      compression = require('compression'),
-      subdomain = require('express-subdomain')
+      compression = require('compression')
 
 switch (process.env.NODE_ENV) {
   case 'development':
