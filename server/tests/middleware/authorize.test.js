@@ -9,6 +9,7 @@ function ReqMock() {
     payload: _payload,
     token: _token,
     header: 'Authorization',
+    baseUrl: '/api',
     get(header) {
       if (this.header === 'Authorization')
         return this.token

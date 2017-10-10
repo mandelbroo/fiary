@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../../app')
+const app = require('../../')
 const usersTruncate = require('../users-truncate')
 const server = app.listen(5000)
 
@@ -14,7 +14,7 @@ describe('users', () => {
       password: 'Supersecret098'
     }
     request(app)
-      .post('/signup')
+      .post('/api/signup')
       .send(req)
       .end((err, res) => {
         token = res.body.token
@@ -27,7 +27,7 @@ describe('users', () => {
     expect(token).toBeTruthy()
     expect(token).toBeDefined()
     request(app)
-      .get('/users')
+      .get('/api/users')
       .set('Authorization', token)
       .expect(200)
       .end((err, {body}) => {
@@ -45,7 +45,7 @@ describe('users', () => {
 
   it('return status 401 if auth header is missing', done => {
     request(app)
-      .get('/users')
+      .get('/api/users')
       .expect(401)
       .end((err, {body}) => {
         expect(body).toHaveProperty('success')
@@ -58,7 +58,7 @@ describe('users', () => {
 
   it('return status 401 if token empty value', done => {
     request(app)
-      .get('/users')
+      .get('/api/users')
       .set('Authorization', '')
       .expect(401)
       .end((err, {body}) => {
@@ -72,7 +72,7 @@ describe('users', () => {
 
   it('return status 401 if token is invalid', done => {
     request(app)
-      .get('/users')
+      .get('/api/users')
       .set('Authorization', 'R@nd0MsYmb0lz')
       .expect(401)
       .end((err, {body}) => {

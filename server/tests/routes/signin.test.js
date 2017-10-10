@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../../app')
+const app = require('../../')
 const usersTruncate = require('../users-truncate')
 const {user} = require('../../models');
 const server = app.listen(5000)
@@ -21,7 +21,7 @@ describe('signin', () => {
           username: 'success'
         }).then(() => {
           request(app)
-          .post('/signin')
+          .post('/api/signin')
           .type('json')
           .send(req)
           .expect(200)
@@ -45,7 +45,7 @@ describe('signin', () => {
       password: 'pass'
     }
     request(app)
-      .post('/signin')
+      .post('/api/signin')
       .type('json')
       .send(req)
       .expect(401)
@@ -69,7 +69,7 @@ describe('signin', () => {
     })
     .then(() => {
       request(app)
-        .post('/signin')
+        .post('/api/signin')
         .type('json')
         .send(req)
         .expect(401)

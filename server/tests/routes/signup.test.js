@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../../app')
+const app = require('../../')
 const usersTruncate = require('../users-truncate')
 const server = app.listen(5000)
 
@@ -14,7 +14,7 @@ describe('signup', () => {
       password: 'StrongPass123'
     }
     request(app)
-      .post('/signup')
+      .post('/api/signup')
       .type('json')
       .send(req)
       .expect(200)
@@ -37,7 +37,7 @@ describe('signup', () => {
       password: 'tooweak'
     }
     request(app)
-      .post('/signup')
+      .post('/api/signup')
       .type('json')
       .send(req)
       .expect(400)
@@ -65,7 +65,7 @@ describe('signup', () => {
       password: 'StrongPass123'
     }
     request(app)
-      .post('/signup')
+      .post('/api/signup')
       .type('json')
       .send(req)
       .expect(400)

@@ -51,7 +51,7 @@
   "jest": {
     "verbose": true,
     "modulePathIgnorePatterns": [
-      "<rootDir>/server/scripts",
+      "<rootDir>/scripts",
       "<rootDir>/src"
     ]
   }
