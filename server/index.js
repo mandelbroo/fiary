@@ -9,7 +9,7 @@ const express = require('express')
 
 switch (process.env.NODE_ENV) {
   case 'development':
-    require('./scripts/dev-setup')
+    require('./scripts/dev-setup')(app)
     break
   case 'test':
     require('dotenv').config()
@@ -21,14 +21,14 @@ app.use(express.static(path.resolve(__dirname, '../build')))
 app.disable('x-powered-by')
 app.use(compression())
 app.use(cors())
+
 app.use('/api', routes)
 app.get('/*', (req, res) => {
-  console.log('////// went to root path ')
   res.sendFile(path.resolve(__dirname, '../build/index.html'))
 })
+
 app.use(errorHandlers)
 
-
-let port = process.env.API_PORT || process.env.PORT || (process.argv[2] || 3000)
+const port = process.env.API_PORT || process.env.PORT || (process.argv[2] || 3000)
 if (!module.parent)
   app.listen(port, () => console.log(`Server is listening on port ${port}`))
