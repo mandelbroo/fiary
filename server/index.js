@@ -21,10 +21,7 @@ app.use(express.static(path.resolve(__dirname, '../build')))
 app.disable('x-powered-by')
 app.use(compression())
 app.use(cors())
-if (process.env.NODE_ENV == 'production')
-  app.use(subdomain('api', routes))
-else
-  app.use('/api', routes)
+app.use('/api', routes)
 app.get('/*', (req, res) => {
   console.log('////// went to root path ')
   res.sendFile(path.resolve(__dirname, '../build/index.html'))

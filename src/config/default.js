@@ -1,3 +1,3 @@
 export default {
-  serverUrl: 'https://api.fiary.herokuapp.com/'
+  serverUrl: 'https://fiary.herokuapp.com/api'
 }

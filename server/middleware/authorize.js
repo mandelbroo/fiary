@@ -11,7 +11,7 @@ exports.default = (req, res, next) => {
       return
     }
   }
-  if (req.baseUrl.includes('/api') || req.baseUrl.includes('api.'))
+  if (req.baseUrl.includes('/api'))
     res.status(401).send({success: false, message: 'Not authorized. Missing or invalid token'})
   else
     next()
