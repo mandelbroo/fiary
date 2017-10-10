@@ -1,0 +1,45 @@
+.App {
+  text-align: center;
+}
+
+.App ul {
+  list-style: none;
+}
+
+.App-header {
+  padding: 30px;
+}
+
+.App-header .title {
+  margin-top: 22px;
+  margin-bottom: 22px;
+  display: block;
+  text-decoration: none;
+  font-size: xx-large;
+
+}
+.App-header .title:link {
+  color: #000;
+}
+.App-header .title:visited {
+  color: #000;
+}
+
+.content {
+  margin-bottom: 30px;
+}
+
+/* links */
+a {
+  text-decoration: none;
+}
+a:link {
+  color: darkslategrey;
+}
+a:visited {
+  color: darkslategrey;
+}
+a:hover {
+  color: #0093bc;
+}
+/* links end*/

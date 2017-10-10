@@ -1,0 +1,28 @@
+<svg width="330" height="330" xmlns="http://www.w3.org/2000/svg">
+ <title>Fibonacci Spiral Olive</title>
+
+ <metadata id="metadata3592">image/svg+xml</metadata>
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="332" height="332" id="canvas_background" fill="none"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g transform="rotate(-31 151.58636474609366,146.77078247070312) matrix(0.949178841021061,0,0,0.949178841021061,-16.668282597481035,-9.917250467763363) " id="g4368">
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m215.43152,65.154079a199.84679,199.84679 0 0 0 -199.84678,199.84611" id="path3560"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m338.94203,188.665309a123.51111,123.51111 0 0 0 -123.51051,-123.51117" id="path3562"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m262.60774,265.000189a76.33488,76.33488 0 0 0 76.33429,-76.33487" id="path3564"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m215.43152,217.823949a47.17623,47.17623 0 0 0 47.17622,47.17623" id="path3566"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m244.58956,188.665309a29.15864,29.15864 0 0 0 -29.15804,29.15864" id="path3568"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m262.60774,206.683099a18.01775,18.01775 0 0 0 -18.01818,-18.01779" id="path3570"/>
+   <ellipse fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" cx="8.525645" cy="121.932427" id="ellipse3572" transform="matrix(1.99603,0,0,1.99603,-1.43271,21.6191) "/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m251.4659,217.823949a11.14084,11.14084 0 0 0 11.14184,-11.14087" id="path3574"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m244.58956,210.947029a6.87691,6.87691 0 0 0 6.87634,6.87692" id="path3576"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m248.85309,206.683099a4.26393,4.26393 0 0 0 -4.26353,4.26393" id="path3578"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m251.4659,209.296099a2.61299,2.61299 0 0 0 -2.61281,-2.613" id="path3580"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m249.81519,210.947029a1.65094,1.65094 0 0 0 1.65072,-1.65093" id="path3582"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m248.85309,209.984929a0.96205,0.96205 0 0 0 0.9621,0.96208" id="path3584"/>
+   <path fill="none" stroke="#0093bc" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" d="m249.54172,209.296099a0.68888,0.68888 0 0 0 -0.68863,0.68883" id="path3586"/>
+  </g>
+ </g>
+</svg>

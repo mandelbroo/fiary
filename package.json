@@ -1,0 +1,58 @@
+{
+  "name": "fiary",
+  "description": "personal financial diary",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:4000",
+  "scripts": {
+    "start": "react-scripts build && NODE_ENV=production node server/index.js",
+    "build": "react-scripts build",
+    "deploy:test": "git push heroku master",
+    "start:dev": "react-scripts start",
+    "serve:dev": "NODE_ENV=development nodemon server/index.js --inspect",
+    "test:front": "react-scripts test --env=jsdom",
+    "test:back": "NODE_ENV=test jest",
+    "test:back:watch": "NODE_ENV=test node scripts/test.js --silent",
+    "test:back:coverage": "NODE_ENV=test jest --coverage",
+    "seq": "node_modules/.bin/sequelize",
+    "db:migrate:status": "node_modules/.bin/sequelize db:migrate:status",
+    "db:create": "node db/utils/create.js",
+    "db:drop": "node db/utils/drop.js",
+    "db:migrate": "node_modules/.bin/sequelize db:migrate",
+    "db:migrate:undo": "node_modules/.bin/sequelize db:migrate:undo",
+    "deploy:test": "git push heroku master",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.1",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "express-validation": "^1.0.2",
+    "joi": "^11.0.1",
+    "jsonwebtoken": "^7.4.1",
+    "jwt-decode": "^2.2.0",
+    "morgan-body": "^0.10.9",
+    "pg": "^6.4.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.13",
+    "sequelize": "^4.3.1"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "jest": "^21.1.0",
+    "sequelize-cli": "^2.7.0",
+    "supertest": "^3.0.0"
+  },
+  "jest": {
+    "verbose": true,
+    "modulePathIgnorePatterns": [
+      "<rootDir>/server/scripts",
+      "<rootDir>/src"
+    ]
+  }
+}
