@@ -9,7 +9,6 @@ module.exports = (req, res) => {
       else if (!user.isValidPass(req.body.password))
         res.status(401).send({ success: false, message: 'Wrong credentials' })
       else {
-        console.log('-----------success')
         const token = jwtGenerate(user)
         res.send({
           success: true,

@@ -11,12 +11,10 @@ exports.default = (req, res, next) => {
       return
     }
   }
-
-  //if (req.xhr)
-  // if (req.xhr)
+  if (req.baseUrl.includes('/api') || req.baseUrl.includes('api.'))
     res.status(401).send({success: false, message: 'Not authorized. Missing or invalid token'})
-  // else
-  //   next()
+  else
+    next()
 }
 
 function getPayload(token) {
