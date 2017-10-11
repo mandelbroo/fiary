@@ -5,7 +5,7 @@ import {Logo, Navbar} from './components'
 import './App.css'
 
 const Footer = () => (
-  <footer>made by vitalii@funeployed</footer>
+  <footer>made by vitalii@funemployed</footer>
 )
 
 export default class App extends React.Component {
