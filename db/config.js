@@ -25,9 +25,9 @@ module.exports = {
     database: DBNAME || 'fiary_prod',
     dialect: DIALECT,
     host: HOST,
-    user: 'postgres',
-    username: 'postgres',
-    password: 'verysecret'
+    user: USER,
+    username: USER,
+    password: PASSWORD
   },
   test: {
     database: DBNAME || 'fiary_test',
