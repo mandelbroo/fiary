@@ -1,3 +1,1 @@
-const {drop} = require('./base.js')
-
-drop()
+require('./samsara.js').drop()

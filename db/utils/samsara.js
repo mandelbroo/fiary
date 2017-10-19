@@ -1,5 +1,15 @@
-const globalConfig = require('./../config.js')
-const ENV = process.env.NODE_ENV
+const ENV = process.env.NODE_ENV || 'development'
+
+switch (ENV) {
+  case 'development':
+  case 'test':
+  case undefined:
+    require('dotenv').config()
+    break
+}
+
+const pg = require('pg')
+const config = require('../../knexfile.js')[ENV].connection
 
 function execute(isCreate = true) {
 
@@ -7,9 +17,6 @@ function execute(isCreate = true) {
     console.log('WARNING. Please specify NODE_ENV either for the command or in .env')
     return
   }
-
-  const pg = require('pg')
-  const config = globalConfig[process.env.NODE_ENV]
   const dbName = config.database
   config.database = 'postgres' // using postgres db just for connection. Be careful, do not drop it
   const pool = new pg.Pool(config)
@@ -22,6 +29,7 @@ function execute(isCreate = true) {
         if (!isCreate)
           client.query('DROP DATABASE ' + dbName)
             .then(() => console.log(`DATABASE '${dbName}' DROPPED SUCESSFULLY!`))
+            .then(() => client.end())
             .catch(err => console.log(err))
         else
           console.log(`DATABASE '${dbName}' ALREADY EXISTS!`)
@@ -30,11 +38,11 @@ function execute(isCreate = true) {
         if (isCreate)
           client.query('CREATE DATABASE ' + dbName)
             .then(() => console.log(`DATABASE '${dbName}' SUCCESSFULLY CREATED!`))
+            .then(() => client.end())
             .catch(err => console.log(err))
         else
           console.log(`DATABASE '${dbName}' DOES NOT EXIST!`)
       }
-      client.end()
     })
   })
 }

@@ -1,3 +1,1 @@
-const {create} = require('./base.js')
-
-create()
+require('./samsara.js').create()
