@@ -1,10 +1,8 @@
 const request = require('supertest')
 const app = require('../../')
-const usersTruncate = require('../users-truncate')
 const server = app.listen(5000)
 
 describe('signup', () => {
-  beforeAll(usersTruncate)
   afterEach(done => server.close(() => done()))
 
   it('successfully register user', done => {

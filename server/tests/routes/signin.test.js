@@ -1,11 +1,9 @@
 const request = require('supertest')
 const app = require('../../')
-const usersTruncate = require('../users-truncate')
-const {user} = require('../../models');
+const {User} = require('../../models');
 const server = app.listen(5000)
 
 describe('signin', () => {
-  beforeAll(usersTruncate)
   afterEach(done => server.close(() => done()))
 
   it('successfully logs in', done => {
@@ -13,9 +11,9 @@ describe('signin', () => {
       email: 'success@signin.com',
       password: 'StrongPass123'
     }
-    user.encryptPassword(req.password)
+    User.encryptPassword(req.password)
       .then(crypted => {
-        user.create({
+        User.create({
           email: req.email,
           password: crypted,
           username: 'success'
@@ -62,7 +60,7 @@ describe('signin', () => {
       email: 'wrong@pass.com',
       password: 'pass'
     }
-    user.create({
+    User.create({
       email: req.email,
       username: 'wrongname',
       password: 'wrong'

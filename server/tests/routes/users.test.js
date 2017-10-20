@@ -1,13 +1,11 @@
 const request = require('supertest')
 const app = require('../../')
-const usersTruncate = require('../users-truncate')
 const server = app.listen(5000)
 
 describe('users', () => {
   let token = false
 
   beforeAll((done) => {
-    usersTruncate()
     const req = {
       username: 'admin',
       email: 'admin@email.net',
@@ -34,6 +32,7 @@ describe('users', () => {
         expect.arrayContaining(body)
         expect(body.length).not.toBe(0)
         const user = body[0]
+        console.log(user)
         expect(user).toHaveProperty('id')
         expect(user).toHaveProperty('username')
         expect(user).toHaveProperty('email')

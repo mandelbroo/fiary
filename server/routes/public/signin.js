@@ -1,24 +1,28 @@
-const models = require('../../models')
+const {User} = require('../../models')
 const jwtGenerate = require('../../utils/jwt-generate')
 
 module.exports = (req, res) => {
-  models.user.findOne({ where: { email: req.body.email }})
+  User.findOne({ email: req.body.email })
     .then(user => {
-      if (!user)
-        res.status(401).send({ success: false, message: 'User not found' })
-      else if (!user.isValidPass(req.body.password))
+      if (!user.isValidPass(req.body.password))
         res.status(401).send({ success: false, message: 'Wrong credentials' })
       else {
-        const token = jwtGenerate(user)
+        const token = jwtGenerate(user.attributes)
         res.send({
           success: true,
           message: 'Authenticated successfully',
           token: token,
           user: {
-            id: user.id,
-            name: user.username,
+            id: user.attributes.id,
+            name: user.attributes.username,
           }
         })
       }
+    })
+    .catch(err => {
+      if (err.message === 'EmptyResponse')
+        res.status(401).send({ success: false, message: 'User not found' })
+      else
+        throw err
     })
 }

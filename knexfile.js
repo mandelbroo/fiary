@@ -10,6 +10,9 @@ module.exports = {
     },
     migrations: {
       directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds/dev'
     }
   },
 
@@ -18,14 +21,15 @@ module.exports = {
     connection: process.env.DATABASE_URL || {
       database : process.env.DB_NAME || 'fiary_test',
       host : process.env.DB_HOST || '127.0.0.1',
-      password : process.env.DB_PASS,
-      user : process.env.DB_USER,
+      password : process.env.DB_PASS || 'verysecret',
+      user : process.env.DB_USER || 'postgres',
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
+      directory: './db/migrations',
       tableName: 'knex_migrations'
     }
   },

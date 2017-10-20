@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const models = require('../models')
+const {User} = require('../models')
 
 exports.default = (req, res, next) => {
   const token = getToken(req)
@@ -25,7 +25,7 @@ function getPayload(token) {
   try {
     payload = jwt.verify(plainToken, process.env.JWT_SECRET)
   } catch(err) {
-    console.log(err.message, `${plainToken}`)
+    console.error(err.message, `${plainToken}`)
   }
   return payload
 }
@@ -42,11 +42,11 @@ function getToken(req) {
 exports.getToken = getToken
 
 function setCurrentUser(req, payload) {
-  req.currentUserPromise = models.user
+  req.currentUserPromise = User
     .findById(payload.id)
     .then(result => {
       if (result)
         req.currentUser = result.dataValues
     })
-    .error(err => console.log(err))
+    .error(err => console.error(err))
 }

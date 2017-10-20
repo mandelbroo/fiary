@@ -5,9 +5,9 @@ switch (process.env.NODE_ENV) {
     break
 }
 
-const knex = require('knex')
+const config = require('../knexfile.js')[process.env.NODE_ENV]
 
-let connection = knex(require('../knexfile.js')[process.env.NODE_ENV])
+let connection = require('knex')(config)
 
 connection.authenticate = function() {
   return this.raw('SELECT 1 AS result')
