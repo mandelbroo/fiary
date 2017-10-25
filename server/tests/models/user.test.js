@@ -1,4 +1,4 @@
-const User = require('../../models/user')
+const {User} = require('../../models')
 
 describe('User', () => {
   describe('.create(attributes)', () => {
@@ -9,19 +9,19 @@ describe('User', () => {
         password: 'pass',
         role: 'user'
       })
+      .then(user => {return user.refresh()})  // to apply bookshelf-camelcase
       .then(user => {
         expect(user.attributes).toHaveProperty('username')
         expect(user.attributes).toHaveProperty('email')
         expect(user.attributes).toHaveProperty('role')
-        expect(user.isValidPass).toBeDefined()
-        expect(user.createdAt).toBeDefined()
-        expect(user.updatedAt).toBeDefined()
+        expect(user.attributes.createdAt).toBeDefined()
+        expect(user.attributes.updatedAt).toBeDefined()
         done()
       })
     })
   })
   describe('create before each', () => {
-    beforeEach(done => {
+    beforeAll(done => {
       User.encryptPassword('pass')
         .then(crypted => {
           User.create({
@@ -30,26 +30,39 @@ describe('User', () => {
             password: crypted,
             role: 'user'
           })
-          .then(user => created = user)
+          .then(user => citizen = user)
           .then(() => done())
         })
-   })
+    })
 
-   it('.findById(id)', done => {
-    User.findById(created.id)
-      .then(user => {
-        expect(user.attributes).toHaveProperty('username')
-        expect(user.attributes).toHaveProperty('email')
-        expect(user.attributes).toHaveProperty('role')
-        expect(user.isValidPass).toBeDefined()
-        done()
+    describe('.findById(id)', () => {
+      it('is defined', () => expect(User.findById).toBeDefined())
+      it('returns existing user', done => {
+        User.findById(citizen.id)
+          .then(user => {return user.refresh()})  // to apply bookshelf-camelcase
+          .then(user => {
+            expect(user.attributes).toHaveProperty('username')
+            expect(user.attributes).toHaveProperty('email')
+            expect(user.attributes).toHaveProperty('role')
+            expect(user.attributes.createdAt).toBeDefined()
+            expect(user.attributes.updatedAt).toBeDefined()
+            done()
+          })
       })
     })
     describe('.isValidPass(password)', () => {
-      it('', done => {
-        const result = created.isValidPass('pass')
+      it('is defined', () => expect(citizen.isValidPass).toBeDefined())
+      it("returns true if user's password match", done => {
+        const result = citizen.isValidPass('pass')
         expect(result).toBeTruthy()
         done()
+      })
+    })
+    describe('.entries', () => {
+      it('is defined', () => expect(citizen.entries).toBeDefined())
+      it("returns user's entires", () => {
+        const entries = citizen.entries()
+        expect(entries.length).toEqual(0)
       })
     })
   })

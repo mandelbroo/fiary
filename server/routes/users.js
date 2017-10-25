@@ -1,13 +1,10 @@
-const models = require('../models')
+const {User} = require('../models')
+const apiRes = require('./api-response')
 
 module.exports = (req, res) => {
-  models.User.findAll()
-    .then(users => {
-      let newCollection = users.map(user => {
-        user.attributes.createdAt = user.attributes.created_at
-        delete user.attributes.created_at
-        return user
-      })
-      res.send(newCollection)
+  User.fetchPage({
+      pageSize: 15,
+      page: 1,
     })
+    .then(users => res.send(apiRes(users)))
 }

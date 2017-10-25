@@ -28,11 +28,12 @@ describe('users', () => {
       .get('/api/users')
       .set('Authorization', token)
       .expect(200)
-      .end((err, {body}) => {
-        expect.arrayContaining(body)
-        expect(body.length).not.toBe(0)
-        const user = body[0]
-        console.log(user)
+      .end((err, res) => {
+        expect.arrayContaining(res.body)
+        expect(res.body.length).not.toBe(0)
+        expect(res.body.totalCount).not.toBe(0)
+        expect(res.body.pagesCount).not.toBe(0)
+        const user = res.body.collection[0]
         expect(user).toHaveProperty('id')
         expect(user).toHaveProperty('username')
         expect(user).toHaveProperty('email')

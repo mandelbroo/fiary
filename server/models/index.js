@@ -1,5 +1,6 @@
-const user = require('./user')
-
 module.exports = {
-  User: user,
+  Entry: require('./entry'),
+  Record: require('./record'),
+  Tag: require('./tag'),
+  User: require('./user'),
 }

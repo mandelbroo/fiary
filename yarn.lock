@@ -1112,6 +1112,13 @@ bonjour@^3.5.0:
     multicast-dns "^6.0.1"
     multicast-dns-service-types "^1.1.0"
 
+bookshelf-camelcase@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bookshelf-camelcase/-/bookshelf-camelcase-2.0.1.tgz#0d7791f2aabee6d98d56c87ce10ccb0f81a6553c"
+  dependencies:
+    lodash.camelcase "~4.3.0"
+    lodash.snakecase "~4.1.0"
+
 bookshelf-modelbase@^2.10.4:
   version "2.10.4"
   resolved "https://registry.yarnpkg.com/bookshelf-modelbase/-/bookshelf-modelbase-2.10.4.tgz#32c0674837ed2fc2640a7330848f49b63c6cdb9e"
@@ -4476,7 +4483,7 @@ lodash._reinterpolate@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
 
-lodash.camelcase@^4.3.0:
+lodash.camelcase@^4.3.0, lodash.camelcase@~4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
 
@@ -4499,6 +4506,10 @@ lodash.memoize@^4.1.2:
 lodash.once@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
+
+lodash.snakecase@~4.1.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.snakecase/-/lodash.snakecase-4.1.1.tgz#39d714a35357147837aefd64b5dcbb16becd8f8d"
 
 lodash.template@^4.4.0:
   version "4.4.0"
