@@ -20,7 +20,8 @@
     "db:migrate": "node_modules/.bin/knex migrate:latest",
     "db:migrate:undo": "node_modules/.bin/knex migrate:rollback",
     "deploy:test:migrate": "heroku run npm run db:migrate",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "routes": "node scripts/routes.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
