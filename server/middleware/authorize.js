@@ -4,7 +4,7 @@ const {User} = require('../models')
 exports.default = (req, res, next) => {
   const token = getToken(req)
   if (token) {
-    const payload = getPayload(token)
+    const payload = getPayload(token, req)
     if (payload) {
       setCurrentUser(req, payload)
       next()
@@ -17,7 +17,7 @@ exports.default = (req, res, next) => {
     next()
 }
 
-function getPayload(token) {
+function getPayload(token, req) {
   if (!token || token == '')
     return
   let payload = false
@@ -25,7 +25,7 @@ function getPayload(token) {
   try {
     payload = jwt.verify(plainToken, process.env.JWT_SECRET)
   } catch(err) {
-    console.error(err.message, `${plainToken}`)
+    console.error(err.message, `${plainToken}`, `ip: ${req.connection.remoteAddress}`)
   }
   return payload
 }
