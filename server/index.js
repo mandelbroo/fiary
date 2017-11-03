@@ -1,5 +1,5 @@
 const express = require('express')
-      app = module.exports = express(),
+      app = express(),
       path = require('path'),
       cors = require('cors'),
       routes = require('./routes'),
@@ -20,14 +20,11 @@ app.use(express.static(path.resolve(__dirname, '../build')))
 app.disable('x-powered-by')
 app.use(compression())
 app.use(cors())
-
-app.use('/api', routes)
-app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../build/index.html'))
-})
-
+app.use(routes)
 app.use(errorHandlers)
 
 const port = process.env.API_PORT || process.env.PORT || (process.argv[2] || 3000)
-if (!module.parent)
+if (!module.parent) {
   app.listen(port, () => console.log(`Server is listening on port ${port}`))
+}
+module.exports = app
