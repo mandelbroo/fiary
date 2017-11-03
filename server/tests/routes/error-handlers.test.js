@@ -10,7 +10,7 @@ describe('error-handlers', () => {
       request(app)
       .post('/api/signin')
       .type('json')
-      .send({})   // send empty body
+      .send({})
       .expect(400)
       .end(err => done(err))
     })
