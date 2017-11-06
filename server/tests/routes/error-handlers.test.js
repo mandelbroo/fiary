@@ -37,7 +37,10 @@ describe('error-handlers', () => {
         .type('json')
         .send({})
         .expect(200)
-        .end(err => done(err))
+        .end((err, res) => {
+          console.log(res)
+          done(err)
+        })
     })
   })
   describe('500', () => {
