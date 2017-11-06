@@ -1,58 +1,63 @@
-const request = require('supertest')
-const app = require('../../')
+const app = require('../../index')
+const request = require('supertest')(app)
 
-describe('error-handlers', () => {
+describe('status-codes', () => {
+  describe('200', () => {
+    it("return index.html on get not existing route", done => {
+      request
+        .get('/not-exist')
+        .type('json')
+        .send({})
+        .expect(200)
+        .expect('Content-Type', 'text/html; charset=UTF-8')
+        .end((err, res) => {
+          expect(res).toBeDefined()
+          done(err)
+        })
+    })
+  })
   describe('400', () => {
     it('fire when validation fails', done => {
-      request(app)
+      request
       .post('/api/signin')
       .type('json')
       .send({})
       .expect(400)
+      .expect('Content-Type', 'application/json; charset=utf-8')
       .end(err => done(err))
     })
   })
   describe('401', () => {
     it("fire on get not existing /api route (/api/* always requires authorization)", done => {
-      request(app)
+      request
       .get('/api/non-existing')
       .type('json')
       .send({})
       .expect(401)
+      .expect('Content-Type', 'application/json; charset=utf-8')
       .end(err => done(err))
     })
   })
   describe('404', () => {
     it("fire on post not existing route'", done => {
-      request(app)
+      request
         .post('/not-exist')
         .type('json')
         .send({})
         .expect(404)
+        .expect('Content-Type', 'text/html; charset=utf-8')
         .end(err => done(err))
-    })
-    it("do not fire on get not existing route", done => {
-      request(app)
-        .get('/not-exist')
-        .type('json')
-        .send({})
-        .expect(200)
-        .end((err, res) => {
-          console.log(res)
-          done(err)
-        })
     })
   })
   describe('500', () => {
     it("fire on runtime error", done => {
-      request(app)
+      request
         .get('/with-error')
         .type('json')
         .send({})
         .expect(500)
-        .end((err, res) => {
-          done(err)
-        })
+        .expect('Content-Type', 'application/json; charset=utf-8')
+        .end(err=> done(err))
     })
   })
 })
