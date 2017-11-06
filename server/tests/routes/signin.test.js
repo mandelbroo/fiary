@@ -1,5 +1,5 @@
-const request = require('supertest')
 const app = require('../../')
+const request = require('supertest')(app)
 const {User} = require('../../models');
 
 describe('signin', () => {
@@ -17,7 +17,7 @@ describe('signin', () => {
           password: crypted,
           username: 'success'
         }).then(() => {
-          request(app)
+          request
           .post('/api/signin')
           .type('json')
           .send(req)
@@ -41,7 +41,7 @@ describe('signin', () => {
       email: 'not@exists.com',
       password: 'pass'
     }
-    request(app)
+    request
       .post('/api/signin')
       .type('json')
       .send(req)
@@ -65,7 +65,7 @@ describe('signin', () => {
       password: 'wrong'
     })
     .then(() => {
-      request(app)
+      request
         .post('/api/signin')
         .type('json')
         .send(req)

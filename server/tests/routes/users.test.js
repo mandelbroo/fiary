@@ -1,7 +1,7 @@
-const request = require('supertest')
 const jwtGenerate = require('../../utils/jwt-generate')
 const {User} = require('../../models')
 const app = require('../../')
+const request = require('supertest')(app)
 
 describe('users', () => {
   afterAll(done => User.connection.destroy().then(() => done()))
@@ -19,7 +19,7 @@ describe('users', () => {
   it('return list of users', done => {
     expect(token).toBeTruthy()
     expect(token).toBeDefined()
-    request(app)
+    request
       .get('/api/users')
       .set('Authorization', token)
       .expect(200)
@@ -39,7 +39,7 @@ describe('users', () => {
   })
 
   it('return status 401 if auth header is missing', done => {
-    request(app)
+    request
       .get('/api/users')
       .expect(401)
       .end((err, {body}) => {
@@ -52,7 +52,7 @@ describe('users', () => {
   })
 
   it('return status 401 if token empty value', done => {
-    request(app)
+    request
       .get('/api/users')
       .set('Authorization', '')
       .expect(401)
@@ -66,7 +66,7 @@ describe('users', () => {
   })
 
   it('return status 401 if token is invalid', done => {
-    request(app)
+    request
       .get('/api/users')
       .set('Authorization', 'R@nd0MsYmb0lz')
       .expect(401)

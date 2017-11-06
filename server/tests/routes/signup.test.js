@@ -1,5 +1,5 @@
-const request = require('supertest')
 const app = require('../../')
+const request = require('supertest')(app)
 
 describe('signup', () => {
   it('successfully register user', done => {
@@ -8,7 +8,7 @@ describe('signup', () => {
       email: 'success@signup.net',
       password: 'StrongPass123'
     }
-    request(app)
+    request
       .post('/api/signup')
       .type('json')
       .send(req)
@@ -31,7 +31,7 @@ describe('signup', () => {
       email: 'some@email.net',
       password: 'tooweak'
     }
-    request(app)
+    request
       .post('/api/signup')
       .type('json')
       .send(req)
@@ -59,7 +59,7 @@ describe('signup', () => {
       email: 'some@email.net',
       password: 'StrongPass123'
     }
-    request(app)
+    request
       .post('/api/signup')
       .type('json')
       .send(req)
