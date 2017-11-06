@@ -8,6 +8,4 @@ before_script:
 install:
   - yarn
 env:
-  - JWT_SECRET=ASDasj212nsdaj!@Dadj121daja!@DADad
-  - DB_PASS=
-  - DB_USER=postgres
+  - JWT_SECRET=ASDasj212nsdaj!@Dadj121daja!@DADad DB_PASS= DB_USER=postgres NODE_ENV=test
