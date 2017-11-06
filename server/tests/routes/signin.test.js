@@ -1,10 +1,9 @@
 const request = require('supertest')
 const app = require('../../')
 const {User} = require('../../models');
-const server = app.listen(5000)
 
 describe('signin', () => {
-  afterEach(done => server.close(() => done()))
+  afterAll(done => User.connection.destroy(() => done()))
 
   it('successfully logs in', done => {
     const req = {

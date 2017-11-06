@@ -1,10 +1,7 @@
 const request = require('supertest')
 const app = require('../../')
-const server = app.listen(5000)
 
 describe('error-handlers', () => {
-  afterEach(done => server.close(() => done()))
-
   describe('400', () => {
     it('fire when validation fails', done => {
       request(app)

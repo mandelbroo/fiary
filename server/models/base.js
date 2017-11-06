@@ -7,4 +7,7 @@ bookshelf.plugin(require('bookshelf-modelbase').pluggable)
 
 module.exports = class Base extends bookshelf.Model {
   get hasTimestamps() {return true}
+  static get connection() {
+    return knex
+  }
 }

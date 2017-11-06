@@ -1,10 +1,7 @@
 const request = require('supertest')
 const app = require('../../')
-const server = app.listen(5000)
 
 describe('signup', () => {
-  afterEach(done => server.close(() => done()))
-
   it('successfully register user', done => {
     const req = {
       username: 'signup',

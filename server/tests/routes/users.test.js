@@ -1,25 +1,20 @@
 const request = require('supertest')
+const jwtGenerate = require('../../utils/jwt-generate')
+const {User} = require('../../models')
 const app = require('../../')
-const server = app.listen(5000)
 
 describe('users', () => {
-  let token = false
+  afterAll(done => User.connection.destroy().then(() => done()))
 
-  beforeAll((done) => {
-    const req = {
+  beforeAll(done => {
+    User.create({
       username: 'admin',
       email: 'admin@email.net',
       password: 'Supersecret098'
-    }
-    request(app)
-      .post('/api/signup')
-      .send(req)
-      .end((err, res) => {
-        token = res.body.token
-        done()
-      })
+    })
+    .then(user => token = jwtGenerate(user.attributes))
+    .then(() => done())
   })
-  afterEach(done => server.close(() => done()))
 
   it('return list of users', done => {
     expect(token).toBeTruthy()

@@ -1,6 +1,8 @@
 const {User} = require('../../models')
 
 describe('User', () => {
+  afterAll(done => User.connection.destroy(() => done()))
+
   describe('.create(attributes)', () => {
     it('creates and saves user', done => {
       User.create({
