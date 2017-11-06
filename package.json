@@ -10,6 +10,7 @@
     "deploy:test": "git push heroku master",
     "start:dev": "react-scripts start",
     "serve:dev": "NODE_ENV=development nodemon server/index.js --inspect",
+    "test": "NODE_ENV=test jest",
     "test:front": "react-scripts test --env=jsdom",
     "test:back": "NODE_ENV=test jest",
     "test:back:watch": "NODE_ENV=test node scripts/test.js",
