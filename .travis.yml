@@ -7,3 +7,7 @@ before_script:
   - yarn db:create && yarn db:migrate
 install:
   - yarn
+env:
+  - JWT_SECRET=ASDasj212nsdaj!@Dadj121daja!@DADad
+  - DB_PASS=
+  - DB_USER=postgres
