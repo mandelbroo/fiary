@@ -22,6 +22,6 @@ module.exports = (req, res) => {
           }
         })
       })
-      .error(err => res.send({success: false, message: err}))
+      .catch(err => res.send({success: false, message: err}))
   })
 }
