@@ -2,22 +2,21 @@ const jwt = require('jsonwebtoken')
 const {User} = require('../models')
 
 exports.default = (req, res, next) => {
-  const token = getToken(req)
-  if (token) {
-    const payload = getPayload(token, req)
-    if (payload) {
-      setCurrentUser(req, payload)
-      next()
-      return
-    }
-  }
-  if (req.baseUrl.includes('/api'))
+  const payload = getPayload(req)
+  if (payload) {
+    req.currentUserPromise = User.findById(payload.id)
+      .then(user => {
+        req.currentUser = user
+        next()
+      })
+      .catch(err => res.status(401)
+        .send({ success: false, message: 'Not authorized. User not found' }))
+  } else
     res.status(401).send({success: false, message: 'Not authorized. Missing or invalid token'})
-  else
-    next()
 }
 
-function getPayload(token, req) {
+function getPayload(req) {
+  const token = getToken(req)
   if (!token || token == '')
     return
   let payload = false
@@ -40,13 +39,3 @@ function getToken(req) {
 }
 
 exports.getToken = getToken
-
-function setCurrentUser(req, payload) {
-  req.currentUserPromise = User
-    .findById(payload.id)
-    .then(result => {
-      if (result)
-        req.currentUser = result.dataValues
-    })
-    .error(err => console.error(err))
-}
