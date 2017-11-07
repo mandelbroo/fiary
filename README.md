@@ -1,4 +1,5 @@
 # fiary
+[![Build Status](https://travis-ci.org/mandelbroo/fiary.svg?branch=master)](https://travis-ci.org/mandelbroo/fiary.svg?branch=master) 
 
 Your personal financial diary
 
