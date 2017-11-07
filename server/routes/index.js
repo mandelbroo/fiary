@@ -23,6 +23,6 @@ main.get('/*', (req, res) => {
 
 const router = express.Router()
 router.use('/api', api)
-router.use('/', main)
+router.use(main)
 
 module.exports = router
