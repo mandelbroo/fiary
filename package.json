@@ -13,7 +13,7 @@
     "test": "NODE_ENV=test jest",
     "test:front": "react-scripts test --env=jsdom",
     "test:back": "NODE_ENV=test jest",
-    "test:back:watch": "NODE_ENV=test node scripts/test.js",
+    "test:back:watch": "NODE_ENV=test jest server/tests --watch",
     "test:back:coverage": "NODE_ENV=test jest --coverage",
     "seq": "node_modules/.bin/knex",
     "db:create": "node db/utils/create.js",
