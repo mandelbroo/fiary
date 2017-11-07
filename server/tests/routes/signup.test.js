@@ -25,7 +25,7 @@ describe('signup', () => {
         done(err)
       })
   })
-  it('responds 400 if password is too weak', done => {
+  it('400 if password is too weak', done => {
     const req = {
       username: 'somename',
       email: 'some@email.net',
@@ -53,7 +53,7 @@ describe('signup', () => {
         done(err)
       })
   })
-  it('responds 400 if username is too short', done => {
+  it('400 if username is too short', done => {
     const req = {
       username: 'a',
       email: 'some@email.net',

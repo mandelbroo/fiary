@@ -36,7 +36,7 @@ describe('signin', () => {
         })
       })
   })
-  it('sets status to 401 if user does not exist', done => {
+  it('401 if user does not exist', done => {
     const req = {
       email: 'not@exists.com',
       password: 'pass'
@@ -54,7 +54,7 @@ describe('signin', () => {
         done(err)
       })
   })
-  it('sets status to 401 if password is wrong', done => {
+  it('401 if password is wrong', done => {
     const req = {
       email: 'wrong@pass.com',
       password: 'pass'

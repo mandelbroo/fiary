@@ -38,7 +38,7 @@ describe('users', () => {
       })
   })
 
-  it('return status 401 if auth header is missing', done => {
+  it('401 if auth header is missing', done => {
     request
       .get('/api/users')
       .expect(401)
@@ -51,7 +51,7 @@ describe('users', () => {
       })
   })
 
-  it('return status 401 if token empty value', done => {
+  it('401 if token empty value', done => {
     request
       .get('/api/users')
       .set('Authorization', '')
@@ -65,7 +65,7 @@ describe('users', () => {
       })
   })
 
-  it('return status 401 if token is invalid', done => {
+  it('401 if token is invalid', done => {
     request
       .get('/api/users')
       .set('Authorization', 'R@nd0MsYmb0lz')
