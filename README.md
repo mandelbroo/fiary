@@ -1,5 +1,5 @@
 # fiary
-[![Build Status](https://travis-ci.org/mandelbroo/fiary.svg?branch=master)](https://travis-ci.org/mandelbroo/fiary.svg?branch=master) 
+[![Build Status](https://travis-ci.org/mandelbroo/fiary.svg?branch=master)](https://travis-ci.org/mandelbroo/fiary.svg?branch=master)
 
 Your personal financial diary
 
@@ -9,7 +9,7 @@ Your personal financial diary
 (help https://github.com/creationix/nvm#installation)
 
 #### Install Node LTS
-`nvm install 8.3.0`
+`nvm install 8`
 
 #### Install project dependencies
 `yarn`
