@@ -20,6 +20,8 @@
     "db:drop": "node db/utils/drop.js",
     "db:migrate": "node_modules/.bin/knex migrate:latest",
     "db:migrate:undo": "node_modules/.bin/knex migrate:rollback",
+    "db:backup": "heroku pg:backups:capture && heroku pg:backups:download",
+    "db:restore": "yarn db:drop && yarn db:create && pg_restore -U fiary -d fiary_dev latest.dump --verbose --clean --no-acl --no-owner",
     "deploy:test:migrate": "heroku run npm run db:migrate",
     "eject": "react-scripts eject",
     "routes": "node scripts/routes.js"
