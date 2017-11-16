@@ -10,11 +10,11 @@ exports.up = (knex, Promise) => {
 }
 
 exports.down = (knex, Promise) => {
-  return Promise.all([
-    knex.schema.alterTable('records_tags', (table) => {
+  return knex.schema.alterTable('records_tags', (table) => {
       table.dropForeign('record_id')
       table.dropForeign('tag_id')
-    }),
-    knex.schema.dropTable('records_tags')
-  ])
+    })
+    .then(() => {
+      return knex.schema.dropTable('records_tags')
+    })
 }
