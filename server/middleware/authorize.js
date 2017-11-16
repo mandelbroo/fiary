@@ -8,6 +8,7 @@ exports.default = (req, res, next) => {
       .then(user => {
         req.currentUser = user
         next()
+        return user
       })
       .catch(err => res.status(401)
         .send({ success: false, message: 'Not authorized. User not found' }))
