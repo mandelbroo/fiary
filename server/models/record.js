@@ -1,8 +1,12 @@
 const Base = require('./base')
-const Tag = require('./tag')
+const {Entry, RecordTag, Tag} = require('./')
 
 class Record extends Base {
   get tableName() {return 'records'}
+
+  entry() {
+    return this.belongsTo(Entry)
+  }
 
   tags() {
     return this.hasMany(Tag)
