@@ -1,18 +1,21 @@
-const models = require('../models')
+const {Entry} = require('../models')
+const apiRes = require('./api-response')
 
 module.exports = (req, res) => {
-  res.send([
-    {"date": "07.07", "expences":[
-      {"amount": 150, "tags": ["Andriy"]},
-      {"amount": 100, "tags": ["medicines", "Yara", "helped"]},
-    ], "income": [
-      {"amount": 150, "tags": ["Pavlo"]},
-    ]},
-    {"date": "06.07", "expences":[
-      {"amount": 130, "tags": ["internet"]},
-      {"amount": 20, "tags": ["Yara"]},
-      {"amount": 24, "tags": ["free","sousages"]},
-      {"amount": 11, "tags": ["icecream"]},
-    ]}
-  ])
+  req.currentUserPromise
+    .then(user => {
+      Entry
+        .query(qb => {
+          qb.groupBy('entries.id')
+          qb.where('entries.user_id', '=', user.id)
+        })
+        .fetchPage({
+          pageSize: 15,
+          page: 1,
+          withRelated: ['records', 'records.tags']
+        })
+        .then(entries => {
+          res.send(apiRes(entries))
+        })
+    })
 }
