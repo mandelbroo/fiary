@@ -1,4 +1,4 @@
-const app = require('../../')
+const app = require('../../app')
 const request = require('supertest')(app)
 const {User} = require('../../models');
 

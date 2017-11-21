@@ -1,7 +1,7 @@
-const jwtgen = require('../../utils/jwt-generate')
-const authorize = require('../../middleware/authorize').default
-const {getPayload, getToken} = require('../../middleware/authorize')
-const {User} = require('../../models')
+const jwtgen = require('../utils/jwt-generate')
+const authorize = require('../middleware/authorize').default
+const {getPayload, getToken} = require('../middleware/authorize')
+const {User} = require('../models')
 
 function ReqMock(username, email, id = 1) {
   const _payload = {id: id, username: username, email: email, role: 'user'}

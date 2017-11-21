@@ -1,6 +1,6 @@
 const jwtGenerate = require('../utils/jwt-generate')
 const {Entry, User} = require('../models')
-const app = require('../index')
+const app = require('../app')
 const request = require('supertest')(app)
 
 describe('entries', () => {
