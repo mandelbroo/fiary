@@ -1,4 +1,4 @@
-const app = require('../server/index')
+const app = require('../server/app')
 
 function split (thing) {
   if (typeof thing === 'string') {
