@@ -11,7 +11,7 @@
     "start:dev": "react-scripts start",
     "serve:dev": "NODE_ENV=development nodemon server/app.js --inspect",
     "test": "NODE_ENV=test jest server/",
-    "test:front": "react-scripts test --env=jsdom",
+    "test:front": "react-scripts test --env=jsdom --verbose",
     "test:back": "NODE_ENV=test jest server/ --verbose",
     "test:back:watch": "NODE_ENV=test jest server/ --watch --verbose",
     "test:back:coverage": "NODE_ENV=test jest --coverage",
@@ -35,6 +35,8 @@
     "bookshelf-modelbase": "^2.10.4",
     "compression": "^1.7.1",
     "cors": "^2.8.4",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
     "express": "^4.15.4",
     "express-validation": "^1.0.2",
     "joi": "^11.0.1",
@@ -43,10 +45,10 @@
     "knex": "^0.13.0",
     "morgan-body": "^0.10.9",
     "pg": "^7.3.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.13"
+    "react-scripts": "^1.0.17"
   },
   "devDependencies": {
     "dotenv": "^4.0.0",
