@@ -4,7 +4,8 @@ import Logout from './logout'
 import Navbar from './navbar/navbar'
 import Signin from './signin/signin'
 import Signup from './signup/signup'
-import Users from './users/users'
+import Entries from './entries/entries'
+import NewEntry from './entries/new-entry'
 
 export {
   Home,
@@ -13,5 +14,6 @@ export {
   Navbar,
   Signin,
   Signup,
-  Users,
+  Entries,
+  NewEntry,
 }

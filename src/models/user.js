@@ -2,15 +2,17 @@ import axios from 'axios'
 import config from '../config/default'
 import Session from '../services/session'
 
-export default {
-  routes: {
-    signup: 'signup',
-    signin: 'signin',
-  },
-  post(path, params) {
-    return axios.post(config.serverUrl + path, params)
+export default class User {
+  static get routes() {
+    return {
+      signup: 'signup',
+      signin: 'signin',
+      users: '/api/users',
+    }
+  }
+  static post(path, data) {
+    return axios.post(config.serverUrl + path, data)
       .then(res => {
-        console.log(res.error)
         if (res.data.success)
           Session.authorize(res.data)
         return res.data

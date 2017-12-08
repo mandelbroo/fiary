@@ -8,8 +8,9 @@ const guestPaths = [
   'signup',
 ]
 const sessionPaths = [
-  'users',
-  'logout',
+  'new-entry',
+  'entries',
+  //'logout',
 ]
 
 export default class Navbar extends React.Component {

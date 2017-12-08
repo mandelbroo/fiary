@@ -1,5 +1,7 @@
+import Entry from './entry'
 import User from './user'
 
-export default {
-  User,
+export {
+  Entry,
+  User
 }

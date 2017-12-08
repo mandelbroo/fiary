@@ -10,6 +10,9 @@ export default class Session {
       this.setUser(res.user)
     }
   }
+  static authToken() {
+    return Store.getItem('token')
+  }
   static getUser() {
     const userString = Store.getItem('user')
     if (userString)
