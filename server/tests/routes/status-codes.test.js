@@ -3,8 +3,7 @@ const request = require('supertest')(app)
 
 describe('status-codes', () => {
   ////  Skipped. Not sure why this fails on Travic CI (falls into 404 handler instead of sending index.html)
-  ////  https://s3.amazonaws.com/archive.travis-ci.org/jobs/298475545/log.txt?X-Amz-Expires=30&X-Amz-Date=20171109T171403Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJRYRXRSVGNKPKO5A/20171109/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=4df6e5069299df192ff23918be8906e8b16478f5336b11e24df9622b4ccb4a5e
-  describe.skip('200', () => {
+  describe('200', () => {
     it("return index.html on get not existing route", done => {
       request
         .get('/not-exist')
@@ -41,7 +40,7 @@ describe('status-codes', () => {
     })
   })
   describe('404', () => {
-    it("fire on post not existing route'", done => {
+    it("fire on post not existing route", done => {
       request
         .post('/not-exist')
         .type('json')
