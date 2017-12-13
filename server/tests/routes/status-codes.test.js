@@ -2,7 +2,6 @@ const app = require('../../app')
 const request = require('supertest')(app)
 
 describe('status-codes', () => {
-  ////  Skipped. Not sure why this fails on Travic CI (falls into 500 handler instead of sending index.html)
   describe('200', () => {
     it("return index.html on get not existing route", done => {
       request
@@ -10,7 +9,7 @@ describe('status-codes', () => {
         .type('json')
         .send({})
         .expect(200)
-        .expect('Content-Type', 'text/html; charset=UTF-8')
+        .expect('Content-Type', 'text/html; charset=utf-8')
         .end((err, res) => {
           expect(res).toBeDefined()
           done(err)
@@ -50,7 +49,7 @@ describe('status-codes', () => {
         .end(err => done(err))
     })
   })
-  describe.skip('500', () => {
+  describe('500', () => {
     it("fire on runtime error", done => {
       request
         .get('/with-error')
