@@ -1,5 +1,6 @@
 # fiary
 [![Build Status](https://travis-ci.org/mandelbroo/fiary.svg?branch=master)](https://travis-ci.org/mandelbroo/fiary)
+[![Coverage Status](https://coveralls.io/repos/github/mandelbroo/fiary/badge.svg?branch=master)](https://coveralls.io/github/mandelbroo/fiary?branch=master)
 
 Your personal financial diary
 
