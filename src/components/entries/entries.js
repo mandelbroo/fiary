@@ -14,7 +14,7 @@ export default class Entries extends React.Component {
     Entry.getAll({where: {}}, 15)
       .then(res => {
         if (res.data) {
-          this.setState({entries: res.data})
+          this.setState({entries: res.data.collection})
         }
       })
       .catch(err => {
@@ -25,8 +25,16 @@ export default class Entries extends React.Component {
   render() {
     let records = []
 
-    for(let i = 0; i < this.state.entries.length; i++) {
-      records.push(<ListRecords key={i} data={this.state.entries[i]} />)
+    let index = 0
+    for(let entry of this.state.entries) {
+      records.push(
+        <div key={index}>
+          {entry.id}
+          <br />
+          {entry.createdAt}
+          <ListRecords data={entry.records} />
+        </div>)
+      index++
     }
     return (
       <div>
