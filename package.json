@@ -10,9 +10,9 @@
     "deploy:test": "git push heroku master",
     "start:dev": "react-scripts start",
     "serve:dev": "NODE_ENV=development nodemon server/app.js --inspect",
-    "test": "NODE_ENV=test jest --verbose server/",
+    "test": "NODE_ENV=test jest server/ --forceExit --verbose --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test:front": "react-scripts test --env=jsdom --verbose",
-    "test:back": "NODE_ENV=test jest server/ --verbose",
+    "test:back": "NODE_ENV=test jest server/ --forceExit --verbose ",
     "test:back:watch": "NODE_ENV=test jest server/ --watch --verbose",
     "test:back:coverage": "NODE_ENV=test jest --coverage",
     "seq": "node_modules/.bin/knex",
@@ -51,6 +51,7 @@
     "react-scripts": "^1.0.17"
   },
   "devDependencies": {
+    "coveralls": "^3.0.0",
     "dotenv": "^4.0.0",
     "jest": "^21.2.1",
     "supertest": "^3.0.0"
