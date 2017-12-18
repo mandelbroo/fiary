@@ -1,9 +1,16 @@
-const app = require('../../app')
-const request = require('supertest')(app)
-const {User} = require('../../models');
+const server = require('../../app').listen()
+const request = require('supertest').agent(server)
+const User = require('../../models/user')
 
 describe('signin', () => {
-  afterAll(done => User.connection.destroy(() => done()))
+  afterAll(done => {
+    Promise.all([
+      User.connection.destroy(),
+    ]).then(() => {
+      server.close()
+      done()
+    })
+  })
 
   it('successfully logs in', done => {
     const req = {
@@ -18,21 +25,21 @@ describe('signin', () => {
           username: 'success'
         }).then(() => {
           request
-          .post('/api/signin')
-          .type('json')
-          .send(req)
-          .expect(200)
-          .end((err, {body}) => {
-            expect(body).toHaveProperty('success')
-            expect(body).toHaveProperty('message')
-            expect(body).toHaveProperty('token')
-            expect(body).toHaveProperty('user')
-            expect(body.user).toHaveProperty('id')
-            expect(body.user).toHaveProperty('name')
-            expect(body.success).toBe(true)
-            expect(body.message).toBe('Authenticated successfully')
-            done(err)
-          })
+            .post('/api/signin')
+            .type('json')
+            .send(req)
+            .expect(200)
+            .end((err, {body}) => {
+              expect(body).toHaveProperty('success')
+              expect(body).toHaveProperty('message')
+              expect(body).toHaveProperty('token')
+              expect(body).toHaveProperty('user')
+              expect(body.user).toHaveProperty('id')
+              expect(body.user).toHaveProperty('name')
+              expect(body.success).toBe(true)
+              expect(body.message).toBe('Authenticated successfully')
+              done(err)
+            })
         })
       })
   })

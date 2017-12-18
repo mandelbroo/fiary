@@ -1,7 +1,11 @@
-const app = require('../../app')
-const request = require('supertest')(app)
+const server = require('../../app').listen()
+const request = require('supertest').agent(server)
 
 describe('status-codes', () => {
+  afterAll(() => {
+    server.close()
+  })
+
   describe('200', () => {
     it("return index.html on get not existing route", done => {
       request

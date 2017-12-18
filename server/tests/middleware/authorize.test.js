@@ -1,7 +1,7 @@
-const jwtgen = require('../utils/jwt-generate')
-const authorize = require('../middleware/authorize').default
-const {getPayload, getToken} = require('../middleware/authorize')
-const {User} = require('../models')
+const jwtgen = require('../../utils/jwt-generate')
+const authorize = require('../../middleware/authorize').default
+const {getPayload, getToken} = require('../../middleware/authorize')
+const User = require('../../models/user')
 
 function ReqMock(username, email, id = 1) {
   const _payload = {id: id, username: username, email: email, role: 'user'}
@@ -33,6 +33,12 @@ function ResMock() {
 }
 
 describe('authorize(req, res, next)', () => {
+  afterAll(done => {
+    Promise.all([
+      User.connection.destroy(),
+    ]).then(() => done())
+  })
+
   it('401 when token is empty', done => {
     let req = new ReqMock('empty', 'empty@mail')
     let res = new ResMock()

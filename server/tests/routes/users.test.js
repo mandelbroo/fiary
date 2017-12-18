@@ -1,10 +1,17 @@
-const jwtGenerate = require('../utils/jwt-generate')
-const {User} = require('../models')
-const app = require('../app')
-const request = require('supertest')(app)
+const jwtGenerate = require('../../utils/jwt-generate')
+const User = require('../../models/user')
+const server = require('../../app').listen()
+const request = require('supertest').agent(server)
 
 describe('users', () => {
-  afterAll(done => User.connection.destroy().then(() => done()))
+  afterAll(done => {
+    Promise.all([
+      User.connection.destroy(),
+    ]).then(() => {
+      server.close()
+      done()
+    })
+  })
 
   beforeAll(done => {
     User.create({

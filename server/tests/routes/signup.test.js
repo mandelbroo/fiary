@@ -1,7 +1,9 @@
-const app = require('../../app')
-const request = require('supertest')(app)
+const server = require('../../app').listen()
+const request = require('supertest').agent(server)
 
 describe('signup', () => {
+  afterAll(() => server.close())
+
   it('successfully register user', done => {
     const req = {
       username: 'signup',

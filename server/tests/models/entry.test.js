@@ -1,7 +1,13 @@
-const {Entry, User} = require('../../models')
+const Entry = require('../../models/entry')
+const User = require('../../models/user')
 
 describe('Entry', () => {
-  afterAll(done => Entry.connection.destroy(() => done()))
+  afterAll(done => {
+    Promise.all([
+      User.connection.destroy(),
+      Entry.connection.destroy(),
+    ]).then(() => done())
+  })
 
   describe('.create(attributes)', () => {
     beforeAll(done => {
