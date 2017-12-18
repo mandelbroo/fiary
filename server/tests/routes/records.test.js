@@ -1,4 +1,4 @@
-const server = require('../app').listen()
+const server = require('../../app').listen()
 const request = require('supertest').agent(server)
 const {postRecords} = require('../../routes/records')
 const User = require('../../models/user')
