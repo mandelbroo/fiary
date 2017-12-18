@@ -1,5 +1,6 @@
 const Base = require('./base')
-const {Record, Tag} = require('./')
+const Record = require('./record')
+const Tag = require('./tag')
 
 class RecordTag extends Base {
   get tableName() {return 'records_tags'}

@@ -1,4 +1,4 @@
-const {Entry} = require('../models')
+const Entry = require('../models/entry')
 const apiRes = require('./api-response')
 
 module.exports = (req, res) => {

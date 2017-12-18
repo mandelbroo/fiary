@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const {User} = require('../../models')
+const User = require('../../models/user')
 const jwtGenerate = require('../../utils/jwt-generate')
 
 module.exports = (req, res) => {

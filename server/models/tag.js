@@ -1,11 +1,11 @@
 const Base = require('./base')
-const {Record, RecordTag} = require('./')
+const Record = require('./record')
+const RecordTag = require('./record-tag')
 
 class Tag extends Base {
   get tableName() {return 'tags'}
 
-  records() {
-    return this.belongsToMany(Record).through(RecordTag)
-  }
+  recordsTags() { return this.hasMany(RecordTag) }
+  records() { return this.belongsToMany(Record).through(RecordTag) }
 }
 module.exports = Tag
