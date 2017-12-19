@@ -48,8 +48,8 @@ describe('tags service', () => {
         expect(found[0]).toHaveProperty('attributes')
       })
       it('by name', async () => {
-        const collectIds = created.map(tag => tag.attributes.name)
-        const found = await tagger.get('name', collectIds)
+        const collectNames = created.map(tag => tag.attributes.name)
+        const found = await tagger.get('name', collectNames)
         expect(found).toBeDefined()
         expect(found.length).toBe(2)
         expect(found[0]).toHaveProperty('attributes')
