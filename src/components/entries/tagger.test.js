@@ -10,7 +10,7 @@ const addTagEmulate = (wrapper, tagName) => {
 
 describe('Tagger', () => {
   it('initial render', () => {shallow(<Tagger />)})
-  it('contains input and button', () => {
+  it('contain input and button', () => {
     const wrapper = shallow(<Tagger />)
     expect(wrapper.containsAllMatchingElements([
       <input type='text' />,
@@ -27,7 +27,7 @@ describe('Tagger', () => {
     addTagEmulate(wrapper, 'new-tag')
     expect(wrapper.state('tags')).toMatchObject(['new-tag'])
   })
-  it('shows added tags', () => {
+  it('show added tags', () => {
     const wrapper = shallow(<Tagger />)
     addTagEmulate(wrapper, 'tag1')
     addTagEmulate(wrapper, 'tag2')
