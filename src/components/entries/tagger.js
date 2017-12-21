@@ -16,8 +16,10 @@ export default class Tagger extends Component {
   }
 
   render() {
+    const tags = this.state.tags.map((tag,i) => <div key={i}>{tag}</div>)
     return (
       <div>
+        {tags}
         <input type='text' onChange={this.change}/>
         <button onClick={this.click}>Add</button>
       </div>
