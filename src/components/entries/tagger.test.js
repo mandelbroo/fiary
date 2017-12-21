@@ -25,16 +25,21 @@ describe('Tagger', () => {
   it('add a tag', () => {
     const wrapper = shallow(<Tagger />)
     addTagEmulate(wrapper, 'new-tag')
-    expect(wrapper.state('tags')).toMatchObject(['new-tag'])
+    expect(wrapper.state('tags')[0].name).toBe('new-tag')
   })
   it('show added tags', () => {
     const wrapper = shallow(<Tagger />)
     addTagEmulate(wrapper, 'tag1')
     addTagEmulate(wrapper, 'tag2')
-    expect(wrapper.containsAllMatchingElements([
-      <div>tag1</div>,
-      <div>tag2</div>
-    ])).toBe(true)
+    const lis = wrapper.find('li')
+    expect(lis.first().props().children[0]).toBe('tag1')
+    expect(lis.last().props().children[0]).toBe('tag2')
   })
-  it('delete tag')
+  it('remove tag', () => {
+    const tags = [{id: 1, name:'one'}, {id: 2, name:'two'}, {id: 3, name:'three'}]
+    const wrapper = shallow(<Tagger tags={tags}/>)
+    wrapper.find('li a').first().simulate('click')
+    expect(wrapper.find('li').length).toBe(2)
+    expect(wrapper.state('tags').map(tag => tag.id)).toMatchObject([2, 3])
+  })
 })
