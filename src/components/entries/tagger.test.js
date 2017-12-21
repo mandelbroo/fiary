@@ -20,7 +20,7 @@ describe('Tagger', () => {
   it('add a tag', () => {
     const wrapper = shallow(<Tagger />)
     wrapper.find('input').simulate('change', {target: {value: 'new-tag'}})
-    wrapper.find('button').simulate('click')
+    wrapper.find('button').simulate('click', {preventDefault:()=>{}})
     expect(wrapper.state('tags')).toMatchObject(['new-tag'])
   })
   it('shows added tags')
