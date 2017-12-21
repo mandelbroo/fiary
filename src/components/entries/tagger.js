@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 export default class Tagger extends Component {
   state = {
     tags: this.props.tags || [],
-    currentValue: false
+    currentValue: ''
   }
 
   add = (event) => {
@@ -12,7 +12,10 @@ export default class Tagger extends Component {
       id: -Date.now(),
       name: this.state.currentValue
     }
-    this.setState({tags: this.state.tags.concat([newTag])})
+    this.setState({
+      tags: this.state.tags.concat([newTag]),
+      currentValue: ''
+    })
   }
 
   change = (event) => {
@@ -36,7 +39,7 @@ export default class Tagger extends Component {
         <ul>
           {tags}
         </ul>
-        <input type='text' onChange={this.change}/>
+        <input type='text' onChange={this.change} value={this.state.currentValue}/>
         <button onClick={this.add}>Add</button>
       </div>
     )
