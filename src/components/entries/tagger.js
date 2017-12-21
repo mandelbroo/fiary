@@ -6,7 +6,8 @@ export default class Tagger extends Component {
     currentValue: false
   }
 
-  click = () => {
+  click = (event) => {
+    event.preventDefault()
     this.setState({tags: this.state.tags.concat([this.state.currentValue])})
   }
 
