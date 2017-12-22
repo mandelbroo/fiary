@@ -42,4 +42,23 @@ describe('Tagger', () => {
     expect(wrapper.find('li').length).toBe(2)
     expect(wrapper.state('tags').map(tag => tag.id)).toMatchObject([2, 3])
   })
+  it('add tag calling onChange', () => {
+    expect.assertions(2)
+    const change = (tags) => {
+      expect(tags.length).toBe(1)
+      expect(tags[0].name).toBe('added')
+    }
+    const wrapper = shallow(<Tagger onChange={change} />)
+    addTagEmulate(wrapper, 'added')
+  })
+  it('remove tag calling onChange', () => {
+    expect.assertions(2)
+    const change = (tags) => {
+      expect(tags.length).toBe(1)
+      expect(tags[0].name).toBe('second')
+    }
+    const tags = [{id: 1, name: 'first'}, {id: 2, name: 'second'}]
+    const wrapper = shallow(<Tagger tags={tags} onChange={change} />)
+    wrapper.find('li a').first().simulate('click')
+  })
 })

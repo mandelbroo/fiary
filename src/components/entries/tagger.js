@@ -12,10 +12,13 @@ export default class Tagger extends Component {
       id: -Date.now(),
       name: this.state.currentValue
     }
+    const newTags = this.state.tags.concat([newTag])
     this.setState({
-      tags: this.state.tags.concat([newTag]),
+      tags: newTags,
       currentValue: ''
     })
+    if (this.props.onChange)
+      this.props.onChange(newTags)
   }
 
   change = (event) => {
@@ -25,6 +28,8 @@ export default class Tagger extends Component {
   remove = (id) => {
     const newTags = this.state.tags.filter(tag => tag.id !== id)
     this.setState({tags: newTags})
+    if (this.props.onChange)
+      this.props.onChange(newTags)
   }
 
   render() {
