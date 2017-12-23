@@ -35,6 +35,8 @@ export default class Tagger extends Component {
       this.props.onChange(newTags)
   }
 
+  clear = () => this.setState({tags: []})
+
   render() {
     const tags = this.state.tags.map((tag, index) => {
       return (<li key={index} id={tag.id}>
