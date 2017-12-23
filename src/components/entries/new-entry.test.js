@@ -8,15 +8,15 @@ describe('ViewRecord', () => {
     const record = {
       income: true,
       amount: 55.23,
-      tags: ['deposit', 'percent']
+      tags: [{name: 'deposit'}, {name: 'percent'}]
     }
     const wrapper = mount(<ViewRecord data={record} />)
     expect(wrapper.props().data).toEqual(record)
     expect(wrapper.find('.operation').props().children).toBe('+')
     expect(wrapper.find('.amount').props().children).toBe(record.amount)
     const tagsList = wrapper.find('ul').props().children
-    expect(tagsList[0].props.children).toBe(record.tags[0])
-    expect(tagsList[1].props.children).toBe(record.tags[1])
+    expect(tagsList[0].props.children).toBe(record.tags[0].name)
+    expect(tagsList[1].props.children).toBe(record.tags[1].name)
   })
 })
 
