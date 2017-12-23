@@ -61,4 +61,9 @@ describe('Tagger', () => {
     const wrapper = shallow(<Tagger tags={tags} onChange={change} />)
     wrapper.find('li a').first().simulate('click')
   })
+  it('do not add empty tag', () => {
+    const wrapper = shallow(<Tagger />)
+    addTagEmulate(wrapper, '')
+    expect(wrapper.find('li').length).toBe(0)
+  })
 })

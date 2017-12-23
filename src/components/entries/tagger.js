@@ -8,17 +8,20 @@ export default class Tagger extends Component {
 
   add = (event) => {
     event.preventDefault()
-    const newTag = {
-      id: -Date.now(),
-      name: this.state.currentValue
+    const val = this.state.currentValue
+    if (val && val.length > 0) {
+      const newTag = {
+        id: -Date.now(),
+        name: val
+      }
+      const newTags = this.state.tags.concat([newTag])
+      this.setState({
+        tags: newTags,
+        currentValue: ''
+      })
+      if (this.props.onChange)
+        this.props.onChange(newTags)
     }
-    const newTags = this.state.tags.concat([newTag])
-    this.setState({
-      tags: newTags,
-      currentValue: ''
-    })
-    if (this.props.onChange)
-      this.props.onChange(newTags)
   }
 
   change = (event) => {
