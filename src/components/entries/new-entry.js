@@ -7,12 +7,8 @@ export class ViewRecord extends Component {
   render() {
     const data = this.props.data
     const operation = data.income ? '+' : '-'
-    let list = []
-    let index = 0
-    for(let tag of data.tags) {
-      list.push(<li key={index} className='tag'>{tag.name}</li>)
-      index++
-    }
+    const list = data.tags.map((tag, index) =>
+      <li key={index} className='tag'>{tag.name}</li>)
     return (
       <div className='record'>
         <div className='operation'>{operation}</div>
