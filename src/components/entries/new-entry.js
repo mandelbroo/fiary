@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Entry from '../../models/entry'
+import Tagger from './tagger'
 
 export class ViewRecord extends Component {
   render() {
@@ -9,7 +10,7 @@ export class ViewRecord extends Component {
     let list = []
     let index = 0
     for(let tag of data.tags) {
-      list.push(<li key={index} className='tag'>{tag}</li>)
+      list.push(<li key={index} className='tag'>{tag.name}</li>)
       index++
     }
     return (
@@ -53,7 +54,10 @@ export class NewRecord extends Component {
   onSubmit = (event) => {
     event.preventDefault()
     this.props.onSubmit(this.state)
+    this.refs.tagger.clear()
   }
+
+  tagsChange = (newState) => this.setState({tags: newState})
 
   render() {
     return (<form onSubmit={this.onSubmit}>
@@ -62,9 +66,7 @@ export class NewRecord extends Component {
         <input type='number' step='0.01' min='0.01' placeholder='amount' required
           value={this.state.amount}
           onChange={({target}) => this.setState({amount: target.value})} />
-        <textarea rows='2' cols='20' placeholder='tags' required
-          value={this.state.tags.join(this.divider)}
-          onChange={({target}) => this.setState({tags: target.value.split(this.divider)})} />
+        <Tagger onChange={this.tagsChange} ref='tagger' />
         <input type='submit' value='done' />
       </form>)
   }

@@ -43,7 +43,7 @@ describe('NewRecord', () => {
   it('envoke submit callback', () => {
     let envoked = false
     const callback = () => envoked = true
-    const wrapper = shallow(<NewRecord onSubmit={callback}/>)
+    const wrapper = mount(<NewRecord onSubmit={callback}/>)
     wrapper.find('form').simulate('submit', {preventDefault: () => {}})
     expect(envoked).toBe(true)
   })
@@ -58,7 +58,6 @@ describe('NewRecord', () => {
     expect(wrapper.state('amount')).toBe(record.amount)
     expect(wrapper.state('tags')).toBe(record.tags)
     expect(wrapper.state('income')).toBe(record.income)
-    expect(wrapper.find('textarea').props().value).toBe(record.tags.join(' '))
   })
 })
 
