@@ -11,8 +11,8 @@ export class ViewRecord extends Component {
       <li key={index} className='tag'>{tag.name}</li>)
     return (
       <div className='record'>
-        <div className='operation'>{operation}</div>
-        <div className='amount'>{this.props.data.amount}</div>
+        <span className='operation'>{operation}</span>
+        <span className='amount'>{this.props.data.amount}</span>
         <ul>
           {list}
         </ul>
@@ -21,12 +21,10 @@ export class ViewRecord extends Component {
 }
 
 export class ListRecords extends Component {
-  removeButton = (item) =>
-    <button type='button' onClick={() => {this.props.onRemove(item)}}>remove</button>
-
   listItem = (item, index) =>
     <li key={index}>
-      <ViewRecord data={item}/>{this.removeButton(item)}
+      <ViewRecord data={item}/>
+      <a onClick={() => {this.props.onRemove(item)}}>×</a>
     </li>
 
   render = () => {
@@ -43,13 +41,13 @@ export class NewRecord extends Component {
     ? this.props.data
     : {
       amount: '',
-      income: false,
-      tags: []
+      income: false
     }
 
   onSubmit = (event) => {
     event.preventDefault()
     this.props.onSubmit(this.state)
+    this.setState({amount: '', income: false})
     this.refs.tagger.clear()
   }
 
@@ -92,7 +90,6 @@ export default class DayRecords extends Component {
     const apiClient = client ?
       new client(this.state) : new Entry(this.state)
     apiClient.save().then(response => {
-      console.log('--------------', response)
       if (response.success) {
         this.setState(response.entry)
       }
