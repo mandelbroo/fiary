@@ -12,7 +12,7 @@ export default class Tagger extends Component {
     const val = this.state.currentValue
     if (val && val.length > 0) {
       const newTag = {
-        id: -Date.now(),
+        id: - (this.state.tags.length + 1),
         name: val
       }
       const newTags = this.state.tags.concat([newTag])
@@ -28,11 +28,13 @@ export default class Tagger extends Component {
   change = (event) => {
     this.setState({currentValue: event.target.value})
     clearTimeout(this.timeout)
-    this.timeout = setTimeout(async () => {
-      this.setState({suggestPromise: this.props.service.post(this.state.currentValue)})
-      const suggestions = await this.state.suggestPromise
-      this.setState({suggestions: suggestions})
-    }, 300)
+    if (this.props.service) {
+      this.timeout = setTimeout(async () => {
+        this.setState({suggestPromise: this.props.service.post(this.state.currentValue)})
+        const suggestions = await this.state.suggestPromise
+        this.setState({suggestions: suggestions})
+      }, 300)
+    }
   }
 
   remove = (id) => {
@@ -56,7 +58,7 @@ export default class Tagger extends Component {
       <li key={index} id={tag.id}>
         {tag.name}
         <a onClick={() => {this.remove(tag.id)}}>×</a>
-        </li>
+      </li>
     ))
     const suggestions = this.state.suggestions.map((tag, index) => (
       <li key={index}>
