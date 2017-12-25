@@ -3,7 +3,8 @@ import React, {Component} from 'react'
 export default class Tagger extends Component {
   state = {
     tags: this.props.tags || [],
-    currentValue: ''
+    currentValue: '',
+    suggestions: []
   }
 
   add = (event) => {
@@ -26,6 +27,12 @@ export default class Tagger extends Component {
 
   change = (event) => {
     this.setState({currentValue: event.target.value})
+    clearTimeout(this.timeout)
+    this.timeout = setTimeout(async () => {
+      this.setState({suggestPromise: this.props.service.post(this.state.currentValue)})
+      const suggestions = await this.state.suggestPromise
+      this.setState({suggestions: suggestions})
+    }, 300)
   }
 
   remove = (id) => {
@@ -37,13 +44,27 @@ export default class Tagger extends Component {
 
   clear = () => this.setState({tags: []})
 
+  pickSuggest = (tag) => {
+    this.setState({
+      tags: this.state.tags.concat([tag]),
+      suggestions: []
+    })
+  }
+
   render() {
-    const tags = this.state.tags.map((tag, index) => {
-      return (<li key={index} id={tag.id}>
+    const tags = this.state.tags.map((tag, index) => (
+      <li key={index} id={tag.id}>
         {tag.name}
         <a onClick={() => {this.remove(tag.id)}}>×</a>
-        </li>)
-    })
+        </li>
+    ))
+    const suggestions = this.state.suggestions.map((tag, index) => (
+      <li key={index}>
+        <span className='suggest' onClick={() => {this.pickSuggest(tag)}}>
+          {tag.name}
+        </span>
+      </li>
+    ))
     return (
       <div>
         <ul>
@@ -51,6 +72,9 @@ export default class Tagger extends Component {
         </ul>
         <input type='text' onChange={this.change} value={this.state.currentValue}/>
         <button onClick={this.add}>Add</button>
+        <ul>
+          {suggestions}
+        </ul>
       </div>
     )
   }

@@ -66,4 +66,24 @@ describe('Tagger', () => {
     addTagEmulate(wrapper, '')
     expect(wrapper.find('li').length).toBe(0)
   })
+  it('call fake tag service', async () => {
+    jest.useFakeTimers()
+    expect.assertions(2)
+    const fakeTags = [
+      {id: 223, name: 'alphabet'},
+      {id: 554, name: 'alphamale'}
+    ]
+    const fakeTagService = {
+      post: async (value) => Promise.resolve(fakeTags)
+    }
+    const wrapper = shallow(<Tagger service={fakeTagService} />)
+    wrapper.find('input').simulate('change', { target: { value: 'alp' } })
+    jest.runOnlyPendingTimers()
+    await wrapper.state('suggestPromise')
+    wrapper.update()
+    const suggestions = wrapper.children().find('.suggest')
+    suggestions.first().simulate('click')
+    expect(wrapper.state('tags').length).toBe(1)
+    expect(wrapper.state('tags')[0]).toBe(fakeTags[0])
+  })
 })
