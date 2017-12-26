@@ -17,5 +17,8 @@ module.exports = {
         .returning(['id', 'name'])
       )
       .map(tag => Tag.forge(tag))
-  }
+  },
+  like: (value) => knex('tags')
+    .where('name', 'like', `${value}%`)
+    .select('id', 'name')
 }

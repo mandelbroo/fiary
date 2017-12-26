@@ -12,6 +12,7 @@ api.use(authorize)
 api.get('/users', require('./users'))
 api.get('/entries', require('./entries'))
 api.post('/records', require('./records').postRecords)
+api.get('/tags', require('./tags').get)
 
 if (process.env.NODE_ENV === 'test') {
   main.get('/with-error', (req, res) => {
