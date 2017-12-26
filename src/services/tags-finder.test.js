@@ -10,7 +10,7 @@ describe('tags-finder', () => {
     const searchWord = 'someTag'
     const fakeAxios = {
       get: (path) => {
-        expect(path).toBe(`/tags?name=${searchWord}`)
+        expect(path).toBe(`/tags?like=${searchWord}`)
         return Promise.resolve([])
       }
     }
