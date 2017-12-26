@@ -30,9 +30,9 @@ export default class Tagger extends Component {
     clearTimeout(this.timeout)
     if (this.props.service) {
       this.timeout = setTimeout(async () => {
-        this.setState({suggestPromise: this.props.service.post(this.state.currentValue)})
-        const suggestions = await this.state.suggestPromise
-        this.setState({suggestions: suggestions})
+        this.setState({suggestPromise: this.props.service.find(this.state.currentValue)})
+        const response = await this.state.suggestPromise
+        this.setState({suggestions: response.data})
       }, 300)
     }
   }

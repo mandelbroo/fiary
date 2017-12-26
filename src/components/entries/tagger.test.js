@@ -74,7 +74,7 @@ describe('Tagger', () => {
       {id: 554, name: 'alphamale'}
     ]
     const fakeTagService = {
-      post: async (value) => Promise.resolve(fakeTags)
+      find: async (value) => Promise.resolve({data: fakeTags})
     }
     const wrapper = shallow(<Tagger service={fakeTagService} />)
     wrapper.find('input').simulate('change', { target: { value: 'alp' } })
@@ -86,4 +86,5 @@ describe('Tagger', () => {
     expect(wrapper.state('tags').length).toBe(1)
     expect(wrapper.state('tags')[0]).toBe(fakeTags[0])
   })
+  it('do not call service when value is empty')
 })

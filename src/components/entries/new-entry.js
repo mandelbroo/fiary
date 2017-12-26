@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import Entry from '../../models/entry'
 import Tagger from './tagger'
+import TagsFinder from '../../services/tags-finder'
 
 export class ViewRecord extends Component {
   render() {
@@ -60,7 +61,7 @@ export class NewRecord extends Component {
         <input type='number' step='0.01' min='0.01' placeholder='amount' required
           value={this.state.amount}
           onChange={({target}) => this.setState({amount: target.value})} />
-        <Tagger onChange={this.tagsChange} ref='tagger' />
+        <Tagger onChange={this.tagsChange} ref='tagger' service={TagsFinder}/>
         <input type='submit' value='done' />
       </form>)
   }
