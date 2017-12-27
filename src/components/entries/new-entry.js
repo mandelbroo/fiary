@@ -48,7 +48,11 @@ export class NewRecord extends Component {
   onSubmit = (event) => {
     event.preventDefault()
     this.props.onSubmit(this.state)
-    this.setState({amount: '', income: false})
+    this.clearState()
+  }
+
+  clearState = () => {
+    this.setState({amount: '', income: false, tags: []})
     this.refs.tagger.clear()
   }
 

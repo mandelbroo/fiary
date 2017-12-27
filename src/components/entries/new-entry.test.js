@@ -59,6 +59,17 @@ describe('NewRecord', () => {
     expect(wrapper.state('tags')).toBe(record.tags)
     expect(wrapper.state('income')).toBe(record.income)
   })
+  it('clear state after done', () => {
+    const wrapper = mount(<NewRecord onSubmit={()=>{}}/>)
+    wrapper.find('[type="checkbox"]').simulate('change', {target: {checked: true}})
+    wrapper.find('[type="number"]').simulate('change', {target: {value: 22}})
+    wrapper.find('Tagger input').simulate('change', {target: {value: 'some-tag'}})
+    wrapper.find('Tagger button').simulate('click')
+    wrapper.find('form').simulate('submit', {preventDefault: ()=>{}})
+    expect(wrapper.state('income')).toBe(false)
+    expect(wrapper.state('amount')).toBe('')
+    expect(wrapper.state('tags')).toMatchObject([])
+  })
 })
 
 describe('DayRecords', () => {
