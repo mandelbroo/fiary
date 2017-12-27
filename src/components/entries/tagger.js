@@ -25,12 +25,12 @@ export default class Tagger extends Component {
     }
   }
 
-  change = (event) => {
-    this.setState({currentValue: event.target.value})
+  change = ({target}) => {
+    this.setState({currentValue: target.value})
     clearTimeout(this.timeout)
-    if (this.props.service) {
+    if (this.props.service && target.value) {
       this.timeout = setTimeout(async () => {
-        this.setState({suggestPromise: this.props.service.find(this.state.currentValue)})
+        this.setState({suggestPromise: this.props.service.find(target.value)})
         const response = await this.state.suggestPromise
         this.setState({suggestions: response.data})
       }, 300)

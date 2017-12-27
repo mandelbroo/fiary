@@ -74,7 +74,7 @@ describe('Tagger', () => {
       {id: 554, name: 'alphamale'}
     ]
     const fakeTagService = {
-      find: async (value) => Promise.resolve({data: fakeTags})
+      find: (value) => Promise.resolve({data: fakeTags})
     }
     const wrapper = shallow(<Tagger service={fakeTagService} />)
     wrapper.find('input').simulate('change', { target: { value: 'alp' } })
@@ -86,5 +86,21 @@ describe('Tagger', () => {
     expect(wrapper.state('tags').length).toBe(1)
     expect(wrapper.state('tags')[0]).toBe(fakeTags[0])
   })
-  it('do not call service when value is empty')
+  it('do not call service if value is empty', () => {
+    jest.useFakeTimers()
+    let called = false
+    const fakeTagService = {
+      find: (value) => {
+        called = true
+        return {data: []}
+      }
+    }
+    const wrapper = shallow(<Tagger service={fakeTagService} />)
+    wrapper.find('input').simulate('change', { target: { value: '' } })
+    jest.runOnlyPendingTimers()
+    expect(called).toBe(false)
+    wrapper.find('input').simulate('change', { target: { value: false } })
+    jest.runOnlyPendingTimers()
+    expect(called).toBe(false)
+  })
 })
