@@ -68,7 +68,7 @@ describe('Tagger', () => {
   })
   it('call fake tag service', async () => {
     jest.useFakeTimers()
-    expect.assertions(3)
+    expect.assertions(5)
     const fakeTags = [
       {id: 223, name: 'alphabet'},
       {id: 554, name: 'alphamale'}
@@ -76,7 +76,11 @@ describe('Tagger', () => {
     const fakeTagService = {
       find: (value) => Promise.resolve({data: fakeTags})
     }
-    const wrapper = shallow(<Tagger service={fakeTagService} />)
+    const change = (tags) => {
+      expect(tags.length).toBe(1)
+      expect(tags[0].name).toBe('alphabet')
+    }
+    const wrapper = shallow(<Tagger service={fakeTagService} onChange={change} />)
     wrapper.find('input').simulate('change', { target: { value: 'alp' } })
     jest.runOnlyPendingTimers()
     await wrapper.state('suggestPromise')

@@ -47,11 +47,14 @@ export default class Tagger extends Component {
   clear = () => this.setState({tags: []})
 
   pickSuggest = (tag) => {
+    const newTags = this.state.tags.concat([tag])
     this.setState({
-      tags: this.state.tags.concat([tag]),
+      tags: newTags,
       suggestions: [],
       currentValue: ''
     })
+    if (this.props.onChange)
+      this.props.onChange(newTags)
   }
 
   render() {
