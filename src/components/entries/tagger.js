@@ -49,7 +49,8 @@ export default class Tagger extends Component {
   pickSuggest = (tag) => {
     this.setState({
       tags: this.state.tags.concat([tag]),
-      suggestions: []
+      suggestions: [],
+      currentValue: ''
     })
   }
 

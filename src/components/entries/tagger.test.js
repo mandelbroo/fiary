@@ -68,7 +68,7 @@ describe('Tagger', () => {
   })
   it('call fake tag service', async () => {
     jest.useFakeTimers()
-    expect.assertions(2)
+    expect.assertions(3)
     const fakeTags = [
       {id: 223, name: 'alphabet'},
       {id: 554, name: 'alphamale'}
@@ -85,6 +85,7 @@ describe('Tagger', () => {
     suggestions.first().simulate('click')
     expect(wrapper.state('tags').length).toBe(1)
     expect(wrapper.state('tags')[0]).toBe(fakeTags[0])
+    expect(wrapper.find('input').props().value).toBe('')
   })
   it('do not call service if value is empty', () => {
     jest.useFakeTimers()
