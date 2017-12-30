@@ -1,5 +1,5 @@
 const server = require('../../app').listen()
-const request = require('supertest').agent(server)
+const app = require('supertest').agent(server)
 const {postRecords} = require('../../routes/records')
 const User = require('../../models/user')
 const jwtGenerate = require('../../utils/jwt-generate')
@@ -27,12 +27,16 @@ describe('records route', () => {
     })
 
     it('successfully add records', done => {
-      request
-        .post('/api/records')
+      app.post('/api/entries')
         .send({
           records:[
-            {amount: 20, tags:['beer']},
-            {amount: 10, tags:['Yulia', 'returned'], income: true}
+            {amount: 20, tags:[
+              {id: -1, name: Date.now().toString()}
+            ]},
+            {amount: 10, tags:[
+              {id: -1, name: Date.now().toString() + 1},
+              {id: -2, name: Date.now().toString() + 2}
+            ], income: true}
           ],
         })
         .set('Authorization', token)

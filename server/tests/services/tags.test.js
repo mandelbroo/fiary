@@ -1,5 +1,5 @@
-const tagger = require('./tags')
-const Tag = require('../models/tag')
+const tagger = require('../../services/tags')
+const Tag = require('../../models/tag')
 
 describe('tags service', () => {
   describe('.post([{ name }])', () => {
