@@ -1074,9 +1074,9 @@ bonjour@^3.5.0:
     multicast-dns "^6.0.1"
     multicast-dns-service-types "^1.1.0"
 
-bookshelf-camelcase@^2.0.1:
+"bookshelf-camelcase@https://github.com/mandelbroo/bookshelf-camelcase":
   version "2.0.1"
-  resolved "https://registry.yarnpkg.com/bookshelf-camelcase/-/bookshelf-camelcase-2.0.1.tgz#0d7791f2aabee6d98d56c87ce10ccb0f81a6553c"
+  resolved "https://github.com/mandelbroo/bookshelf-camelcase#2ad8bcb03440518a64326c5e4d2b8ee6c2ffc96f"
   dependencies:
     lodash.camelcase "~4.3.0"
     lodash.snakecase "~4.1.0"
