@@ -36,7 +36,6 @@ describe('ListRecords', () => {
     expect(recordViews.first().props().data).toMatchObject(list[0])
     expect(recordViews.last().props().data).toMatchObject(list[1])
   })
-  it('on remove callback is called')
 })
 
 describe('NewRecord', () => {
