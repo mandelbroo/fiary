@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Entry from '../../models/entry'
-import Tagger from './tagger'
+import Tagger from '../tagger/tagger'
 import TagsFinder from '../../services/tags-finder'
 
 export class ViewRecord extends Component {
