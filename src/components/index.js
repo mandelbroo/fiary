@@ -5,7 +5,7 @@ import Navbar from './navbar/navbar'
 import Signin from './signin/signin'
 import Signup from './signup/signup'
 import Entries from './entries/entries'
-import NewEntry from './entries/new-entry'
+import RecordDay from './record-day/record-day'
 
 export {
   Home,
@@ -15,5 +15,5 @@ export {
   Signin,
   Signup,
   Entries,
-  NewEntry,
+  RecordDay,
 }

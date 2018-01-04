@@ -1,6 +1,6 @@
 import React from 'react'
 import {Entry} from '../../models'
-import {ListRecords} from '../entries/new-entry'
+import {RecordList} from '../record-list/record-list'
 
 export default class Entries extends React.Component {
   constructor(props) {
