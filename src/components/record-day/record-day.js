@@ -1,6 +1,7 @@
 import React from 'react'
 import RecordList from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
+import Entry from '../../models/entry'
 
 export default class RecordDay extends React.Component {
   state = this.props.data ? this.props.data : { id: -1, records: [] }

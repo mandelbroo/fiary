@@ -1,6 +1,6 @@
 import React from 'react'
-import {Entry} from '../../models'
-import {RecordList} from '../record-list/record-list'
+import Entry from '../../models/entry'
+import RecordList from '../record-list/record-list'
 
 export default class Entries extends React.Component {
   constructor(props) {
@@ -32,7 +32,7 @@ export default class Entries extends React.Component {
           {entry.id}
           <br />
           {entry.createdAt}
-          <ListRecords data={entry.records} />
+          <RecordList data={entry.records} />
         </div>)
       index++
     }

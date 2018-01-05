@@ -5,7 +5,7 @@ import {
   Signin,
   Signup,
   Entries,
-  NewEntry,
+  RecordDay,
 } from './components'
 
 const About = () => <h3>About Us</h3>
@@ -20,7 +20,7 @@ const routes = [
   { path: '/logout', component: Logout, exact: true },
   { path: '/entries', component: Entries, exact: true },
   { path: '/entry/:entryId', component: Entry },
-  { path: '/new-entry', component: NewEntry, exact: true },
+  { path: '/new-entry', component: RecordDay, exact: true },
   { component: NoMatch }
 ]
 
