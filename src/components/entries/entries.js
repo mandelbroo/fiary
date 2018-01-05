@@ -1,8 +1,10 @@
 import React from 'react'
 import Entry from '../../models/entry'
 import RecordList from '../record-list/record-list'
+import injectSheet from 'react-jss'
+import styles from './styles'
 
-export default class Entries extends React.Component {
+class Entries extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -24,11 +26,10 @@ export default class Entries extends React.Component {
 
   render() {
     let records = []
-
     let index = 0
     for(let entry of this.state.entries) {
       records.push(
-        <div key={index}>
+        <div key={index} className={this.props.classes.tile}>
           {entry.id}
           <br />
           {entry.createdAt}
@@ -40,7 +41,8 @@ export default class Entries extends React.Component {
       <div>
         <h3>Entries</h3>
         {records}
-      </div>
-    )
+      </div>)
   }
 }
+
+export default injectSheet(styles)(Entries)
