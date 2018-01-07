@@ -4,7 +4,6 @@ import axios from 'axios'
 export default class Entry extends Base {
   constructor(data) {
     super()
-    console.log(data)
     Object.assign(this, data)
   }
 
@@ -12,6 +11,10 @@ export default class Entry extends Base {
 
   static getAll() {
     return this.get(this.endpoint)
+  }
+
+  static getPath(path) {
+    return this.get(path)
   }
 
   save = () => {

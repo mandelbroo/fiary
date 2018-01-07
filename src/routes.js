@@ -10,7 +10,7 @@ import {
 
 const About = () => <h3>About Us</h3>
 const NoMatch = () => <h3>404</h3>
-const Entry = ({match}) => <h3>Entry {match.params.userId} </h3>
+const Entry = ({match}) => <RecordDay id={match.params.entryId} />
 
 const routes = [
   { path: '/', component: Home, exact: true },

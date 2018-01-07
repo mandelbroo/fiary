@@ -77,4 +77,5 @@ describe('RecordDay', () => {
       done()
     })
   })
+  it('load records by provided entry id')
 })

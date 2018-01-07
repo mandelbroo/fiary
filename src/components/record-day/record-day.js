@@ -4,10 +4,17 @@ import RecordNew from '../record-new/record-new'
 import Entry from '../../models/entry'
 
 export default class RecordDay extends React.Component {
-  state = this.props.data ? this.props.data : { id: -1, records: [] }
+  state = this.props.data ? this.props.data : { id: this.props.id || -1, records: [] }
   recIndex = -1
 
   get records() {return this.state.records}
+
+  componentDidMount = async () => {
+    if (this.state.id > 0) {
+      const res = await Entry.getPath(`/entry/${this.state.id}`)
+      this.setState({records: res.data[0].records})
+    }
+  }
 
   add = (record) => {
     this.setState({

@@ -3,6 +3,7 @@ import Entry from '../../models/entry'
 import RecordList from '../record-list/record-list'
 import injectSheet from 'react-jss'
 import styles from './styles'
+import { Redirect } from "react-router-dom"
 
 class Entries extends React.Component {
   constructor(props) {
@@ -24,12 +25,19 @@ class Entries extends React.Component {
       })
   }
 
+  click = (id) => this.setState({ redirectId: id })
+
   render() {
+    if (this.state.redirectId) {
+      const path = `/entry/${this.state.redirectId}`
+      return <Redirect to={path} />
+    }
     let records = []
     let index = 0
     for(let entry of this.state.entries) {
       records.push(
-        <div key={index} className={this.props.classes.tile}>
+        <div key={index} className={this.props.classes.tile}
+          onClick={() => {this.click(entry.id)}}>
           {entry.id}
           <br />
           {entry.createdAt}
