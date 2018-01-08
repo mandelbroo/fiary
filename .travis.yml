@@ -6,8 +6,8 @@ services:
 before_script:
   - yarn db:create && yarn db:migrate
 script:
-  - npm test
-  - npm run test:front
+  - yarn test
+  - yarn test:front
 install:
   - yarn
 env:
