@@ -5,6 +5,9 @@ services:
   - postgresql
 before_script:
   - yarn db:create && yarn db:migrate
+script:
+  - npm test
+  - npm run test:front
 install:
   - yarn
 env:
