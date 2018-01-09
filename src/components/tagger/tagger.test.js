@@ -93,19 +93,15 @@ describe('Tagger', () => {
   })
   it('do not call service if value is empty', () => {
     jest.useFakeTimers()
-    let called = false
     const fakeTagService = {
-      find: (value) => {
-        called = true
-        return {data: []}
-      }
+      find: jest.fn().mockReturnThis({data: []})
     }
     const wrapper = shallow(<Tagger service={fakeTagService} />)
     wrapper.find('input').simulate('change', { target: { value: '' } })
     jest.runOnlyPendingTimers()
-    expect(called).toBe(false)
+    expect(fakeTagService.find).not.toBeCalled()
     wrapper.find('input').simulate('change', { target: { value: false } })
     jest.runOnlyPendingTimers()
-    expect(called).toBe(false)
+    expect(fakeTagService.find).not.toBeCalled()
   })
 })
