@@ -68,27 +68,24 @@ describe('Tagger', () => {
   })
   it('call fake tag service', async () => {
     jest.useFakeTimers()
-    expect.assertions(5)
     const fakeTags = [
       {id: 223, name: 'alphabet'},
       {id: 554, name: 'alphamale'}
     ]
     const fakeTagService = {
-      find: (value) => Promise.resolve({data: fakeTags})
+      find: jest.fn().mockImplementation(() => Promise.resolve({data: fakeTags}))
     }
-    const change = (tags) => {
-      expect(tags.length).toBe(1)
-      expect(tags[0].name).toBe('alphabet')
-    }
-    const wrapper = shallow(<Tagger service={fakeTagService} onChange={change} />)
+    const fakeChange = jest.fn()
+    const wrapper = shallow(<Tagger service={fakeTagService} onChange={fakeChange} />)
     wrapper.find('input').simulate('change', { target: { value: 'alp' } })
     jest.runOnlyPendingTimers()
+    expect(fakeTagService.find).toBeCalledWith('alp')
     await wrapper.state('suggestPromise')
     wrapper.update()
     const suggestions = wrapper.children().find('.suggest')
     suggestions.first().simulate('click')
-    expect(wrapper.state('tags').length).toBe(1)
-    expect(wrapper.state('tags')[0]).toBe(fakeTags[0])
+    expect(fakeChange).toBeCalledWith([fakeTags[0]])
+    expect(wrapper.state('tags')).toMatchObject([fakeTags[0]])
     expect(wrapper.find('input').props().value).toBe('')
   })
   it('do not call service if value is empty', () => {
