@@ -6,16 +6,12 @@ describe('tags-finder', () => {
     expect(tagFinder.find).toBeDefined()
   })
   it('use provided http client', async () => {
-    expect.assertions(2)
-    const searchWord = 'someTag'
     const fakeAxios = {
-      get: (path) => {
-        expect(path).toBe(`/tags?like=${searchWord}`)
-        return Promise.resolve([])
-      }
+      get: jest.fn().mockReturnValue(Promise.resolve([]))
     }
     const tagFinder = new TagsFinder(fakeAxios)
-    const tags = await tagFinder.find(searchWord)
+    const tags = await tagFinder.find('someTag')
+    expect(fakeAxios.get).toBeCalledWith('/tags?like=someTag')
     expect(tags).toBeDefined()
   })
 })
