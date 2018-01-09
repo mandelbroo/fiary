@@ -3,7 +3,7 @@ import '../../config/enzyme'
 import { shallow } from 'enzyme'
 import Tagger from './tagger'
 
-const addTagEmulate = (wrapper, tagName) => {
+const addTagSimulate = (wrapper, tagName) => {
   wrapper.find('input').simulate('change', { target: { value: tagName } })
   wrapper.find('button').simulate('click', { preventDefault: () => { } })
 }
@@ -24,13 +24,13 @@ describe('Tagger', () => {
   })
   it('add a tag', () => {
     const wrapper = shallow(<Tagger />)
-    addTagEmulate(wrapper, 'new-tag')
+    addTagSimulate(wrapper, 'new-tag')
     expect(wrapper.state('tags')[0].name).toBe('new-tag')
   })
   it('show added tags', () => {
     const wrapper = shallow(<Tagger />)
-    addTagEmulate(wrapper, 'tag1')
-    addTagEmulate(wrapper, 'tag2')
+    addTagSimulate(wrapper, 'tag1')
+    addTagSimulate(wrapper, 'tag2')
     const lis = wrapper.find('li')
     expect(lis.first().props().children[0]).toBe('tag1')
     expect(lis.last().props().children[0]).toBe('tag2')
@@ -49,7 +49,7 @@ describe('Tagger', () => {
       expect(tags[0].name).toBe('added')
     }
     const wrapper = shallow(<Tagger onChange={change} />)
-    addTagEmulate(wrapper, 'added')
+    addTagSimulate(wrapper, 'added')
   })
   it('remove tag calling onChange', () => {
     expect.assertions(2)
@@ -63,7 +63,7 @@ describe('Tagger', () => {
   })
   it('do not add empty tag', () => {
     const wrapper = shallow(<Tagger />)
-    addTagEmulate(wrapper, '')
+    addTagSimulate(wrapper, '')
     expect(wrapper.find('li').length).toBe(0)
   })
   it('call fake tag service', async () => {
