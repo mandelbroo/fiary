@@ -38,8 +38,7 @@ describe('RecordDay', () => {
     expect(wrapper.state('records').length).toBe(1)
     expect(wrapper.find('.record').length).toBe(1)
   })
-  it('calls provided API client on save pressed', (done) => {
-    let saveEnvoked = false
+  it('calls provided API client on save pressed', async () => {
     const responseMock = {
       success: true,
       entry: {
@@ -51,6 +50,7 @@ describe('RecordDay', () => {
         ]
       }
     }
+    let saveCalled = false
     let promise = false
     class TestClient {
       constructor(data) {
@@ -58,24 +58,15 @@ describe('RecordDay', () => {
         this.records = data.records
       }
       save = () => {
-        saveEnvoked = true
+        saveCalled = true
         return promise = Promise.resolve(responseMock)
       }
     }
-    const testClient = new TestClient({
-      id: -99,
-      records: [
-        {id: -1, amount: 25, tags: ['soap']},
-        {id: -2, amount: 130, tags: ['burget', 'mcdonalds']},
-      ]
-    })
     const wrapper = shallow(<RecordDay apiClient={TestClient} />)
     wrapper.find('.saveButton').simulate('click')
-    expect(saveEnvoked).toBe(true)
-    promise.then(() => {
-      expect(wrapper.state()).toMatchObject(responseMock.entry)
-      done()
-    })
+    expect(saveCalled).toBe(true)
+    await promise
+    expect(wrapper.state()).toMatchObject(responseMock.entry)
   })
   it('load records by provided entry id')
 })
