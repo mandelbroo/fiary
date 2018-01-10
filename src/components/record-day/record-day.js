@@ -4,10 +4,11 @@ import RecordNew from '../record-new/record-new'
 import Entry from '../../models/entry'
 
 export default class RecordDay extends React.Component {
-  state = this.props.data ? this.props.data : { id: this.props.id || -1, records: [] }
-  recIndex = -1
-
-  get records() {return this.state.records}
+  state = this.props.data
+      ? this.props.data
+      : { id: this.props.id || -1, records: [] }
+   entry = this.props.apiClient || Entry
+   recIndex = -1
 
   componentDidMount = async () => {
     if (this.state.id > 0) {
@@ -19,7 +20,7 @@ export default class RecordDay extends React.Component {
   add = (record) => {
     this.setState({
       ...this.state,
-      records: this.records.concat([{id: this.recIndex, ...record}])
+      records: this.state.records.concat([{id: this.recIndex, ...record}])
     })
     this.recIndex--
   }
@@ -29,15 +30,12 @@ export default class RecordDay extends React.Component {
     this.setState({records: newRecords})
   }
 
-  save = () => {
-    const client = this.props.apiClient
-    const apiClient = client ?
-      new client(this.state) : new Entry(this.state)
-    apiClient.save().then(response => {
-      if (response.success) {
-        this.setState(response.entry)
-      }
-    })
+  save = async () => {
+    const entry = new this.entry(this.state)
+    const res = await entry.save()
+    if (res.success) {
+      this.setState(res.entry)
+    }
   }
 
   render = () => {
