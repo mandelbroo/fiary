@@ -30,12 +30,14 @@ export default class Signin extends React.Component {
             <input className="text-field" type="email" name="email"
               onChange={this.handleChange}
               placeholder='Email'
+              autoComplete='email'
               required />
           </div>
           <div>
             <input className="text-field" type="password" name="password"
               onChange={this.handleChange}
               placeholder='Password'
+              autoComplete='current-password'
               required />
           </div>
           <input className="button-primary" type="submit" />

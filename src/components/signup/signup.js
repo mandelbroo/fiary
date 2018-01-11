@@ -35,24 +35,28 @@ export default class Signup extends Component {
             <input className="text-field" type="text" name="username"
               onChange={this.handleChange}
               placeholder='Username'
+              autoComplete='username'
               required />
           </div>
           <div>
             <input className="text-field" type="email" name="email"
             onChange={this.handleChange}
             placeholder='Email'
+            autoComplete='email'
             required />
           </div>
           <div>
             <input className="text-field" type="password" name="password"
             onChange={this.handleChange}
             placeholder='Password'
+            autoComplete='new-password'
             required />
           </div>
           <div>
             <input className="text-field" type="password" name="passwordConfirm"
             onChange={this.handleChange}
             placeholder='Confirm password'
+            autoComplete='new-password'
             required />
           </div>
           <input className="button-primary" type="submit" />
