@@ -9,14 +9,6 @@ export default class Entry extends Base {
 
   static get endpoint() {return 'entries'}
 
-  static getAll() {
-    return this.get(this.endpoint)
-  }
-
-  static getPath(path) {
-    return this.get(path)
-  }
-
   save = () => {
     const client = axios.create({...this.config})
     return client.post(Entry.endpoint, {
