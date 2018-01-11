@@ -13,47 +13,53 @@ class RecordsServiceError extends Error {
 
 module.exports = {
   Error: RecordsServiceError,
-  execute: (data) => new Promise((resolve, reject) => {
-    const err = validate(data)
+  execute: (entry) => new Promise((resolve, reject) => {
+    const err = validate(entry)
     if (err) {
       reject(err)
     }
-    if (data.entry) {
-      return recordsCreate(data.records, data.entry)
+    if (entry.id) {
+      return recordsCreate(entry.records, entry.id)
+        .then(records => {
+          entry.records = records
+          return entry
+        })
         .then(entry => resolve(entry))
         .catch(err => reject(err))
     } else {
-      return Entry.create({userId: data.user.id})
-        .then(entry => {
-          return recordsCreate(data.records, entry)
+      return Entry.create({userId: entry.user.id, day: entry.day})
+        .then(newEntry => recordsCreate(entry.records, newEntry.id)
+            .then(records => {
+              newEntry.records = records
+              return newEntry
+            })
             .then(entry => resolve(entry))
-            .catch(err => reject(err))
-        })
+            .catch(err => reject(err)))
         .catch(err => reject(err))
     }
   })
 }
 
-function validate(data) {
-  if (!data || Object.keys(data).length === 0)
+function validate(entry) {
+  if (!entry || Object.keys(entry).length === 0)
     return new RecordsServiceError(RecordsServiceError.dataIsEmpty)
-  if (!data.records || data.records.length === 0)
+  if (!entry.records || entry.records.length === 0)
     return new RecordsServiceError(RecordsServiceError.notRecordsProvided)
-  if (!data.user || !data.user.id)
+  if (!entry.user || !entry.user.id)
     return new RecordsServiceError(RecordsServiceError.userNotProvided)
 }
 
-async function recordsCreate(data, entry) {
+async function recordsCreate(records, entryId) {
   let promises = []
-  let unsaved = []
+  let unsavedTags = []
   let mapObject = []
-  for(let rec of data) {
+  for (rec of records) {
     const attrs = {
-      entryId: entry.id,
+      entryId: entryId,
       amount: rec.amount,
       kind: rec.income ? 'income' : 'expense'
     }
-    unsaved = unsaved.concat(rec.tags.filter(tag => tag.id < 0))
+    unsavedTags = unsavedTags.concat(rec.tags.filter(tag => tag.id < 0))
     let promise = Record.create(attrs)
     promises.push(promise)
     mapObject.push({
@@ -62,17 +68,16 @@ async function recordsCreate(data, entry) {
     })
   }
 
-  const unique = unsaved
+  const unique = unsavedTags
     .map(tag => tag.name)
     .filter((tag, index, arr) => arr.indexOf(tag) === index)
   const forSave = unique.map(name => ({name: name}))
   const savedTags = await knex('tags').insert(forSave).returning(['id', 'name'])
 
   return Promise.all(promises)
-    .then(async (records) => {
-      entry.records = records
-      for(rec of mapObject) {
-        for(tag of rec.tags) {
+    .then(async (resolvedRecords) => {
+      for (rec of mapObject) {
+        for (tag of rec.tags) {
           if (tag.id > 0) {
             await RecTag.create({recordId: rec.id, tagId: tag.id})
           } else if (savedTags.length) {
@@ -81,6 +86,6 @@ async function recordsCreate(data, entry) {
           }
         }
       }
-      return entry
+      return resolvedRecords
     })
 }

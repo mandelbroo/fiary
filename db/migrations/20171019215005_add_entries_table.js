@@ -3,6 +3,8 @@ exports.up = (knex, Promise) => {
     table.increments('id').primary().notNullable()
     table.integer('user_id').notNullable()
     table.foreign('user_id').references('users.id')
+    table.string('day').notNullable()
+    table.unique(['day', 'user_id'])
     table.timestamps()
   })
 }
