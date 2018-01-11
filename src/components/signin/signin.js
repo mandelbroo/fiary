@@ -1,6 +1,5 @@
 import React from 'react'
 import User from '../../models/user'
-import './signin.css'
 
 export default class Signin extends React.Component {
   state = {
