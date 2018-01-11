@@ -3,31 +3,24 @@ import User from '../../models/user'
 import './signin.css'
 
 export default class Signin extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: '',
-      password: '',
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+  state = {
+    email: '',
+    password: ''
   }
-  handleChange({target}) {
+
+  handleChange = ({target}) => {
     let newState = {}
     newState[target.name] = target.value
     this.setState(newState)
   }
-  handleSubmit(event) {
+
+  handleSubmit = async (event) => {
     event.preventDefault()
-    User.post(User.routes.signin, this.state)
-      .then(res => {
-        if (res.success) {
-          this.props.history.push('/')
-        } else {
-          this.props.history.push('/signin')
-        }
-      })
+    const res = await User.signin(this.state)
+    const nextRoute = res.success ? '/' : '/signin'
+    this.props.history.push(nextRoute)
   }
+
   render() {
     return (
       <div>

@@ -2,40 +2,34 @@ import React, { Component } from 'react'
 import User from '../../models/user'
 
 export default class Signup extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      username: '',
-      email: '',
-      password: '',
-      passwordConfirm: ''
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+  state = {
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirm: ''
   }
-  handleChange({target}) {
+
+  handleChange = ({target}) => {
     let newState = {}
     newState[target.name] = target.value
     this.setState(newState)
   }
-  handleSubmit(event) {
+
+  handleSubmit = async (event) => {
     event.preventDefault()
-    User.post(User.routes.signup, {
+    const res = await User.signup({
       username: this.state.username,
       email: this.state.email,
       password: this.state.password
-    }).then(res => {
-        if (res.success) {
-          this.props.history.push('/')
-        } else {
-          this.props.history.push('/signup')
-        }
-      })
+    })
+    const nextRoute = res.success ? '/' : '/signup'
+    this.props.history.push(nextRoute)
   }
+
   render() {
     return (
       <div>
-        <h3>Registrer</h3>
+        <h3>Register</h3>
         <form onSubmit={this.handleSubmit}>
           <div>
             <input className="text-field" type="text" name="username"

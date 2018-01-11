@@ -12,7 +12,7 @@ export default class RecordDay extends React.Component {
 
   componentDidMount = async () => {
     if (this.state.id > 0) {
-      const res = await Entry.getPath(`/entry/${this.state.id}`)
+      const res = await this.entry.getById(this.state.id)
       this.setState({records: res.data[0].records})
     }
   }
