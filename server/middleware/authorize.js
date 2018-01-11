@@ -25,7 +25,8 @@ function getPayload(req) {
   try {
     payload = jwt.verify(plainToken, process.env.JWT_SECRET)
   } catch(err) {
-    console.error(err.message, `${plainToken}`, `ip: ${req.connection.remoteAddress}`)
+    if (process.env.NODE_ENV !== 'test')
+      console.error(err.message, `${plainToken}`, `ip: ${req.connection.remoteAddress}`)
   }
   return payload
 }
