@@ -1,32 +1,27 @@
 const jwtGenerate = require('../../utils/jwt-generate')
 const User = require('../../models/user')
 const server = require('../../app').listen()
-const request = require('supertest').agent(server)
+const app = require('supertest').agent(server)
 
 describe('users', () => {
-  afterAll(done => {
-    Promise.all([
-      User.connection.destroy(),
-    ]).then(() => {
-      server.close()
-      done()
-    })
+  afterAll(async () => {
+    await User.connection.destroy(),
+    server.close()
   })
 
-  beforeAll(done => {
-    User.create({
+  beforeAll(async () => {
+    const user = await User.findOrCreate({
       username: 'admin',
       email: 'admin@email.net',
       password: 'Supersecret098'
     })
-    .then(user => token = jwtGenerate(user.attributes))
-    .then(() => done())
+    token = jwtGenerate(user.attributes)
   })
 
   it('return list of users', done => {
     expect(token).toBeTruthy()
     expect(token).toBeDefined()
-    request
+    app
       .get('/api/users')
       .set('Authorization', token)
       .expect(200)
@@ -46,7 +41,7 @@ describe('users', () => {
   })
 
   it('401 if auth header is missing', done => {
-    request
+    app
       .get('/api/users')
       .expect(401)
       .end((err, {body}) => {
@@ -59,7 +54,7 @@ describe('users', () => {
   })
 
   it('401 if token empty value', done => {
-    request
+    app
       .get('/api/users')
       .set('Authorization', '')
       .expect(401)
@@ -73,7 +68,7 @@ describe('users', () => {
   })
 
   it('401 if token is invalid', done => {
-    request
+    app
       .get('/api/users')
       .set('Authorization', 'R@nd0MsYmb0lz')
       .expect(401)

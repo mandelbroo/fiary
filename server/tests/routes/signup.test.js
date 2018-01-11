@@ -6,8 +6,8 @@ describe('signup', () => {
 
   it('successfully register user', done => {
     const req = {
-      username: 'signup',
-      email: 'success@signup.net',
+      username: `${Date.now()}signup`,
+      email: `${Date.now()}success@signup.net`,
       password: 'StrongPass123'
     }
     request

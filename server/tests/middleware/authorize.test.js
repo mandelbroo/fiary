@@ -33,74 +33,66 @@ function ResMock() {
 }
 
 describe('authorize(req, res, next)', () => {
-  afterAll(done => {
-    Promise.all([
-      User.connection.destroy(),
-    ]).then(() => done())
-  })
+  afterAll(async () => await User.connection.destroy())
 
-  it('401 when token is empty', done => {
+  it('401 when token is empty', () => {
     let req = new ReqMock('empty', 'empty@mail')
     let res = new ResMock()
     req.token = ""
     authorize(req, res)
     expect(res.statusCode).toEqual(401)
-    expect(res.body).toEqual({
-        success: false,
-        message: 'Not authorized. Missing or invalid token'
-      })
-    done()
+    const expectBody = {
+      success: false,
+      message: 'Not authorized. Missing or invalid token'
+    }
+    expect(res.body).toMatchObject(expectBody)
   })
-  it('401 when token is invalid', done => {
+  it('401 when token is invalid', () => {
     let req = new ReqMock('invalid', 'invalid@mail')
     let res = new ResMock()
     req.token = "asdLASASdasj2asd"
     authorize(req, res)
     expect(res.statusCode).toEqual(401)
-    expect(res.body).toEqual({
-        success: false,
-        message: 'Not authorized. Missing or invalid token'
-      })
-    done()
+    const expectBody = {
+      success: false,
+      message: 'Not authorized. Missing or invalid token'
+    }
+    expect(res.body).toMatchObject(expectBody)
   })
-  it('401 when token is valid but user not exists', done => {
+  it('401 when token is valid but user not exists', async () => {
     let req = new ReqMock('user-not-exist', 'not-exist@mail')
     let res = new ResMock()
     authorize(req, res)
     expect(req.currentUserPromise).toBeDefined()
-    req.currentUserPromise.then((user) => {
-      expect(user).toBeUndefined()
-      expect(res.statusCode).toEqual(401)
-      expect(res.body).toEqual({
-          success: false,
-          message: 'Not authorized. User not found'
-        })
-      done()
-    })
+    const user = await req.currentUserPromise
+    expect(user).toBeUndefined()
+    expect(res.statusCode).toEqual(401)
+    const expectBody = {
+      success: false,
+      message: 'Not authorized. User not found'
+    }
+    expect(res.body).toMatchObject(expectBody)
   })
-  it('200 token valid and user exists', done => {
-    User.create({
-      username: 'success',
-      email: 'success@case.mail',
+  it('200 token valid and user exists', async () => {
+    const user = await User.findOrCreate({
+      username: `${Date.now()}success`,
+      email: `${Date.now()}success@case.mail`,
       password: 'Qwerty1111'
     })
-      .then(user => {return user.refresh()})
-      .then(user => {
-        const req = new ReqMock(
-          user.attributes.username,
-          user.attributes.email,
-          user.attributes.id)
-        const res = new ResMock()
-        expect.assertions(3)
-        authorize(req, res, () => {
-          expect(true).toBeTruthy() // ensure being next() called
-        })
-        expect(req.currentUserPromise).toBeDefined()
-        req.currentUserPromise.then(() => {
-          expect(req.currentUser).toBeDefined()
-          done()
-        })
-      })
+    await user.refresh()
+    const req = new ReqMock(
+      user.attributes.username,
+      user.attributes.email,
+      user.attributes.id
+    )
+    const res = new ResMock()
+    expect.assertions(3)
+    authorize(req, res, () => {
+      expect(true).toBeTruthy()  // ensure next() being called
+    })
+    expect(req.currentUserPromise).toBeDefined()
+    await req.currentUserPromise
+    expect(req.currentUser).toBeDefined()
   })
 
   it('not crashes when request with empty token', () => {

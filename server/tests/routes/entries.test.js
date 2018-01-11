@@ -3,33 +3,37 @@ const Entry = require('../../models/entry')
 const User = require('../../models/user')
 const server = require('../../app').listen()
 const request = require('supertest').agent(server)
+const {DateTime} = require('luxon')
 
 describe('entries', () => {
-  afterAll(done => {
-    Promise.all([
+  let citizen = {}
+  let token = ''
+
+  afterAll(async () => {
+    await Promise.all([
       Entry.connection.destroy(),
       User.connection.destroy(),
-    ]).then(() => {
-      server.close()
-      done()
-    })
+    ])
+    server.close()
   })
 
-  beforeAll(done => {
-    User.create({
-      username: 'admin',
-      email: 'admin@email.net',
+  beforeAll(async () => {
+    citizen = await User.create({
+      username: `${Date.now()}admin`,
+      email: `${Date.now()}admin@email.net`,
       password: 'Supersecret098'
     })
-    .then(user => citizen = user)
-    .then(user => token = jwtGenerate(user.attributes))
-    .then(() => {
-      Promise.all([
-        Entry.create({userId: citizen.id}),
-        Entry.create({userId: citizen.id}),
-      ])
-      .then(() => done())
-    })
+    token = jwtGenerate(citizen.attributes)
+    await Promise.all([
+      Entry.create({
+        userId: citizen.id,
+        day: DateTime.local().toISODate()
+      }),
+      Entry.create({
+        userId: citizen.id,
+        day: DateTime.fromISO('2017-05-15').toISODate()
+      }),
+    ])
   })
 
   it('get /api/entries', done => {

@@ -5,25 +5,19 @@ const User = require('../../models/user')
 const jwtGenerate = require('../../utils/jwt-generate')
 
 describe('records route', () => {
-  afterAll(done => {
-    Promise.all([
-      User.connection.destroy(),
-    ]).then(() => {
-      server.close()
-      done()
-    })
+  afterAll(async () => {
+    await User.connection.destroy(),
+    server.close()
   })
 
   describe('post /api/records', () => {
-    beforeAll(done => {
-      User.create({
-        username: 'admin',
-        email: 'admin@email.net',
+    beforeAll(async () => {
+      citizen = await User.create({
+        username: `${Date.now()}admin`,
+        email: `${Date.now()}admin@email.net`,
         password: 'Supersecret098'
       })
-      .then(user => citizen = user)
-      .then(user => token = jwtGenerate(user.attributes))
-      .then(() => done())
+      token = jwtGenerate(citizen.attributes)
     })
 
     it('successfully add records', done => {
@@ -38,6 +32,7 @@ describe('records route', () => {
               {id: -2, name: Date.now().toString() + 2}
             ], income: true}
           ],
+          day: '2018-01-02'
         })
         .set('Authorization', token)
         .expect(200)
