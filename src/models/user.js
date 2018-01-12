@@ -11,7 +11,7 @@ export default class User {
       }
       return res.data
     } catch(err) {
-      console.log('post error', err, err.response)
+      return err.response.data
     }
   }
 
