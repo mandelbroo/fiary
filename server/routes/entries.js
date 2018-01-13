@@ -2,7 +2,7 @@ const Entry = require('../models/entry')
 const apiRes = require('./api-response')
 
 module.exports = {
-  get: (req, res) => {
+  getAll: (req, res) => {
     req.currentUserPromise
       .then(user => {
         Entry
@@ -20,10 +20,21 @@ module.exports = {
           })
       })
   },
-  getOne: async (req, res) => {
+  getById: async (req, res) => {
     const entry = await Entry
       .where({id: req.params.id})
       .fetchAll({withRelated: ['records','records.tags']})
     res.send(entry)
+  },
+  getIdByDate: async (req, res) => {
+    const id = await Entry
+      .findOne({day: req.params.isoDate})
+      .then(entry => entry.id)
+      .catch(err => {
+        if (err.message === 'EmptyResponse')
+          return null
+        throw err
+      })
+    res.send({id: id})
   }
 }
