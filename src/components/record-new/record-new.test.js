@@ -5,11 +5,12 @@ import RecordNew from './record-new'
 
 describe('RecordNew', () => {
   it('envoke submit callback', () => {
-    let envoked = false
-    const callback = () => envoked = true
-    const wrapper = mount(<RecordNew onSubmit={callback}/>)
-    wrapper.find('form').simulate('submit', {preventDefault: () => {}})
-    expect(envoked).toBe(true)
+    const fakeCallback = jest.fn()
+    const fakeEvent = { preventDefault: jest.fn() }
+    const wrapper = mount(<RecordNew onSubmit={fakeCallback}/>)
+    wrapper.find('form').simulate('submit', fakeEvent)
+    expect(fakeEvent.preventDefault).toBeCalled()
+    expect(fakeCallback).toBeCalled()
   })
   it('set state from data prop', () => {
     const record = {
