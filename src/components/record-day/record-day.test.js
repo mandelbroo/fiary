@@ -69,4 +69,5 @@ describe('RecordDay', () => {
     expect(wrapper.state()).toMatchObject(fakeRes.entry)
   })
   it('load records by provided entry id')
+  it('show current date and week day based on day property')
 })
