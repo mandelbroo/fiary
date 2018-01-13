@@ -7,10 +7,11 @@ import {
   Entries,
   RecordDay,
 } from './components'
+import TodayPage from './pages/today-page'
 
 const About = () => <h3>About Us</h3>
 const NoMatch = () => <h3>404</h3>
-const Entry = ({match}) => <RecordDay id={match.params.entryId} />
+const EntryPage = ({match}) => <RecordDay id={match.params.entryId} />
 
 const routes = [
   { path: '/', component: Home, exact: true },
@@ -19,8 +20,8 @@ const routes = [
   { path: '/signin', component: Signin, exact: true },
   { path: '/logout', component: Logout, exact: true },
   { path: '/entries', component: Entries, exact: true },
-  { path: '/entry/:entryId', component: Entry },
-  { path: '/new-entry', component: RecordDay, exact: true },
+  { path: '/entry/:entryId', component: EntryPage },
+  { path: '/today', component: TodayPage, exact: true },
   { component: NoMatch }
 ]
 

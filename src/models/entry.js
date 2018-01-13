@@ -1,5 +1,6 @@
 import Base from './base'
 import axios from 'axios'
+import { DateTime } from 'luxon'
 
 export default class Entry extends Base {
   constructor(data) {
@@ -15,5 +16,9 @@ export default class Entry extends Base {
       ids: this.id,
       records: this.records,
     })
+  }
+
+  static getTodayId = () => {
+    return Entry.get(`${Entry.endpoint}/${DateTime.local().toISODate()}`)
   }
 }
