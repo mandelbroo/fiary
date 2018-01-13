@@ -7,8 +7,8 @@ export default class RecordDay extends React.Component {
   state = this.props.data
       ? this.props.data
       : { id: this.props.id || -1, records: [] }
-   entry = this.props.entry || Entry
-   recIndex = -1
+  entry = this.props.entry || Entry
+  recIndex = -1
 
   componentDidMount = async () => {
     if (this.state.id > 0) {
