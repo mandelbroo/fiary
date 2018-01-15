@@ -6,24 +6,30 @@ import TodayPage from './today-page'
 describe('TodayPage', () => {
   it('check for today entry with NO result', () => {
     const fakeEntry = {
-      getTodayId: jest.fn()
+      getTodayEntry: jest.fn().mockImplementation(() => Promise.resolve({}))
     }
     const wrapper = shallow(<TodayPage entry={fakeEntry}/>)
-    expect(fakeEntry.getTodayId).toBeCalled()
-    expect(wrapper.state('todayId')).toBe(null)
+    expect(fakeEntry.getTodayEntry).toBeCalled()
+    expect(wrapper.state('entry')).toBe(null)
   })
   it('check for today entry with result', async () => {
     let promise = {}
+    const fakeRes = {
+      data: {
+        id: 991,
+        day: '2045-12-30',
+        records: [{id: 223, tags: ['fakeTag']}]
+      }
+    }
     const fakeEntry = {
-      getTodayId: jest.fn().mockImplementation(() => {
-        return promise = Promise.resolve({id: 166})
-      })
+      getTodayEntry: jest.fn()
+        .mockImplementation(() => promise = Promise.resolve(fakeRes))
     }
     const wrapper = mount(<TodayPage entry={fakeEntry}/>)
-    expect(fakeEntry.getTodayId).toBeCalled()
+    expect(fakeEntry.getTodayEntry).toBeCalled()
     await promise
-    expect(wrapper.state('todayId')).toBe(166)
+    expect(wrapper.state('entry')).toBe(fakeRes.data)
     wrapper.update()
-    expect(wrapper.children().props().id).toBe(166)
+    expect(wrapper.children().props().data).toBe(fakeRes.data)
   })
 })

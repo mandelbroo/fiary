@@ -45,12 +45,21 @@ export default class RecordDay extends React.Component {
     }
   }
 
-  render = () => {
+  componentWillReceiveProps = (newProps) => {
+    if (newProps.data) {
+      this.setState({
+        id: newProps.data.id,
+        day: newProps.data.day,
+        records: newProps.data.records,
+      })
+    }
+  }
 
+  render = () => {
     return (
       <div>
         <h1>Wednesday</h1>
-        <h5>{this.props.day}</h5>
+        <h5>{this.state.day}</h5>
         <RecordList data={this.state.records} onRemove={this.remove} />
         <RecordNew onSubmit={this.add} />
         <button className='saveButton' onClick={this.save}>Save</button>

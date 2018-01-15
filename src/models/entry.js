@@ -19,7 +19,7 @@ export default class Entry extends Base {
     })
   }
 
-  static getTodayId = () => {
+  static getTodayEntry = () => {
     return Entry.get(`${Entry.endpoint}/${DateTime.local().toISODate()}`)
   }
 }

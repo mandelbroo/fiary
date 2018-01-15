@@ -5,19 +5,18 @@ import { DateTime } from 'luxon'
 
 class TodayPage extends React.Component {
   entry = this.props.entry || Entry
-  state = {todayId: null}
+  state = { entry: null }
 
   componentDidMount = async () => {
-    const res = await this.entry.getTodayId()
-    if (res && res.id)
-      this.setState({todayId: res.id})
+    const res = await this.entry.getTodayEntry()
+    if (res.data) {
+      this.setState({ entry: res.data })
+    }
   }
 
   render = () => {
-    if (this.state.todayId)
-      return <RecordDay id={this.state.todayId} />
-    else
-      return <RecordDay day={DateTime.local().toISODate()} />
+    const day = this.state.entry ? null : DateTime.local().toISODate()
+    return <RecordDay data={this.state.entry} day={day} />
   }
 }
 
