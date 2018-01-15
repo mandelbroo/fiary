@@ -17,7 +17,7 @@ export default class RecordDay extends React.Component {
   componentDidMount = async () => {
     if (this.state.id > 0) {
       const res = await this.entry.getById(this.state.id)
-      this.setState({ ...res.data })
+      this.setState({ ...res.data[0] })
     }
   }
 
@@ -46,6 +46,7 @@ export default class RecordDay extends React.Component {
   }
 
   render = () => {
+
     return (
       <div>
         <h1>Wednesday</h1>
