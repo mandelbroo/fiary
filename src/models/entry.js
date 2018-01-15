@@ -13,8 +13,9 @@ export default class Entry extends Base {
   save = () => {
     const client = axios.create({...this.config})
     return client.post(Entry.endpoint, {
-      ids: this.id,
+      id: this.id,
       records: this.records,
+      day: this.day,
     })
   }
 

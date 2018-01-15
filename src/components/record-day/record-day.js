@@ -6,14 +6,18 @@ import Entry from '../../models/entry'
 export default class RecordDay extends React.Component {
   state = this.props.data
       ? this.props.data
-      : { id: this.props.id || -1, records: [] }
+      : {
+        id: this.props.id || -1,
+        day: this.props.day,
+        records: []
+      }
   entry = this.props.entry || Entry
   recIndex = -1
 
   componentDidMount = async () => {
     if (this.state.id > 0) {
       const res = await this.entry.getById(this.state.id)
-      this.setState({records: res.data[0].records})
+      this.setState({ ...res.data })
     }
   }
 
@@ -31,7 +35,10 @@ export default class RecordDay extends React.Component {
   }
 
   save = async () => {
-    const entry = new this.entry(this.state)
+    const entry = new this.entry({
+      ...this.state,
+      id: this.state.id > 0 ? this.state.id : null
+    })
     const res = await entry.save()
     if (res.success) {
       this.setState(res.entry)
@@ -42,7 +49,7 @@ export default class RecordDay extends React.Component {
     return (
       <div>
         <h1>Wednesday</h1>
-        <h5>29.11.12017</h5>
+        <h5>{this.props.day}</h5>
         <RecordList data={this.state.records} onRemove={this.remove} />
         <RecordNew onSubmit={this.add} />
         <button className='saveButton' onClick={this.save}>Save</button>
