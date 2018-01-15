@@ -71,11 +71,11 @@ describe('RecordDay', () => {
   it('load records by provided entry id', async () => {
     let promise = {}
     const fakeRes = {
-      data: [{
+      data: {
         id: 1,
         day: '2019-05-05',
         records: [{id: 99, tags: ['fakeTag']}]
-      }]
+      }
     }
     const fakeEntry = {
       getById: jest.fn().mockImplementation(() =>
@@ -84,9 +84,9 @@ describe('RecordDay', () => {
     const wrapper = mount(<RecordDay id={1} entry={fakeEntry} />)
     expect(fakeEntry.getById).toBeCalledWith(1)
     await promise
-    expect(wrapper.state('records')).toBe(fakeRes.data[0].records)
-    expect(wrapper.state('day')).toBe(fakeRes.data[0].day)
-    expect(wrapper.state('id')).toBe(fakeRes.data[0].id)
+    expect(wrapper.state('records')).toBe(fakeRes.data.records)
+    expect(wrapper.state('day')).toBe(fakeRes.data.day)
+    expect(wrapper.state('id')).toBe(fakeRes.data.id)
   })
   it('show current date and week day based on day property')
 })

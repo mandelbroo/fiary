@@ -23,7 +23,7 @@ module.exports = {
   getById: async (req, res) => {
     const entry = await Entry
       .where({id: req.params.id})
-      .fetchAll({withRelated: ['records','records.tags']})
+      .fetch({withRelated: ['records','records.tags']})
     res.send(entry)
   },
   getIdByDate: async (req, res) => {
