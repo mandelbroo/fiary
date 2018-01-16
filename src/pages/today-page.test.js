@@ -30,6 +30,17 @@ describe('TodayPage', () => {
     await promise
     expect(wrapper.state('entry')).toBe(fakeRes.data)
     wrapper.update()
-    expect(wrapper.children().props().data).toBe(fakeRes.data)
+    expect(wrapper.children().children().last().props().data).toBe(fakeRes.data)
+  })
+  it('show current date and week day based on day property', () => {
+    const fakeEntry = {
+      getTodayEntry: jest.fn().mockImplementation(() => Promise.resolve({
+        data: {
+          day: '2018-01-16',
+        }
+      }))
+    }
+    const wrapper = mount(<TodayPage entry={fakeEntry}/>)
+    expect(wrapper.find('h1').text()).toBe('Tue')
   })
 })

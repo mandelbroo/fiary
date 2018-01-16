@@ -88,5 +88,4 @@ describe('RecordDay', () => {
     expect(wrapper.state('day')).toBe(fakeRes.data.day)
     expect(wrapper.state('id')).toBe(fakeRes.data.id)
   })
-  it('show current date and week day based on day property')
 })

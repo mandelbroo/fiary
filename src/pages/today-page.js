@@ -15,8 +15,14 @@ class TodayPage extends React.Component {
   }
 
   render = () => {
-    const day = this.state.entry ? null : DateTime.local().toISODate()
-    return <RecordDay data={this.state.entry} day={day} />
+    const day = this.state.entry ? this.state.entry.day : DateTime.local().toISODate()
+    const weekday = DateTime.fromISO(day).weekdayLong
+    return (
+      <div>
+        <h1>{weekday}</h1>
+        <RecordDay data={this.state.entry} day={day} />
+      </div>
+    )
   }
 }
 
