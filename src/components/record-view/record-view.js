@@ -3,22 +3,30 @@ import injectSheet from 'react-jss'
 
 const style = {
   plus: {
-    color: 'green'
+    color: 'green',
+    paddingRight: '4px'
   },
+  minus: {
+    paddingRight: '4px'
+  },
+  tag: {
+    paddingRight: '4px'
+  }
 }
 
-const TagView = (tag, index) => <span key={ index }>{ tag.name } </span>
-
 export class RecordView extends React.Component {
+  TagView = (tag, index) =>
+    <span className={ this.props.classes.tag }key={ index }>{ tag.name }</span>
+
   render() {
     const data = this.props.data
     const operation = data.income ? '+' : '-'
-    const operClass = data.income ? this.props.classes.plus : ''
+    const operClass = data.income ? this.props.classes.plus : this.props.classes.minus
     return (
       <div>
         <span className={ operClass }>{ operation }</span>
-        <span className={ operClass }>{ data.amount } </span>
-        { data.tags.map(TagView) }
+        <span className={ operClass }>{ data.amount }</span>
+        { data.tags.map(this.TagView) }
       </div>)
   }
 }
