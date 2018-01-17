@@ -2,6 +2,7 @@ import React from 'react'
 import '../config/enzyme'
 import { shallow, mount } from 'enzyme'
 import TodayPage from './today-page'
+import { DateTime } from 'luxon'
 
 describe('TodayPage', () => {
   it('check for today entry with NO result', () => {
@@ -36,11 +37,11 @@ describe('TodayPage', () => {
     const fakeEntry = {
       getTodayEntry: jest.fn().mockImplementation(() => Promise.resolve({
         data: {
-          day: '2018-01-16',
+          day: DateTime.local().toISODate,
         }
       }))
     }
     const wrapper = mount(<TodayPage entry={fakeEntry}/>)
-    expect(wrapper.find('h1').text()).toBe('Tue')
+    expect(wrapper.find('h1').text()).toBe(DateTime.local().weekdayLong)
   })
 })
