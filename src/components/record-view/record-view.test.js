@@ -12,10 +12,9 @@ describe('RecordView', () => {
     }
     const wrapper = mount(<RecordView data={record} />)
     expect(wrapper.props().data).toEqual(record)
-    expect(wrapper.find('.operation').props().children).toBe('+')
-    expect(wrapper.find('.amount').props().children).toBe(record.amount)
-    const tagsList = wrapper.find('ul').props().children
-    expect(tagsList[0].props.children).toBe(record.tags[0].name)
-    expect(tagsList[1].props.children).toBe(record.tags[1].name)
+    expect(wrapper.find('span').first().props().children).toBe('+')
+    expect(wrapper.find('span').at(1).props().children).toBe(record.amount)
+    expect(wrapper.find('span').at(2).props().children).toBe(record.tags[0].name)
+    expect(wrapper.find('span').at(3).props().children).toBe(record.tags[1].name)
   })
 })
