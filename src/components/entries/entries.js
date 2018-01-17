@@ -5,24 +5,13 @@ import injectSheet from 'react-jss'
 import styles from './styles'
 import { Redirect } from "react-router-dom"
 
-class Entries extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      entries: []
-    }
-  }
+export class Entries extends React.Component {
+  state = { entries: [] }
 
-  componentDidMount() {
-    Entry.getAll({where: {}}, 15)
-      .then(res => {
-        if (res.data) {
-          this.setState({entries: res.data.collection})
-        }
-      })
-      .catch(err => {
-        console.log('error', err)
-      })
+  componentDidMount = async () => {
+    const res = await Entry.getAll({where: {}}, 15)
+    if (res.data)
+      this.setState({entries: res.data.collection})
   }
 
   click = (id) => this.setState({ redirectId: id })
@@ -32,24 +21,14 @@ class Entries extends React.Component {
       const path = `/entry/${this.state.redirectId}`
       return <Redirect to={path} />
     }
-    let records = []
-    let index = 0
-    for(let entry of this.state.entries) {
-      records.push(
-        <div key={index} className={this.props.classes.tile}
-          onClick={() => {this.click(entry.id)}}>
-          {entry.id}
-          <br />
-          {entry.createdAt}
+    const records = this.state.entries
+      .map((entry, index) =>
+        <div key={ index } className={ this.props.classes.tile }
+          onClick={ () => {this.click(entry.id)} }>
+          <h4>{ entry.day }</h4>
           <RecordList data={entry.records} />
-        </div>)
-      index++
-    }
-    return (
-      <div>
-        <h3>Entries</h3>
-        {records}
-      </div>)
+          </div>)
+    return <div>{ records }</div>
   }
 }
 
