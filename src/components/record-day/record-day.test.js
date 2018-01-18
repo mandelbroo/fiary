@@ -4,10 +4,11 @@ import { shallow, mount } from 'enzyme'
 import RecordDay from './record-day'
 import RecordList from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
+import RecordView from '../record-view/record-view'
 
 
 describe('RecordDay', () => {
-  it('render RecordGallery and NewRecord', () => {
+  it('render RecordList and RecordNew', () => {
     const wrapper = shallow(<RecordDay />)
     expect(wrapper.containsAllMatchingElements([
       <RecordList />,
@@ -22,8 +23,8 @@ describe('RecordDay', () => {
       ]
     }
     const wrapper = mount(<RecordDay data={entry} />)
-    const items = wrapper.find('.record')
-    expect(items.length).toBe(entry.records.length)
+    expect(wrapper.find('li').length).toBe(2)
+    expect(wrapper.state('records')).toMatchObject(entry.records)
   })
   it('add record changes state', () => {
     const wrapper = mount(<RecordDay />)
@@ -36,7 +37,7 @@ describe('RecordDay', () => {
     wrapper.setState(newState)
     wrapper.update()
     expect(wrapper.state('records').length).toBe(1)
-    expect(wrapper.find('.record').length).toBe(1)
+    expect(wrapper.find('li').length).toBe(1)
   })
   it('calls provided API client on save pressed', async () => {
     const fakeRes = {
