@@ -37,7 +37,7 @@ describe('TodayPage', () => {
     const fakeEntry = {
       getTodayEntry: jest.fn().mockImplementation(() => Promise.resolve({
         data: {
-          day: DateTime.local().toISODate,
+          day: DateTime.local().toISODate(),
         }
       }))
     }
