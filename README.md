@@ -2,7 +2,8 @@
 Your personal financial diary
 
 [![Build Status](https://travis-ci.org/mandelbroo/fiary.svg?branch=master)](https://travis-ci.org/mandelbroo/fiary)
-[![Coverage Status](https://coveralls.io/repos/github/mandelbroo/fiary/badge.svg?branch=master)](https://coveralls.io/github/mandelbroo/fiary?branch=master)
+[![codecov](https://codecov.io/gh/mandelbroo/fiary/branch/master/graph/badge.svg)](https://codecov.io/gh/mandelbroo/fiary)
+
 
 #### Install Node Version Manager
 `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash`
