@@ -6,8 +6,10 @@ services:
 before_script:
   - yarn db:create && yarn db:migrate
 script:
-  - yarn test
-  - yarn test:front
+  - yarn test:front:cov
+  - bash <(curl -s https://codecov.io/bash) -t token 04af45d6-4d36-4d3b-afe2-c2864484c1f3
+  - yarn test:back:cov
+  - bash <(curl -s https://codecov.io/bash) -t token 04af45d6-4d36-4d3b-afe2-c2864484c1f3
 install:
   - yarn
 env:
