@@ -1,15 +1,13 @@
 import React from 'react'
 import Entry from '../../models/entry'
-import RecordList from '../record-list/record-list'
-import injectSheet from 'react-jss'
-import styles from './styles'
-import { Redirect } from "react-router-dom"
+import DayTile from '../day-tile/day-tile'
 
-export class Entries extends React.Component {
+export default class Entries extends React.Component {
   state = { entries: [] }
+  entry = this.props.entry || Entry
 
   componentDidMount = async () => {
-    const res = await Entry.getAll({where: {}}, 15)
+    const res = await this.entry.getAll()
     if (res.data)
       this.setState({entries: res.data.collection})
   }
@@ -19,17 +17,11 @@ export class Entries extends React.Component {
   render() {
     if (this.state.redirectId) {
       const path = `/entry/${this.state.redirectId}`
-      return <Redirect to={path} />
+      return this.props.redirect(path)
     }
-    const records = this.state.entries
-      .map((entry, index) =>
-        <div key={ index } className={ this.props.classes.tile }
-          onClick={ () => {this.click(entry.id)} }>
-          <h4>{ entry.day }</h4>
-          <RecordList data={entry.records} />
-          </div>)
-    return <div>{ records }</div>
+    return <div>{
+      this.state.entries
+        .map((entry, ix) => <DayTile entry={entry} click={this.click} key={ix}/>)
+    }</div>
   }
 }
-
-export default injectSheet(styles)(Entries)
