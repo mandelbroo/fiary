@@ -17,6 +17,7 @@ export default class Entries extends React.Component {
   render() {
     if (this.state.redirectId) {
       const path = `/entry/${this.state.redirectId}`
+      this.props.history.push(path)
       return this.props.redirect(path)
     }
     return <div>{

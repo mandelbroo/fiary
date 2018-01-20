@@ -27,10 +27,15 @@ describe('Entries component', () => {
   })
   it('clicking on day entry redirects to its page', async () => {
     const fakeRedirect = jest.fn().mockReturnValue('redirect...')
-    const wrapper = mount(<Entries entry={fakeEntry} redirect={fakeRedirect} />)
+    const fakeHistory = {
+      push: jest.fn()
+    }
+    const wrapper = mount(
+      <Entries entry={fakeEntry} redirect={fakeRedirect} history={fakeHistory}/>)
     await promise
     wrapper.update()
     wrapper.find(DayTile).first().simulate('click')
     expect(fakeRedirect).toBeCalledWith('/entry/24')
+    expect(fakeHistory.push).toBeCalledWith('/entry/24')
   })
 })

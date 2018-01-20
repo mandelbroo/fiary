@@ -13,7 +13,8 @@ import { Redirect } from "react-router-dom"
 const About = () => <h3>About Us</h3>
 const NoMatch = () => <h3>404</h3>
 const EntryPage = ({match}) => <RecordDay id={match.params.entryId} />
-const EntriesPage = () => <Entries redirect={(path) => <Redirect to={path} />} />
+const EntriesPage = (params) =>
+  <Entries redirect={(path) => <Redirect to={path} />} history={params.history}/>
 
 const routes = [
   { path: '/', component: Home, exact: true },
