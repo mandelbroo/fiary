@@ -16,7 +16,6 @@ jest.mock('axios', () => {
 import Base from './base'
 import Session from '../services/session'
 import axios from 'axios'
-import config from '../config/default'
 
 describe('Base model', () => {
   it('static .config returns proper values', () => {
