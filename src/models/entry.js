@@ -10,14 +10,15 @@ export default class Entry extends Base {
 
   static get endpoint() {return 'entries'}
 
-  save = () => {
-    const client = axios.create({...this.config})
-    return client.post(Entry.endpoint, {
-      id: this.id,
-      records: this.records,
-      day: this.day,
-    })
-  }
+  save = () => axios.post(
+      Entry.endpoint,
+      {
+        id: this.id,
+        records: this.records,
+        day: this.day,
+      },
+      { ...this.config }
+    )
 
   static getTodayEntry = () => {
     return Entry.get(`${Entry.endpoint}/${DateTime.local().toISODate()}`)
