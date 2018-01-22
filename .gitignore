@@ -24,3 +24,5 @@ yarn-error.log*
 /tmp
 
 TODO
+
+/src/__snapshots__

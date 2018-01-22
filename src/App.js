@@ -1,6 +1,6 @@
 import React from 'react'
 import RouterRender from './router-render'
-import {Link} from 'react-router-dom'
+import {BrowserRouter, Route, Link} from 'react-router-dom'
 import {Logo, Navbar} from './components'
 import Session from './services/session'
 import './App.css'
@@ -40,12 +40,16 @@ const Authorized = (
   </div>
 )
 
-export default class App extends React.Component {
-  render() {
-    const user = Session.getUser()
-    if (user)
-      return Authorized
-    else
-      return Guest
-  }
+export class App extends React.Component {
+  render = () => Session.getUser() ? Authorized : Guest
 }
+
+class RouteApp extends React.Component {
+  render = () => (
+    <BrowserRouter>
+      <Route component={App} />
+    </BrowserRouter>
+  )
+}
+
+export default RouteApp
