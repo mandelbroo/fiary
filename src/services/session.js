@@ -35,7 +35,7 @@ export class Store {
     return `${sessionStorage.origin}-${value}`
   }
   static setItem (key, value) {
-    return localStorage.setItem(this.getKeyName(key), value)
+    localStorage.setItem(this.getKeyName(key), value)
   }
   static getItem(key) {
     return localStorage.getItem(this.getKeyName(key))

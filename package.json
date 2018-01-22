@@ -57,6 +57,7 @@
     "coveralls": "^3.0.0",
     "dotenv": "^4.0.0",
     "jest": "^21.2.1",
+    "jest-localstorage-mock": "^2.2.0",
     "supertest": "^3.0.0"
   }
 }
