@@ -2,33 +2,33 @@ const Entry = require('../models/entry')
 const apiRes = require('./api-response')
 
 module.exports = {
-  getAll: (req, res) => {
-    req.currentUserPromise
-      .then(user => {
-        Entry
-          .query(qb => {
-            qb.groupBy('entries.id')
-            qb.where('entries.user_id', '=', user.id)
-          })
-          .fetchPage({
-            pageSize: 15,
-            page: 1,
-            withRelated: ['records', 'records.tags']
-          })
-          .then(entries => {
-            res.send(apiRes(entries))
-          })
+  getAll: async (req, res) => {
+    const user = await req.currentUserPromise
+    Entry
+      .query(qb => {
+        qb.groupBy('entries.id')
+        qb.where('entries.user_id', '=', user.id)
+      })
+      .fetchPage({
+        pageSize: 15,
+        page: 1,
+        withRelated: ['records', 'records.tags']
+      })
+      .then(entries => {
+        res.send(apiRes(entries))
       })
   },
   getById: async (req, res) => {
+    const user = await req.currentUserPromise
     const entry = await Entry
-      .where({id: req.params.id})
+      .where({id: req.params.id, user_id: user.id})
       .fetch({withRelated: ['records','records.tags']})
     res.send(entry)
   },
   getIdByDate: async (req, res) => {
+    const user = await req.currentUserPromise
     const entry = await Entry
-      .where({day: req.params.isoDate})
+      .where({day: req.params.isoDate, user_id: user.id})
       .fetch({withRelated: ['records','records.tags']})
       .catch(err => {
         if (err.message === 'EmptyResponse')
