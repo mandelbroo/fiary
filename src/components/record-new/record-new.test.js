@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../config/enzyme'
 import { shallow, mount } from 'enzyme'
-import RecordNew from './record-new'
+import { RecordNew } from './record-new'
 
 describe('RecordNew', () => {
   it('envoke submit callback', () => {

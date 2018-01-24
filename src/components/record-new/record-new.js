@@ -1,8 +1,9 @@
 import React from 'react'
 import Tagger from '../tagger/tagger'
 import TagsFinder from '../../services/tags-finder'
+import injectSheet from 'react-jss'
 
-export default class RecordNew extends React.Component {
+export class RecordNew extends React.Component {
   get divider() {return ' '}
   state = this.props.data
     ? this.props.data
@@ -10,6 +11,7 @@ export default class RecordNew extends React.Component {
       amount: '',
       income: false
     }
+  classes = this.props.classes || {}
 
   onSubmit = (event) => {
     event.preventDefault()
@@ -25,9 +27,13 @@ export default class RecordNew extends React.Component {
   tagsChange = (newState) => this.setState({tags: newState})
 
   render() {
+    const symbolClass = this.state.income ? this.classes.plus : this.classes.minus
     return (<form onSubmit={this.onSubmit}>
-        <input type='checkbox' checked={this.state.income}
-          onChange={({target}) => this.setState({income: target.checked})} />
+        <label className={symbolClass}>
+          <input type='checkbox' checked={this.state.income}
+            className={this.classes.check}
+            onChange={({target}) => this.setState({income: target.checked})} />
+        </label>
         <input type='number' step='0.01' min='0.01' placeholder='amount' required
           value={this.state.amount}
           onChange={({target}) => this.setState({amount: target.value})} />
@@ -36,3 +42,22 @@ export default class RecordNew extends React.Component {
       </form>)
   }
 }
+
+const style = {
+  plus: {
+    '&::after': {
+      color: 'green',
+      content: '"+ "'
+    }
+  },
+  minus: {
+    '&::after': {
+      content: '"− "'
+    }
+  },
+  check: {
+    height: '0px',
+    width: '0px'
+  }
+}
+export default injectSheet(style)(RecordNew)
