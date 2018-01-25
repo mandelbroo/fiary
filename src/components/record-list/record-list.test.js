@@ -19,4 +19,8 @@ describe('RecordList', () => {
     expect(recordViews.first().props().data).toMatchObject(data[0])
     expect(recordViews.last().props().data).toMatchObject(data[1])
   })
+  it('show "no records" text', () => {
+    const wrap = mount(<RecordList data={[]}/>)
+    expect(wrap.find('span').text()).toBe('no records yet')
+  })
 })
