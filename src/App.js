@@ -6,7 +6,7 @@ import Session from './services/session'
 import './App.css'
 
 const Footer = () => (
-  <footer>made by vitalii@funemployed</footer>
+  <footer className="w3-bottom">made by vitalii@funemployed</footer>
 )
 
 const Guest = (
@@ -36,7 +36,6 @@ const Authorized = (
     <div className='content'>
       <RouterRender />
     </div>
-    <Footer/>
   </div>
 )
 
