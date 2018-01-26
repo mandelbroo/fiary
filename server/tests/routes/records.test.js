@@ -1,8 +1,9 @@
 const server = require('../../app').listen()
 const app = require('supertest').agent(server)
-const {postRecords} = require('../../routes/records')
 const User = require('../../models/user')
+const Entry = require('../../models/entry')
 const jwtGenerate = require('../../utils/jwt-generate')
+const {DateTime} = require('luxon')
 
 describe('records route', () => {
   afterAll(async () => {
@@ -18,28 +19,26 @@ describe('records route', () => {
         password: 'Supersecret098'
       })
       token = jwtGenerate(citizen.attributes)
+      entry = await Entry.create({
+        userId: citizen.id,
+        day: DateTime.local().toISODate()
+      })
     })
 
-    it('successfully add records', done => {
-      app.post('/api/entries')
+    it('successfully add record', done => {
+      app.post('/api/records')
         .send({
-          records:[
-            {amount: 20, tags:[
-              {id: -1, name: Date.now().toString()}
-            ]},
-            {amount: 10, tags:[
-              {id: -1, name: Date.now().toString() + 1},
-              {id: -2, name: Date.now().toString() + 2}
-            ], income: true}
-          ],
-          day: '2018-01-02'
+          entryId: entry.id,
+          amount: 20,
+          income: false,
+          tags: [{ id: -1, name: Date.now().toString() }]
         })
         .set('Authorization', token)
-        .expect(200)
-        .end((err, {body}) => {
-          expect(body.success).toBeTruthy()
-          done(err)
-        })
+          .expect(200)
+          .end((err, res) => {
+            expect(res.body.success).toBeTruthy()
+            done(err)
+          })
     })
   })
 })

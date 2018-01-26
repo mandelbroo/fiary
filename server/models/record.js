@@ -5,6 +5,9 @@ const Tag = require('./tag')
 
 class Record extends Base {
   get tableName() {return 'records'}
+  get amount() { return this.attributes.amount }
+  get entryId() { return this.attributes.entryId }
+  get income() { return (this.kind || this.attributes.kind) === 'income' ? true : false }
 
   entry() { return this.belongsTo(Entry) }
   recordsTags() { return this.hasMany(RecordTag) }

@@ -14,7 +14,8 @@ api.use(authorize)
 api.get('/entries', entriesController.getAll)
 api.get('/entries/:id(\\d+)/', entriesController.getById)
 api.get('/entries/:isoDate(\\d{4}-\\d{2}-\\d{2})/', entriesController.getIdByDate)
-api.post('/entries', require('./records').post)
+
+api.post('/records', require('./records').post)
 
 api.get('/users', require('./users'))
 

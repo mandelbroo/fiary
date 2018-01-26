@@ -1,17 +1,15 @@
 const recordsAdd = require('../services/records-add')
+const Record = require('../models/record')
 
 exports.post = (req, res, next) => {
-  req.currentUserPromise.then(user => {
-    const data = Object.assign({user: user}, req.body)
-    recordsAdd.execute(data)
-      .then(entry => {
-        res.send({success: true, message: 'records added'})
+  recordsAdd.execute(req.body)
+    .then(record => {
+      res.send({
+        success: true,
+        record: record
       })
-      .catch(err => {
-        if (err instanceof recordsAdd.Error)
-          res.status(422).send({success: false, message: err.message})
-        else
-          next(err)
-      })
-  })
+    })
+    .catch(err => {
+      res.status(422).send({success: false, message: err.message})
+    })
 }

@@ -4,6 +4,7 @@ const RecordTag = require('./record-tag')
 
 class Tag extends Base {
   get tableName() {return 'tags'}
+  get name() { return this.attributes.name }
 
   recordsTags() { return this.hasMany(RecordTag) }
   records() { return this.belongsToMany(Record).through(RecordTag) }
