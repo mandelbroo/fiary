@@ -27,7 +27,6 @@ function validate(data) {
 
 async function create(data) {
   const attrs = {
-    id: data.id,
     amount: data.amount,
     entryId: data.entryId,
     kind: data.income ? 'income' : 'expense'
