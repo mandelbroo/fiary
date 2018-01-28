@@ -2,7 +2,7 @@ const jwtGenerate = require('../../utils/jwt-generate')
 const Entry = require('../../models/entry')
 const User = require('../../models/user')
 const server = require('../../app').listen()
-const request = require('supertest').agent(server)
+const app = require('supertest').agent(server)
 const {DateTime} = require('luxon')
 
 describe('entries', () => {
@@ -37,8 +37,7 @@ describe('entries', () => {
   })
 
   it('get /api/entries', done => {
-    request
-      .get('/api/entries')
+    app.get('/api/entries')
       .set('Authorization', token)
       .expect(200)
       .end((err, {body}) => {
@@ -49,5 +48,17 @@ describe('entries', () => {
         expect(body.collection.length).toEqual(2)
         done(err)
     })
+  })
+  it('get /api/entries/:isoDate', done => {
+    app.get('/api/entries/2015-01-01')
+      .set('Authorization', token)
+      .expect(200)
+      .end((err, {body}) => {
+        expect(body).toBeDefined()
+        expect(body.id).toBeDefined()
+        expect(body.userId).toBeDefined()
+        expect(body.day).toBeDefined()
+        done()
+      })
   })
 })

@@ -27,13 +27,18 @@ module.exports = {
   },
   getIdByDate: async (req, res) => {
     const user = await req.currentUserPromise
-    const entry = await Entry
+    let entry = await Entry
       .where({day: req.params.isoDate, user_id: user.id})
       .fetch({withRelated: ['records','records.tags']})
       .catch(err => {
         if (err.message === 'EmptyResponse')
           return null
         throw err
+      })
+    if (!entry)
+      entry = await Entry.create({
+        day: req.params.isoDate,
+        userId: user.id
       })
     res.send(entry)
   }
