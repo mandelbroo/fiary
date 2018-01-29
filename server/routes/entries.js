@@ -6,8 +6,8 @@ module.exports = {
     const user = await req.currentUserPromise
     Entry
       .query(qb => {
-        qb.groupBy('entries.id')
         qb.where('entries.user_id', '=', user.id)
+        qb.orderBy('entries.id', 'DESC')
       })
       .fetchPage({
         pageSize: 15,
