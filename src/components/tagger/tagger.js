@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {jss} from 'react-jss'
 
 export default class Tagger extends Component {
   state = {
@@ -6,22 +7,25 @@ export default class Tagger extends Component {
     currentValue: '',
     suggestions: []
   }
+  classes = jss.createStyleSheet(style).attach().classes
 
   add = (event) => {
-    event.preventDefault()
-    const val = this.state.currentValue
-    if (val && val.length > 0) {
-      const newTag = {
-        id: - (this.state.tags.length + 1),
-        name: val
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      const val = this.state.currentValue
+      if (val && val.length > 0) {
+        const newTag = {
+          id: - (this.state.tags.length + 1),
+          name: val
+        }
+        const newTags = this.state.tags.concat([newTag])
+        this.setState({
+          tags: newTags,
+          currentValue: ''
+        })
+        if (this.props.onChange)
+          this.props.onChange(newTags)
       }
-      const newTags = this.state.tags.concat([newTag])
-      this.setState({
-        tags: newTags,
-        currentValue: ''
-      })
-      if (this.props.onChange)
-        this.props.onChange(newTags)
     }
   }
 
@@ -44,7 +48,7 @@ export default class Tagger extends Component {
       this.props.onChange(newTags)
   }
 
-  clear = () => this.setState({tags: []})
+  clear = () => this.setState({tags: [], currentValue: '', suggestions: []})
 
   pickSuggest = (tag) => {
     const newTags = this.state.tags.concat([tag])
@@ -59,29 +63,38 @@ export default class Tagger extends Component {
 
   render() {
     const tags = this.state.tags.map((tag, index) => (
-      <li key={index} id={tag.id}>
+      <span key={index} id={tag.id} onClick={() => {this.remove(tag.id)}}>
         {tag.name}
-        <a onClick={() => {this.remove(tag.id)}}>×</a>
-      </li>
+      </span>
     ))
     const suggestions = this.state.suggestions.map((tag, index) => (
-      <li key={index}>
-        <span className='suggest' onClick={() => {this.pickSuggest(tag)}}>
-          {tag.name}
-        </span>
-      </li>
+      <span key={index} className='suggest' onClick={() => {this.pickSuggest(tag)}}>
+        {tag.name}
+      </span>
     ))
     return (
-      <div>
-        <ul>
-          {tags}
-        </ul>
-        <input type='text' onChange={this.change} value={this.state.currentValue}/>
-        <button onClick={this.add}>Add</button>
-        <ul>
-          {suggestions}
-        </ul>
+      <div className={`${this.props.className} ${this.classes.main}`}>
+        {suggestions}
+        <input type='text'
+          placeholder='add new tag'
+          value={this.state.currentValue}
+          onChange={this.change}
+          onKeyDown={this.add} />
+        {tags}
       </div>
     )
+  }
+}
+
+const style = {
+  main: {
+    '& input': {
+      fontSize: 20,
+      width: '90%',
+      borderStyle: 'none',
+      '&:focus': {
+        outline: 'none'
+      }
+    }
   }
 }
