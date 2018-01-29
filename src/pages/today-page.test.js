@@ -3,6 +3,7 @@ import '../config/enzyme'
 import { shallow, mount } from 'enzyme'
 import TodayPage from './today-page'
 import { DateTime } from 'luxon'
+import RecordDay from '../components/record-day/record-day'
 
 describe('TodayPage', () => {
   it('check for today entry with NO result', () => {
@@ -29,9 +30,9 @@ describe('TodayPage', () => {
     const wrapper = mount(<TodayPage entry={fakeEntry}/>)
     expect(fakeEntry.getTodayEntry).toBeCalled()
     await promise
-    expect(wrapper.state('entry')).toBe(fakeRes.data)
+    expect(wrapper.state('entry')).toMatchObject(fakeRes.data)
     wrapper.update()
-    expect(wrapper.children().children().last().props().data).toBe(fakeRes.data)
+    expect(wrapper.find(RecordDay).props().data).toMatchObject(fakeRes.data)
   })
   it('show current date and week day based on day property', () => {
     const fakeEntry = {

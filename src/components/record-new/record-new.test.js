@@ -26,11 +26,14 @@ describe('RecordNew', () => {
   })
   it('clear state after done', () => {
     const wrapper = mount(<RecordNew onSubmit={()=>{}}/>)
+    const fakeEvent = {preventDefault: jest.fn()}
     wrapper.find('[type="checkbox"]').simulate('change', {target: {checked: true}})
     wrapper.find('[type="number"]').simulate('change', {target: {value: 22}})
-    wrapper.find('Tagger input').simulate('change', {target: {value: 'some-tag'}})
-    wrapper.find('Tagger button').simulate('click')
-    wrapper.find('form').simulate('submit', {preventDefault: ()=>{}})
+    const tagInput = wrapper.find('Tagger [type="text"]')
+    tagInput.simulate('change', {target: {value: 'some-tag'}})
+    tagInput.simulate('keyDown', {key: 'Enter'})
+    wrapper.find('form').simulate('submit', fakeEvent)
+    expect(fakeEvent.preventDefault).toBeCalled()
     expect(wrapper.state('income')).toBe(false)
     expect(wrapper.state('amount')).toBe('')
     expect(wrapper.state('tags')).toMatchObject([])

@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme'
 import RecordDay from './record-day'
 import RecordList from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
-import RecordView from '../record-view/record-view'
+import 'jest-localstorage-mock'
 
 
 describe('RecordDay', () => {
@@ -40,34 +40,36 @@ describe('RecordDay', () => {
     expect(wrapper.find('li').length).toBe(1)
   })
   it('calls provided API client on save pressed', async () => {
+    const fakeData = {
+      id: 594,
+      amount: 130,
+      entryId: 232,
+      income: false,
+      tags: [{name: 'burger'}, {name: 'mcdonalds'}]
+    }
     const fakeRes = {
       success: true,
-      entry: {
-        id: 256,
-        createdAt: '2017-12-06 18:36:12',
-        records: [
-          {id: 593, amount: 25, tags: ['soap']},
-          {id: 594, amount: 130, tags: ['burget', 'mcdonalds']},
-        ]
-      }
+      record: fakeData
     }
-    let saveCalled = false
     let promise = {}
-    class fakeEntry {
-      constructor(data) {
-        this.id = data.id
-        this.records = data.records
-      }
-      save = () => {
-        saveCalled = true
-        return promise = Promise.resolve(fakeRes)
-      }
+    const  fakeRecord = {
+      save: jest.fn().mockImplementation(() => promise = Promise.resolve(fakeRes))
     }
-    const wrapper = shallow(<RecordDay entry={fakeEntry} />)
-    wrapper.find('.saveButton').simulate('click')
-    expect(saveCalled).toBe(true)
+    const fakeEvent = {preventDefault: jest.fn()}
+    const wrapper = mount(<RecordDay record={fakeRecord} />)
+    wrapper.find('[type="number"]').simulate('change', {target: {value: fakeData.amount}})
+
+    const tagInput = wrapper.find('Tagger [type="text"]')
+    tagInput.simulate('change', {target: {value: fakeData.tags[0].name}})
+    tagInput.simulate('keyDown', {preventDefault: jest.fn(), key: 'Enter'})
+    tagInput.simulate('change', {target: {value: fakeData.tags[1].name}})
+    tagInput.simulate('keyDown', {preventDefault: jest.fn(), key: 'Enter'})
+
+    wrapper.find('form').simulate('submit', fakeEvent)
+    expect(fakeRecord.save).toBeCalled()
+    expect(fakeEvent.preventDefault).toBeCalled()
     await promise
-    expect(wrapper.state()).toMatchObject(fakeRes.entry)
+    expect(wrapper.state('records')).toMatchObject([fakeRes.record])
   })
   it('load records by provided entry id', async () => {
     let promise = {}
