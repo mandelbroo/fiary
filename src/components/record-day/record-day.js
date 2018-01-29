@@ -2,6 +2,8 @@ import React from 'react'
 import RecordList from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
 import Entry from '../../models/entry'
+import Record from '../../models/record'
+import { DateTime } from 'luxon'
 
 export default class RecordDay extends React.Component {
   state = this.props.data
@@ -11,6 +13,7 @@ export default class RecordDay extends React.Component {
         day: this.props.day,
         records: []
       }
+  record = this.props.record || Record
   entry = this.props.entry || Entry
   recIndex = -1
 
@@ -21,28 +24,33 @@ export default class RecordDay extends React.Component {
     }
   }
 
-  add = (record) => {
+  add = async (record) => {
+    const finalRecord = {...record, entryId: this.state.id, id: this.recIndex }
     this.setState({
       ...this.state,
-      records: this.state.records.concat([{id: this.recIndex, ...record}])
+      records: this.state.records.concat([finalRecord])
     })
     this.recIndex--
+    const res = await this.record.save(finalRecord)
+    if (res.success) {
+      this.replaceOldRecord(res.record, record)
+    }
+  }
+
+  replaceOldRecord = (newRecord, oldRecord) => {
+    let newState = {
+      records: [
+        ...this.state.records.filter(r => r === oldRecord),
+        newRecord
+      ]
+    }
+    if (this.state.id < 1) { newState.id = newRecord.entryId }
+    this.setState(newState)
   }
 
   remove = (item) => {
-    const newRecords = this.state.records.filter(record => record.id !== item.id)
+    const newRecords = this.state.records.filter(r => r.id !== item.id)
     this.setState({records: newRecords})
-  }
-
-  save = async () => {
-    const entry = new this.entry({
-      ...this.state,
-      id: this.state.id > 0 ? this.state.id : null
-    })
-    const res = await entry.save()
-    if (res.success) {
-      this.setState(res.entry)
-    }
   }
 
   componentWillReceiveProps = (newProps) => {
@@ -56,12 +64,15 @@ export default class RecordDay extends React.Component {
   }
 
   render = () => {
+    const weekday = DateTime.fromISO(this.state.day).weekdayLong
     return (
       <div>
+        <h1>{weekday}</h1>
         <h5>{this.state.day}</h5>
         <RecordList data={this.state.records} onRemove={this.remove} />
-        <RecordNew onSubmit={this.add} />
-        <button className='saveButton' onClick={this.save}>Save</button>
+        <div className="w3-bottom">
+          <RecordNew onSubmit={this.add} />
+        </div>
       </div>
     )
   }

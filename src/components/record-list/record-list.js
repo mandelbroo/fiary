@@ -9,14 +9,11 @@ const style = {
   },
   noRecords: {
     color: 'lightgrey'
+  },
+  listItem: {
+    padding: '5px'
   }
 }
-
-const ItemView = (item, index) =>
-  <li key={index}>
-    <RecordView data={item}/>
-    <a onClick={() => {this.props.onRemove(item)}}>×</a>
-  </li>
 
 const NoRecords = (className) => <span className={className}>no records yet</span>
 
@@ -25,7 +22,11 @@ export class RecordList extends React.Component {
 
   render() {
     const items = this.props.data ? [].concat(this.props.data) : []
-    const records = items.map(ItemView)
+    const records = items.map((item, index) => {
+      return (<li key={index} className={this.classes.listItem}>
+        <RecordView data={item} />
+      </li>)
+    })
     const content = records.length > 0 ? records : NoRecords(this.classes.noRecords)
     return (<ul className={ this.classes.list }>
         { content }
