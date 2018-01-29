@@ -4,17 +4,16 @@ import { shallow } from 'enzyme'
 import Tagger from './tagger'
 
 const addTagSimulate = (wrapper, tagName) => {
-  wrapper.find('input').simulate('change', { target: { value: tagName } })
-  wrapper.find('button').simulate('click', { preventDefault: () => { } })
+  const input = wrapper.find('input')
+  input.find('input').simulate('change', { target: { value: tagName } })
+  input.simulate('keyDown', {preventDefault: jest.fn(), key: 'Enter'})
 }
 
 describe('Tagger', () => {
-  it('initial render', () => {shallow(<Tagger />)})
-  it('contain input and button', () => {
+  it('contain input', () => {
     const wrapper = shallow(<Tagger />)
     expect(wrapper.containsAllMatchingElements([
-      <input type='text' />,
-      <button>Add</button>
+      <input type='text' />
     ])).toBe(true)
   })
   it('set tags with prop', () => {
@@ -31,15 +30,15 @@ describe('Tagger', () => {
     const wrapper = shallow(<Tagger />)
     addTagSimulate(wrapper, 'tag1')
     addTagSimulate(wrapper, 'tag2')
-    const lis = wrapper.find('li')
-    expect(lis.first().props().children[0]).toBe('tag1')
-    expect(lis.last().props().children[0]).toBe('tag2')
+    const spans = wrapper.find('span')
+    expect(spans.first().props().children).toBe('tag1')
+    expect(spans.last().props().children).toBe('tag2')
   })
   it('remove tag', () => {
     const tags = [{id: 1, name:'one'}, {id: 2, name:'two'}, {id: 3, name:'three'}]
     const wrapper = shallow(<Tagger tags={tags}/>)
-    wrapper.find('li a').first().simulate('click')
-    expect(wrapper.find('li').length).toBe(2)
+    wrapper.find('span').first().simulate('click')
+    expect(wrapper.find('span').length).toBe(2)
     expect(wrapper.state('tags').map(tag => tag.id)).toMatchObject([2, 3])
   })
   it('add tag calling onChange', () => {
@@ -52,19 +51,16 @@ describe('Tagger', () => {
     addTagSimulate(wrapper, 'added')
   })
   it('remove tag calling onChange', () => {
-    expect.assertions(2)
-    const change = (tags) => {
-      expect(tags.length).toBe(1)
-      expect(tags[0].name).toBe('second')
-    }
+    const change = jest.fn()
     const tags = [{id: 1, name: 'first'}, {id: 2, name: 'second'}]
     const wrapper = shallow(<Tagger tags={tags} onChange={change} />)
-    wrapper.find('li a').first().simulate('click')
+    wrapper.find('span').first().simulate('click')
+    expect(change).toBeCalledWith([tags[1]])
   })
   it('do not add empty tag', () => {
     const wrapper = shallow(<Tagger />)
     addTagSimulate(wrapper, '')
-    expect(wrapper.find('li').length).toBe(0)
+    expect(wrapper.find('span').length).toBe(0)
   })
   it('call fake tag service', async () => {
     jest.useFakeTimers()
