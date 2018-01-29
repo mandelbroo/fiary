@@ -12,17 +12,19 @@ export default class Entries extends React.Component {
       this.setState({entries: res.data.collection})
   }
 
-  click = (id) => this.setState({ redirectId: id })
+  click = (id) => {
+    const path = `/entry/${id}`
+    this.props.history.push(path)
+    this.setState({ redirectPath: path })
+  }
 
   render() {
-    if (this.state.redirectId) {
-      const path = `/entry/${this.state.redirectId}`
-      this.props.history.push(path)
-      return this.props.redirect(path)
+    if (this.state.redirectPath) {
+      return this.props.redirect(this.state.redirectPath)
     }
     return <div>{
-      this.state.entries
-        .map((entry, ix) => <DayTile entry={entry} click={this.click} key={ix}/>)
+      this.state.entries.map((entry, ix) =>
+        <DayTile entry={entry} click={this.click} key={ix}/>)
     }</div>
   }
 }
