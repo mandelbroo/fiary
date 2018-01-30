@@ -2,7 +2,7 @@ import React from 'react'
 import RouterRender from './router-render'
 import {BrowserRouter, Route, Link} from 'react-router-dom'
 import {Logo, Navbar} from './components'
-import TabBar from './components/tab-bar/tab-bar'
+import Authorized from './components/authorized/authorized'
 import Session from './services/session'
 import './App.css'
 
@@ -27,21 +27,8 @@ const Guest = (
   </div>
 )
 
-const Authorized = (
-  <div className="App">
-    <div>
-      <Link to='/'>fiary</Link>
-      <Link to='/logout'>Logout</Link>
-    </div>
-    <TabBar />
-    <div className='content'>
-      <RouterRender />
-    </div>
-  </div>
-)
-
 export class App extends React.Component {
-  render = () => Session.getUser() ? Authorized : Guest
+  render = () => Session.getUser() ? <Authorized /> : Guest
 }
 
 class RouteApp extends React.Component {
