@@ -2,6 +2,7 @@ import React from 'react'
 import RouterRender from './router-render'
 import {BrowserRouter, Route, Link} from 'react-router-dom'
 import {Logo, Navbar} from './components'
+import TabBar from './components/tab-bar/tab-bar'
 import Session from './services/session'
 import './App.css'
 
@@ -32,7 +33,7 @@ const Authorized = (
       <Link to='/'>fiary</Link>
       <Link to='/logout'>Logout</Link>
     </div>
-    <Navbar />
+    <TabBar />
     <div className='content'>
       <RouterRender />
     </div>
