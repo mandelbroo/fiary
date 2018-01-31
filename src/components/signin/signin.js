@@ -1,12 +1,14 @@
 import React from 'react'
 import User from '../../models/user'
+import { jss } from 'react-jss'
+import styles from './styles'
 
 export default class Signin extends React.Component {
   state = {
     email: '',
     password: ''
   }
-
+  style = jss.createStyleSheet(styles).attach().classes
   user = this.props.user || User  // DI for tests
 
   change = ({target}) => {
@@ -41,25 +43,24 @@ export default class Signin extends React.Component {
   }
 
   render() {
+    const inputClass = `w3-input w3-round-large ${this.style.publicInput}`
+    const buttonClass = `w3-btn w3-round-large w3-border ${this.style.publicButton}`
     return (
       <div>
         <h3>Enter</h3>
-        <form onSubmit={this.submit}>
-          <div>
-            <input className="text-field" type="email" name="email"
-              onChange={this.change}
-              placeholder='Email'
-              autoComplete='email'
-              required />
-          </div>
-          <div>
-            <input className="text-field" type="password" name="password"
-              onChange={this.change}
-              placeholder='Password'
-              autoComplete='current-password'
-              required />
-          </div>
-          <input className="button-primary" type="submit" />
+        <form onSubmit={this.submit} className={this.style.publicForm}>
+          <input className={inputClass} type='email' name='email'
+            onChange={this.change}
+            placeholder='Email'
+            autoComplete='email'
+            required />
+          <input className={inputClass} type='password' name='password'
+            onChange={this.change}
+            placeholder='Password'
+            autoComplete='current-password'
+            required />
+          <input className={buttonClass}
+            type='submit' />
           {this.errorMessage
             ? <div name='error' style={{color: 'red'}}>{this.errorMessage}</div>
             : null
