@@ -1,8 +1,20 @@
-# fiary
-Your personal financial diary
+<p align="center">
+  <img width="100"
+  style="margin-left: 25px"
+  src="https://lh5.googleusercontent.com/XH1HtZnQbWQzy2TADwhQlpILncQwlt80MC9cJmFJBwDIMp1_m-wwzC5a-V0CUH16LqhDJhpdieQBxxuTDNLf=w1921-h972"
+  alt="fiary logo">
+</p>
+<p align="center" style="font-size: 28px;font-weight: bold;">fiary</p>
+<p align="center" style="font-size: 22px;">Your personal financial diary</p>
 
-[![Build Status](https://travis-ci.org/mandelbroo/fiary.svg?branch=master)](https://travis-ci.org/mandelbroo/fiary)
-[![codecov](https://codecov.io/gh/mandelbroo/fiary/branch/master/graph/badge.svg)](https://codecov.io/gh/mandelbroo/fiary)
+<p align="center">
+  <a href="https://travis-ci.org/mandelbroo/fiary">
+    <img src="https://travis-ci.org/mandelbroo/fiary.svg?branch=master" />
+  </a>
+  <a href="https://codecov.io/gh/mandelbroo/fiary">
+    <img src="https://codecov.io/gh/mandelbroo/fiary/branch/master/graph/badge.svg" />
+  </a>
+</p>
 
 
 #### Install Node Version Manager
