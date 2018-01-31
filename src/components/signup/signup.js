@@ -11,6 +11,7 @@ export default class Signup extends Component {
     passwordConfirm: ''
   }
   style = jss.createStyleSheet(styles).attach().classes
+  user = this.props.user || User
 
   handleChange = ({target}) => {
     let newState = {}
@@ -20,13 +21,15 @@ export default class Signup extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault()
-    const res = await User.signup({
+    const res = await this.user.signup({
       username: this.state.username,
       email: this.state.email,
       password: this.state.password
     })
-    const nextRoute = res.success ? '/' : '/signup'
-    this.props.history.push(nextRoute)
+    if (res.success)
+      this.props.history.push('/')
+    else
+      this.props.history.push('/signup', {error: res.message})
   }
 
   render() {
