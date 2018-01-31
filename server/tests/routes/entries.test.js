@@ -6,9 +6,6 @@ const app = require('supertest').agent(server)
 const {DateTime} = require('luxon')
 
 describe('entries', () => {
-  let citizen = {}
-  let token = ''
-
   afterAll(async () => {
     await Promise.all([
       Entry.connection.destroy(),
@@ -24,7 +21,7 @@ describe('entries', () => {
       password: 'Supersecret098'
     })
     token = jwtGenerate(citizen.attributes)
-    await Promise.all([
+    entries = await Promise.all([
       Entry.create({
         userId: citizen.id,
         day: DateTime.local().toISODate()
@@ -48,6 +45,18 @@ describe('entries', () => {
         expect(body.collection.length).toEqual(2)
         done(err)
     })
+  })
+  it('get /api/entries/:id', done => {
+    const entry = entries[0]
+    app.get('/api/entries/' + entry.id)
+      .set('Authorization', token)
+      .expect(200)
+      .end((err, {body}) => {
+        expect(body.id).toBe(entry.id)
+        expect(body.userId).toBe(entry.userId)
+        expect(body.day).toBe(entry.day)
+        done()
+      })
   })
   it('get /api/entries/:isoDate', done => {
     app.get('/api/entries/2015-01-01')
