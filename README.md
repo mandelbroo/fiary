@@ -1,7 +1,7 @@
 <p align="center">
   <img width="100"
   style="margin-left: 25px"
-  src="https://c1.staticflickr.com/5/4630/39986732582_6d7e9d8982.jpg"
+  src="https://c1.staticflickr.com/5/4711/40019127701_bc47fd41e5.jpg"
   alt="fiary logo">
 </p>
 <h1 align="center">fiary</h1>
