@@ -1,12 +1,19 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import '../../config/enzyme'
-import { mount } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import 'jest-localstorage-mock'
-import Authorized from './authorized'
+import { AuthorizedTest, Hamburger } from './authorized'
+import Sidebar from 'react-sidebar'
 
 describe('Sidebar', () => {
   it('mount ok', () => {
-    const wrapper = mount(<BrowserRouter><Authorized /></BrowserRouter>)
+    const wrapper = shallow(<AuthorizedTest />)
+  })
+  it('hamburger open sidebar', () => {
+    const wrapper = mount(<AuthorizedTest />)
+    expect(wrapper.find(Sidebar).props().open).toBe(false)
+    wrapper.find(Hamburger).simulate('click')
+    expect(wrapper.find(Sidebar).props().open).toBe(true)
   })
 })
