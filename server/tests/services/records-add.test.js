@@ -26,10 +26,10 @@ describe('recordsAdd', () => {
         userId: citizen.id,
         day: DateTime.local().toISODate()
       })
-      tags = [
-        await Tag.findOrCreate({name: 'someone'}),
-        await Tag.findOrCreate({name: 'returned'})
-      ]
+      tags = await Promise.all([
+        Tag.findOrCreate({name: 'someone'}),
+        Tag.findOrCreate({name: 'returned'})
+      ])
     })
 
     it('add record', async () => {
