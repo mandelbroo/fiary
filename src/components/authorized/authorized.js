@@ -20,12 +20,22 @@ const STYLE = {
         marginBottom: '8px'
       }
     }
+  },
+  hamburger: {
+    paddingLeft: '20px'
   }
 }
 
 const OVERRIDE = {
   overlay: { zIndex: 11},
   sidebar: { zIndex: 12}
+}
+
+class Hamburger extends React.Component {
+  classes = `w3-container w3-cell w3-bar-item w3-button ${this.props.classes}`
+
+  render = () =>
+    <span onClick={this.props.onClick} className={this.classes}>☰</span>
 }
 
 export default class Authorized extends React.Component {
@@ -35,6 +45,8 @@ export default class Authorized extends React.Component {
   onSetSidebarOpen = (open) => {
     this.setState({sidebarOpen: open})
   }
+
+  openSidebar = () => this.setState({sidebarOpen: true})
 
   get sidebarContent() {
     const classes = `w3-light-grey w3-bar-block ${this.style.side}`
@@ -57,7 +69,8 @@ export default class Authorized extends React.Component {
       styles={OVERRIDE}
     >
       <div className="App">
-        <TabBar />
+        <Hamburger onClick={this.openSidebar} classes={this.style.hamburger} />
+        <TabBar className='w3-cell' />
         <div className='content'>
           <RouterRender />
         </div>
