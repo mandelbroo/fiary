@@ -10,11 +10,14 @@ export default class TabBar extends React.Component {
   render() {
     const items = PATHS.map((item, index) =>
       <Link className='w3-bar-item w3-button'
-        key={index}
-        to={`/${item.path}`}>
+        key={index} to={`/${item.path}`}
+      >
         { item.name }
       </Link>
     )
-    return <div className='w3-bar w3-black'>{items}</div>
+    return (
+      <div className={`w3-bar w3-black ${this.props.className}`}>
+        { items }
+      </div>)
   }
 }
