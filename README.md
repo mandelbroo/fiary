@@ -1,11 +1,11 @@
 <p align="center">
   <img width="100"
   style="margin-left: 25px"
-  src="https://lh5.googleusercontent.com/XH1HtZnQbWQzy2TADwhQlpILncQwlt80MC9cJmFJBwDIMp1_m-wwzC5a-V0CUH16LqhDJhpdieQBxxuTDNLf=w1921-h972"
+  src="https://c1.staticflickr.com/5/4630/39986732582_6d7e9d8982.jpg"
   alt="fiary logo">
 </p>
-<p align="center" style="font-size: 28px;font-weight: bold;">fiary</p>
-<p align="center" style="font-size: 22px;">Your personal financial diary</p>
+<h1 align="center">fiary</h1>
+<h3 align="center">Your personal financial diary</h3>
 
 <p align="center">
   <a href="https://travis-ci.org/mandelbroo/fiary">
