@@ -41,7 +41,7 @@ export default class Authorized extends React.Component {
     return (
       <div className={classes}>
         <h3 className='w3-bar-item w3-button'>
-          <img src={logo}/>
+          <img src={logo} alt='fiary logo'/>
           fiary
         </h3>
         <Link className='w3-bar-item w3-button' to='/'>Home</Link>
