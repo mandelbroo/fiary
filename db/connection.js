@@ -1,15 +1,8 @@
-switch (process.env.NODE_ENV) {
-  case 'development':
-  case undefined:
-  case 'test':
-    require('dotenv').config()  // Load .env configs
-    break
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
 }
 
 const config = require('../knexfile.js')[process.env.NODE_ENV]
-let connection = require('knex')(config)
-connection.authenticate = function() {
-  return this.raw('SELECT 1 AS result')
-}
+const connection = require('knex')(config)
 
 module.exports = connection

@@ -6,13 +6,9 @@ const express = require('express')
       errorHandlers = require('./middleware/error-handlers'),
       compression = require('compression')
 
-switch (process.env.NODE_ENV) {
-  case 'development':
-    require('./scripts/dev-setup')(app)
-    break
-  case 'test':
-    require('dotenv').config()
-    break
+if (process.env.NODE_ENV !== 'production') {
+  require('./scripts/dev-setup')(app)
+  require('dotenv').config()
 }
 
 app.use('/static', express.static(path.resolve(__dirname, '../build/static')))
