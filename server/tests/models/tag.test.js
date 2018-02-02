@@ -38,7 +38,6 @@ describe('Tag model', () => {
     })
     it('return recordsTags', async () => {
       const result = (await tag.recordsTags().fetch()).first()
-      console.log(result.tagId)
       expect(result.id).toBe(recordTag.id)
       expect(result.recordId).toBe(recordTag.recordId)
       expect(result.tagId).toBe(recordTag.tagId)
