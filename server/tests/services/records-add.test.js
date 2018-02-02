@@ -42,7 +42,11 @@ describe('recordsAdd', () => {
       expect(record).toHaveProperty('id')
       expect(record.income).toEqual(true)
       expect(record.amount).toEqual(10)
-      expect(record.tags).toMatchObject(tags.map(t => ({id: t.id, name: t.name})))
+      expect(
+        record.tags.sort((a,b) => a.id - b.id)
+      ).toMatchObject(
+        tags.map(t => ({id: t.id, name: t.name})).sort((a,b) => a.id - b.id)
+      )
     })
     it('resolve tags properly', async () => {
       const data = {
@@ -57,7 +61,11 @@ describe('recordsAdd', () => {
       expect(record.id).toBeDefined()
       expect(record.entryId).toBe(data.entryId)
       expect(record.amount).toBe(data.amount)
-      expect(record.tags.map(t => t.name)).toMatchObject(data.tags.map(t => t.name))
+      expect(
+        record.tags.map(t => t.name).sort((a,b) => a < b)
+      ).toMatchObject(
+        data.tags.map(t => t.name).sort((a,b) => a < b)
+      )
     })
     it('error when empty object passed', async () => {
       try {
