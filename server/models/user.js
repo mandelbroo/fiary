@@ -1,20 +1,13 @@
+const { createModel } = require('./base')
 const bcrypt = require('bcrypt')
-const Base = require('./base')
-const Entry = require('./entry')
 
-class User extends Base {
-  get tableName() {return 'users'}
-
-  static encryptPassword(password) {
-    return bcrypt.hash(password, 10)
+const User = createModel('User', {
+  tableName: 'users',
+  entries: function () { return this.hasMany('Entry') },
+  isValidPass: function (password) {
+    return bcrypt.compareSync(password, this.get('password'))
   }
-
-  entries() {
-    return this.hasMany(Entry)
-  }
-  isValidPass(password) {
-    return bcrypt.compareSync(password, this.attributes.password)
-  }
-}
-
+}, {
+  encryptPassword: (password) => bcrypt.hash(password, 10)
+})
 module.exports = User

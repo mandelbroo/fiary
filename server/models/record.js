@@ -1,16 +1,17 @@
-const Base = require('./base')
-const Entry = require('./entry')
-const RecordTag = require('./record-tag')
-const Tag = require('./tag')
+const { createModel, bookshelf } = require('./base')
 
-class Record extends Base {
-  get tableName() {return 'records'}
-  get amount() { return this.attributes.amount }
-  get entryId() { return this.attributes.entryId }
-  get income() { return (this.kind || this.attributes.kind) === 'income' ? true : false }
+const Record = createModel('Record', {
+  tableName: 'records',
+  entry: function () { return this.belongsTo('Entry') },
+  recordsTags: function () { return this.hasMany('RecordTag') },
+  tags: function () { return this.belongsToMany('Tag').through('RecordTag') },
+  constructor: function() {
+    bookshelf.Model.apply(this, arguments)
+    Object.assign(this, this.attributes)
+    Object.defineProperty(this, 'income', {
+      get: () => this.get('kind') === 'income'
+    })
+  }
+})
 
-  entry() { return this.belongsTo(Entry) }
-  recordsTags() { return this.hasMany(RecordTag) }
-  tags() { return this.belongsToMany(Tag).through(RecordTag) }
-}
 module.exports = Record

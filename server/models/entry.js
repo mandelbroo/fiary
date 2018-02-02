@@ -1,11 +1,8 @@
-const Base = require('./base')
-const Record = require('./record')
+const { createModel } = require('./base')
 
-class Entry extends Base {
-  get tableName() { return 'entries' }
-  get day() { return this.attributes.day }
-  get userId() { return this.attributes.userId }
+const Entry = createModel('Entry', {
+  tableName: 'entries',
+  records: function () { return this.hasMany('Record') }
+})
 
-  records() { return this.hasMany(Record) }
-}
 module.exports = Entry

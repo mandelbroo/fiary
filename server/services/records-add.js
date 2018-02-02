@@ -1,4 +1,4 @@
-const Record  = require('../models/record')
+const { Record }  = require('../models')
 const knex    = require('../../db/connection')
 
 class RecordsServiceError extends Error {

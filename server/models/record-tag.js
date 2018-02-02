@@ -1,15 +1,9 @@
-const Base = require('./base')
-const Record = require('./record')
-const Tag = require('./tag')
+const { createModel } = require('./base')
 
-class RecordTag extends Base {
-  get tableName() {return 'records_tags'}
+const RecordTag = createModel('RecordTag', {
+  tableName: 'records_tags',
+  record: function () { return this.belongsTo('Record') },
+  tag: function () { return this.belongsTo('Tag') },
+})
 
-  record() {
-    return this.hasOne(Record)
-  }
-  tag() {
-    return this.hasOne(Tag)
-  }
-}
 module.exports = RecordTag

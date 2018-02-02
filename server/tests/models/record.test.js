@@ -1,6 +1,4 @@
-const Entry = require('../../models/entry')
-const Record = require('../../models/record')
-const User = require('../../models/user')
+const { Entry, Record, RecordTag, Tag, User } = require('../../models')
 
 describe('Record model', () => {
   it('endpoint is ok', () => {
@@ -8,27 +6,44 @@ describe('Record model', () => {
     expect(record.tableName).toBe('records')
   })
   it('income property ok', () => {
-    const record = new Record()
-    expect(record.income).toBe(false)
-    record.kind = 'income'
+    const record = new Record({kind: 'income'})
     expect(record.income).toBe(true)
   })
-  it.skip('return entry', async () => {
-    const user = await User.findOrCreate({
-      email: 'someone@s.co',
-      username: 'someone',
-      password: '1234'
+  describe('relations', () => {
+    beforeAll(async () => {
+      user = await User.findOrCreate({
+        email: 'someone@s.co',
+        username: 'someone',
+        password: '1234'
+      })
+      entry = await Entry.findOrCreate({
+        userId: user.id,
+        day: '2013-01-01'
+      })
+      record = await Record.findOrCreate({
+        entryId: entry.id,
+        amount: 10,
+        kind: 'income'
+      })
+      tag = await Tag.findOrCreate({
+        name: 'someTag'
+      })
+      recordTag = await RecordTag.findOrCreate({
+        recordId: record.id,
+        tagId: tag.id
+      })
     })
-    const entry = await Entry.findOrCreate({
-      userId: user.id,
-      day: '2013-01-01'
+    it('return entry', async () => {
+      const recordEntry = await record.entry().fetch()
+      expect(recordEntry.attributes).toMatchObject(entry.attributes)
     })
-    const record = await Record.create({
-      entryId: entry.id,
-      amount: 10,
-      kind: 'income'
+    it('return records-tags', async () => {
+      const recordTags = await record.recordsTags().fetch()
+      expect(recordTags.first().attributes).toMatchObject(recordTag.attributes)
     })
-    console.log(record)
-    expect(record.entry().fetch()).toBe(2)
+    it('return tags', async () => {
+      const tags = await record.tags().fetch()
+      expect(tags.first().attributes).toMatchObject(tag.attributes)
+    })
   })
 })

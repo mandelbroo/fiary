@@ -1,4 +1,5 @@
 const User = require('../../models/user')
+const Entry = require('../../models/entry')
 
 describe('User', () => {
   afterAll(done => User.connection.destroy(() => done()))
@@ -51,9 +52,10 @@ describe('User', () => {
     })
     describe('.entries', () => {
       it('is defined', () => expect(citizen.entries).toBeDefined())
-      it("returns user's entires", () => {
-        const entries = citizen.entries()
-        expect(entries.length).toEqual(0)
+      it("returns user's entires", async () => {
+        await Entry.create({userId: citizen.id, day: '2000-01-01'})
+        const entries = await citizen.entries().fetch()
+        expect(entries.length).toEqual(1)
       })
     })
   })
