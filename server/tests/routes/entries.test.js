@@ -58,16 +58,30 @@ describe('entries', () => {
         done()
       })
   })
-  it('get /api/entries/:isoDate', done => {
-    app.get('/api/entries/2015-01-01')
-      .set('Authorization', token)
-      .expect(200)
-      .end((err, {body}) => {
-        expect(body).toBeDefined()
-        expect(body.id).toBeDefined()
-        expect(body.userId).toBeDefined()
-        expect(body.day).toBeDefined()
-        done()
+  describe('get /api/entries/:isoDate', () => {
+    it('find entry', done => {
+      app.get('/api/entries/2017-05-15')
+        .set('Authorization', token)
+        .expect(200)
+        .end((err, {body}) => {
+          expect(body).toBeDefined()
+          expect(body.id).toBeDefined()
+          expect(body.userId).toBeDefined()
+          expect(body.day).toBeDefined()
+          done()
+        })
+      })
+    it('create entry if not exists', done => {
+      app.get('/api/entries/2015-01-02')
+        .set('Authorization', token)
+        .expect(200)
+        .end((err, {body}) => {
+          expect(body).toBeDefined()
+          expect(body.id).toBeDefined()
+          expect(body.userId).toBeDefined()
+          expect(body.day).toBeDefined()
+          done()
+        })
       })
   })
 })
