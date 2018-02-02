@@ -11,6 +11,12 @@ const Record = createModel('Record', {
     Object.defineProperty(this, 'income', {
       get: () => this.get('kind') === 'income'
     })
+    Object.defineProperty(this, 'amount', {
+      get: () => parseFloat(this.get('amount'))
+    })
+    Object.defineProperty(this, 'entryId', {
+      get: () => this.get('entryId')
+    })
   }
 })
 

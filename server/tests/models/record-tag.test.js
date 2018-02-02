@@ -31,11 +31,15 @@ describe('RecordTag model', () => {
     })
     it('return record', async () => {
       const result = await recordTag.record().fetch()
-      expect(result.attributes).toMatchObject(record.attributes)
+      expect(result.id).toBe(record.id)
+      expect(result.amount).toBe(record.amount)
+      expect(result.income).toBe(record.income)
+      expect(result.attributes.entryId).toBe(record.entryId)
     })
     it('return tag', async () => {
       const result = await recordTag.tag().fetch()
-      expect(result.attributes).toMatchObject(tag.attributes)
+      expect(result.id).toBe(tag.id)
+      expect(result.attributes.name).toBe(tag.name)
     })
   })
 })

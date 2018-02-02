@@ -12,8 +12,8 @@ describe('Record model', () => {
   describe('relations', () => {
     beforeAll(async () => {
       user = await User.findOrCreate({
-        email: 'someone@s.co',
-        username: 'someone',
+        email: 'record@testet',
+        username: 'record-tester',
         password: '1234'
       })
       entry = await Entry.findOrCreate({
@@ -34,16 +34,21 @@ describe('Record model', () => {
       })
     })
     it('return entry', async () => {
-      const recordEntry = await record.entry().fetch()
-      expect(recordEntry.attributes).toMatchObject(entry.attributes)
+      const result = await record.entry().fetch()
+      expect(result.attributes.id).toBe(entry.id)
+      expect(result.attributes.day).toBe(entry.day)
+      expect(result.attributes.userId).toBe(entry.userId)
     })
-    it('return records-tags', async () => {
-      const recordTags = await record.recordsTags().fetch()
-      expect(recordTags.first().attributes).toMatchObject(recordTag.attributes)
+    it('return recordsTags', async () => {
+      const result = (await record.recordsTags().fetch()).first()
+      expect(result.id).toBe(recordTag.id)
+      expect(result.recordId).toBe(recordTag.recordId)
+      expect(result.tagId).toBe(recordTag.tagId)
     })
     it('return tags', async () => {
-      const tags = await record.tags().fetch()
-      expect(tags.first().attributes).toMatchObject(tag.attributes)
+      const result = (await record.tags().fetch()).first()
+      expect(result.id).toBe(tag.id)
+      expect(result.name).toBe(tag.name)
     })
   })
 })
