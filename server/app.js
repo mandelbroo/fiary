@@ -11,10 +11,10 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+app.use(compression())
 app.use('/static', express.static(path.resolve(__dirname, '../build/static')))
 app.use(express.static(path.resolve(__dirname, '../build')))
 app.disable('x-powered-by')
-app.use(compression())
 app.use(cors())
 app.use(routes)
 app.use(errorHandlers)
