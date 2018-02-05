@@ -8,11 +8,12 @@ bookshelf.plugin('registry')
 
 bookshelf.model('Base', bookshelf.Model.extend({
   hasTimestamps: true,
-  connection: knex,
   constructor: function() {
     bookshelf.Model.apply(this, arguments)
     Object.assign(this, this.attributes)
   }
+}, {
+  connection: knex
 }))
 
 module.exports.createModel = (name, protoAttrs, classAttrs) =>
