@@ -18,6 +18,8 @@ const Record = createModel('Record', {
       get: () => this.get('entryId')
     })
   }
+}, {
+  dependents: ['recordsTags']
 })
 
 module.exports = Record

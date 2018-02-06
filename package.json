@@ -33,6 +33,7 @@
     "body-parser": "^1.17.2",
     "bookshelf": "^0.10.4",
     "bookshelf-camelcase": "https://github.com/mandelbroo/bookshelf-camelcase",
+    "bookshelf-cascade-delete": "^2.0.1",
     "bookshelf-modelbase": "^2.10.4",
     "compression": "^1.7.1",
     "cors": "^2.8.4",

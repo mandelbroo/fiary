@@ -1,6 +1,6 @@
 const server = require('../../app').listen()
 const app = require('supertest').agent(server)
-const { Entry, Record, Tag, User } = require('../../models')
+const { Entry, Record, RecordTag, Tag, User } = require('../../models')
 const jwtGenerate = require('../../utils/jwt-generate')
 const { DateTime } = require('luxon')
 
@@ -64,6 +64,8 @@ describe('records route', () => {
         amount: 10,
         kind: 'income'
       })
+      tag = await Tag.findOrCreate({name: 'exist'})
+      await RecordTag.create({recordId: record.id, tagId: tag.id})
     })
     it('successfully remove record', (done) => {
       app.delete('/api/records/' + record.id)

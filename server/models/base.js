@@ -5,6 +5,7 @@ bookshelf.plugin('bookshelf-camelcase')
 bookshelf.plugin('pagination')
 bookshelf.plugin(require('bookshelf-modelbase').pluggable)
 bookshelf.plugin('registry')
+bookshelf.plugin(require('bookshelf-cascade-delete'))
 
 bookshelf.model('Base', bookshelf.Model.extend({
   hasTimestamps: true,
