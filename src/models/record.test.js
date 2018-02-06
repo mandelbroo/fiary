@@ -5,7 +5,8 @@ jest.mock('../config/default', () => {
 })
 jest.mock('axios', () => {
   return {
-    post: jest.fn().mockImplementation(() => Promise.resolve({success: true}))
+    post: jest.fn().mockImplementation(() => Promise.resolve({success: true})),
+    delete: jest.fn().mockImplementation(() => Promise.resolve({success: true})),
   }
 })
 jest.mock('../services/session')
@@ -14,10 +15,10 @@ import Record from './record'
 import axios from 'axios'
 
 describe('Record model', () => {
-  it('.endpoint returns proper value', () => {
+  it('endpoint returns proper value', () => {
     expect(Record.endpoint).toBe('records')
   })
-  it('.save works good', async () => {
+  it('save works good', async () => {
     const data = {
       id: 242,
       entryId: 43,
@@ -27,6 +28,11 @@ describe('Record model', () => {
     }
     const res = await Record.save(data)
     expect(axios.post).toBeCalledWith('records', data, Record.config)
+    expect(res.success).toBe(true)
+  })
+  it('destroy is working', async () => {
+    const res = await Record.destroy(1234)
+    expect(axios.delete).toBeCalledWith(`${Record.endpoint}/1234`, Record.config)
     expect(res.success).toBe(true)
   })
 })
