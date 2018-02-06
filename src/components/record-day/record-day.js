@@ -50,6 +50,8 @@ export default class RecordDay extends React.Component {
 
   remove = (item) => {
     const newRecords = this.state.records.filter(r => r.id !== item.id)
+    if (item.id > 0)
+      this.record.destroy(item.id)
     this.setState({records: newRecords})
   }
 
