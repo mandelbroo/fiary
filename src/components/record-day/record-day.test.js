@@ -2,10 +2,16 @@ import React from 'react'
 import '../../config/enzyme'
 import { shallow, mount } from 'enzyme'
 import RecordDay from './record-day'
-import RecordList from '../record-list/record-list'
+import RecordList, { RemoveButton } from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
 import 'jest-localstorage-mock'
 
+const fakeData = {
+  records: [
+    {id: 12, income: true, amount: 100, tags: ['found', 'in-park']},
+    {id: 13, amount: 30, tags: ['beer', 'pravda']}
+  ]
+}
 
 describe('RecordDay', () => {
   it('render RecordList and RecordNew', () => {
@@ -16,15 +22,9 @@ describe('RecordDay', () => {
     ])).toBe(true)
   })
   it('render everything based on data prop', () => {
-    const entry = {
-      records: [
-        {income: true, amount: 100, tags: ['found', 'in-park']},
-        {amount: 30, tags: ['beer', 'pravda']}
-      ]
-    }
-    const wrapper = mount(<RecordDay data={entry} />)
+    const wrapper = mount(<RecordDay data={fakeData} />)
     expect(wrapper.find('li').length).toBe(2)
-    expect(wrapper.state('records')).toMatchObject(entry.records)
+    expect(wrapper.state('records')).toMatchObject(fakeData.records)
   })
   it('add record changes state', () => {
     const wrapper = mount(<RecordDay />)
@@ -90,5 +90,12 @@ describe('RecordDay', () => {
     expect(wrapper.state('records')).toBe(fakeRes.data.records)
     expect(wrapper.state('day')).toBe(fakeRes.data.day)
     expect(wrapper.state('id')).toBe(fakeRes.data.id)
+  })
+  it('remove record', () => {
+    const fakeRecord = { destroy: jest.fn() }
+    const wrapper = mount(<RecordDay data={fakeData} record={fakeRecord} />)
+    wrapper.find(RemoveButton).first().simulate('click')
+    expect(fakeRecord.destroy).toBeCalledWith(fakeData.records[0].id)
+    expect(wrapper.state('records')).toMatchObject([fakeData.records[1]])
   })
 })
