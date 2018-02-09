@@ -7,8 +7,6 @@ exports.post = (req, res) => {
     .catch(err => res.status(422).send({ success: false, message: err.message }))
 }
 exports.destroy = async (req, res, next) => {
-  if (!req.params.id)
-    res.status(422).send({ success: false, message: 'id not provided'})
   try {
     const result = await Record
       .where('id', parseInt(req.params.id))
