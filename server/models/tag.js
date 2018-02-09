@@ -7,12 +7,8 @@ const Tag = createModel('Tag', {
   constructor: function() {
     bookshelf.Model.apply(this, arguments)
     Object.assign(this, this.attributes)
-    Object.defineProperty(this, 'recordId', {
-      get: () => this.get('recordId')
-    })
-    Object.defineProperty(this, 'tagId', {
-      get: () => this.get('tagId')
-    })
+    this.getter('recordId', 'recordId')
+    this.getter('tagId', 'tagId')
   }
 })
 module.exports = Tag

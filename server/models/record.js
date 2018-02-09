@@ -8,15 +8,9 @@ const Record = createModel('Record', {
   constructor: function() {
     bookshelf.Model.apply(this, arguments)
     Object.assign(this, this.attributes)
-    Object.defineProperty(this, 'income', {
-      get: () => this.get('kind') === 'income'
-    })
-    Object.defineProperty(this, 'amount', {
-      get: () => parseFloat(this.get('amount'))
-    })
-    Object.defineProperty(this, 'entryId', {
-      get: () => this.get('entryId')
-    })
+    this.getter('amount', 'amount', parseFloat)
+    this.getter('entryId', 'entryId')
+    this.getter('income', 'kind', (value) => value === 'income')
   }
 }, {
   dependents: ['recordsTags']

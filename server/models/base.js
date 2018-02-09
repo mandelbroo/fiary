@@ -12,6 +12,14 @@ bookshelf.model('Base', bookshelf.Model.extend({
   constructor: function() {
     bookshelf.Model.apply(this, arguments)
     Object.assign(this, this.attributes)
+  },
+  getter: function(name, attrName, filter) {
+    Object.defineProperty(this, name, {
+      get: () => {
+        const value = this.get(attrName)
+        return filter ? filter(value) : value
+      }
+    })
   }
 }, {
   connection: knex
