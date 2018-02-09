@@ -1,50 +1,15 @@
 import React from 'react'
 import { jss } from 'react-jss'
-
-const STYLE = {
-  modal: {
-    width: '90%',
-    height: '25%',
-    marginTop: '50%',
-    zIndex: 11,
-    border: 'none',
-    display: 'block',
-    borderRadius: '3px',
-    '& section': {
-      top: '15%',
-      display: 'block',
-      width: '100%',
-      position: 'relative',
-    },
-    '& div': {
-      top: '30%',
-      position: 'relative',
-      '& button': {
-        display: 'table-cell'
-      }
-    }
-  },
-  shadow: {
-    zIndex: 10,
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    transition: 'opacity 0.3s ease-out, visibility 0.3s ease-out',
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-  },
-  show: {
-    display: 'block'
-  },
-  hide: {
-    display: 'none'
-  },
-}
+import STYLE from './dialog.style.js'
 
 export default class Dialog extends React.Component {
   state = { show: this.props.show }
   style = jss.createStyleSheet(STYLE).attach().classes
+
+  action = () => {
+    this.props.onAction()
+    this.hide()
+  }
 
   hide = () => {
     this.setState({ show: !this.state.show })
@@ -52,7 +17,11 @@ export default class Dialog extends React.Component {
       this.props.onClose()
   }
 
-  willHide = ({target}) => { if (target.className.includes('shadow')) this.hide() }
+  willHide = ({target}) => {
+    if (target.className.includes('shadow')) {
+      this.hide()
+    }
+  }
 
   componentWillReceiveProps = (newProps) => {
     if (this.state.show !== newProps.show) {
@@ -62,6 +31,9 @@ export default class Dialog extends React.Component {
 
   render = () => {
     const showClass = this.style[this.state.show ? 'show' : 'hide']
+    const actionButton = this.props.onAction
+      ? <button onClick={ this.action }>{ this.props.onActionText }</button>
+      : ''
     return (
       <div className={`${this.style.shadow} ${showClass}`} onClick={this.willHide}>
         <dialog className={this.style.modal}>
@@ -69,10 +41,8 @@ export default class Dialog extends React.Component {
             { this.props.children }
           </section>
           <div>
-            { this.props.onAction
-              ? <button onClick={ this.props.onAction }>{ this.props.onActionText }</button>
-              : '' }
-            <button className='close' onClick={ this.hide }>Close</button>
+            { actionButton }
+            <button onClick={ this.hide }>Close</button>
           </div>
         </dialog>
       </div>
