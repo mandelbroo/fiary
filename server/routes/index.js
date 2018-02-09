@@ -29,14 +29,9 @@ if (process.env.NODE_ENV === 'test') {
   })
 }
 main.get('/*', (req, res, next) => {
-  if (req.method === 'GET') {
-    if (process.env.NODE_ENV === 'test') res.send('sending index.html')
-    else {
-      res.sendFile(path.resolve(__dirname, '../../build/index.html'))
-      return
-    }
-  }
-  next()
+  req.method === 'GET'
+    ? res.sendFile(path.resolve(__dirname, '../../build/index.html'))
+    : next()
 })
 
 const router = express.Router()

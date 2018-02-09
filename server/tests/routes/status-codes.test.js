@@ -12,8 +12,9 @@ describe('status-codes', () => {
         .type('json')
         .send({})
         .expect(200)
-        .expect('Content-Type', 'text/html; charset=utf-8')
         .end((err, res) => {
+          const contentType = res.header['content-type'].toLowerCase()
+          expect(contentType).toBe('text/html; charset=utf-8')
           expect(res).toBeDefined()
           done(err)
         })
