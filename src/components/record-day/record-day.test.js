@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme'
 import RecordDay from './record-day'
 import RecordList, { RemoveButton } from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
+import Dialog from '../dialog/dialog'
 import 'jest-localstorage-mock'
 
 const fakeData = {
@@ -91,10 +92,11 @@ describe('RecordDay', () => {
     expect(wrapper.state('day')).toBe(fakeRes.data.day)
     expect(wrapper.state('id')).toBe(fakeRes.data.id)
   })
-  it.skip('remove record', () => {
+  it('remove record', () => {
     const fakeRecord = { destroy: jest.fn() }
-    const wrapper = mount(<RecordDay data={fakeData} record={fakeRecord} />)
+    const wrapper = mount(<RecordDay data={ fakeData } record={ fakeRecord } />)
     wrapper.find(RemoveButton).first().simulate('click')
+    wrapper.find(Dialog).find('button').first().simulate('click')
     expect(fakeRecord.destroy).toBeCalledWith(fakeData.records[0].id)
     expect(wrapper.state('records')).toMatchObject([fakeData.records[1]])
   })
