@@ -45,7 +45,7 @@ async function create(data) {
 
 async function saveTags(record, tags) {
   const unsaved = tags
-    .filter(t => !(t.id > 1))
+    .filter(t => !(t.id > 0))
     .map(t => ({name: t.name}))
 
   const saved = unsaved.length > 0
