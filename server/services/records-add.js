@@ -29,7 +29,7 @@ async function create(data) {
   const attrs = {
     amount: data.amount,
     entryId: data.entryId,
-    kind: data.income ? 'income' : 'expense'
+    income: data.income
   }
   const record = await Record.create(attrs)
   await saveTags(record, data.tags)

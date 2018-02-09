@@ -62,7 +62,7 @@ describe('records route', () => {
       record = await Record.create({
         entryId: entry.id,
         amount: 10,
-        kind: 'income'
+        income: true
       })
       tag = await Tag.findOrCreate({name: 'exist'})
       await RecordTag.create({recordId: record.id, tagId: tag.id})

@@ -10,7 +10,7 @@ const Record = createModel('Record', {
     Object.assign(this, this.attributes)
     this.getter('amount', 'amount', parseFloat)
     this.getter('entryId', 'entryId')
-    this.getter('income', 'kind', (value) => value === 'income')
+    this.getter('income', 'income')
   }
 }, {
   dependents: ['recordsTags']

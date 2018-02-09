@@ -19,7 +19,7 @@ describe('Tag model', () => {
       record = await Record.findOrCreate({
         entryId: entry.id,
         amount: 10,
-        kind: 'income'
+        income: true
       })
       tag = await Tag.findOrCreate({
         name: 'taggyTag'

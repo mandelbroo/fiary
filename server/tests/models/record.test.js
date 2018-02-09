@@ -6,7 +6,7 @@ describe('Record model', () => {
     expect(record.tableName).toBe('records')
   })
   it('income property ok', () => {
-    const record = new Record({kind: 'income'})
+    const record = new Record({income: true})
     expect(record.income).toBe(true)
   })
   describe('relations', () => {
@@ -23,7 +23,7 @@ describe('Record model', () => {
       record = await Record.findOrCreate({
         entryId: entry.id,
         amount: 10,
-        kind: 'income'
+        income: true
       })
       tag = await Tag.findOrCreate({
         name: 'someTag'
