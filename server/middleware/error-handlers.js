@@ -8,13 +8,6 @@ module.exports = [
       next(err)
     }
   },
-  function(err, req, res, next) {
-    if (err) {
-      next(err)
-    } else {
-      res.status(404).json({success: false, message: 'Not found', path: req.url})
-    }
-  },
   function (err, req, res, next) {
     if (process.env.NODE_ENV !== 'test')
       console.error(err.stack)
