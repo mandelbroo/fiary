@@ -28,10 +28,8 @@ if (process.env.NODE_ENV === 'test') {
     req.undefinet.method
   })
 }
-main.get('/*', (req, res, next) => {
-  req.method === 'GET'
-    ? res.sendFile(path.resolve(__dirname, '../../build/index.html'))
-    : next()
+main.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../build/index.html'))
 })
 
 const router = express.Router()
