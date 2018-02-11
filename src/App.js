@@ -7,7 +7,7 @@ import Session from './services/session'
 import './App.css'
 
 const Footer = () => (
-  <footer className="w3-bottom">made by vitalii@funemployed</footer>
+  <footer>made by vitalii@funemployed</footer>
 )
 
 const Guest = (
