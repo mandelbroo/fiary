@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode'
 
-const now = () => new Date().getTime() / 1000
+const now = () => Date.now().valueOf() / 1000
 
 export default class Session {
   static authorize(res) {
@@ -25,6 +25,14 @@ export default class Session {
   static logout() {
     Store.removeItem('token')
     Store.removeItem('user')
+  }
+  static get isValid() {
+    const token = this.authToken()
+    if (token) {
+      const decoded = jwtDecode(token)
+      return decoded.exp > now()
+    }
+    return false
   }
 }
 

@@ -5,6 +5,8 @@ import RouterRender from '../../router-render'
 import TabBar from '../tab-bar/tab-bar'
 import {jss} from 'react-jss'
 import logo from '../logo/logo.svg'
+import Session from '../../services/session'
+import Logout from '../logout/logout'
 
 const STYLE = {
   side: {
@@ -58,22 +60,24 @@ export default class Authorized extends React.Component {
       </div>)
   }
 
-  render = () => (
-    <Sidebar
-      sidebar={this.sidebarContent}
-      open={this.state.sidebarOpen}
-      onSetOpen={this.onSetSidebarOpen}
-      styles={OVERRIDE}
-    >
-      <div className="App">
-        <Hamburger onClick={this.openSidebar} classes={this.style.hamburger} />
-        <TabBar className='w3-cell' />
-        <div className='content'>
-          <RouterRender />
+  render = () => {
+    if (!Session.isValid)
+      return <Logout />
+    return (<Sidebar
+        sidebar={this.sidebarContent}
+        open={this.state.sidebarOpen}
+        onSetOpen={this.onSetSidebarOpen}
+        styles={OVERRIDE}
+      >
+        <div className="App">
+          <Hamburger onClick={this.openSidebar} classes={this.style.hamburger} />
+          <TabBar className='w3-cell' />
+          <div className='content'>
+            <RouterRender />
+          </div>
         </div>
-      </div>
-    </Sidebar>
-  )
+      </Sidebar>)
+  }
 }
 
 export class AuthorizedTest extends Authorized {
