@@ -43,6 +43,30 @@ describe('Session service', () => {
     expect(Session.authToken()).toBe(null)
     expect(Session.getUser()).not.toBeDefined()
   })
+  it('.isValid returns false if not authorized', () => {
+    expect(Session.isValid).toBe(false)
+  })
+  it('.isValid returns false if token is expired', () => {
+    const fakeUser = {
+      id: 99, username: 'expired-user'
+    }
+    Session.authorize({
+      token: jwt.sign({userId: fakeUser.id}, 'secret', {expiresIn: -86400}),
+      user: fakeUser
+    })
+    expect(Session.isValid).toBe(false)
+  })
+  it('.isValid returns true if authorized', () => {
+    const fakeUser = {
+      id: 88, username: 'valid-user'
+    }
+    Session.authorize({
+      ...fakeRes,
+      user: fakeUser
+    })
+    expect(Session.isValid).toBe(true)
+  })
+
   describe('Store object', () => {
     it('.getKeyName set session origin', () => {
       const key = Store.getKeyName('fakeKey')
