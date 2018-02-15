@@ -21,8 +21,8 @@ describe('RecordTag model', () => {
         amount: 10,
         income: true
       })
-      tag = await Tag.findOrCreate({
-        name: 'someTag'
+      tag = await Tag.create({
+        name: Date.now().toString()
       })
       recordTag = await RecordTag.findOrCreate({
         recordId: record.id,
