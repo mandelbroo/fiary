@@ -3,6 +3,10 @@ import { BrowserRouter } from 'react-router-dom'
 import '../../config/enzyme'
 import { shallow, mount } from 'enzyme'
 import 'jest-localstorage-mock'
+jest.mock('../../services/session', () => ({
+  isValid: jest.fn().mockImplementation(() => true),  // immitate authorized user
+  getUser: jest.fn()
+}))
 import { AuthorizedTest, Hamburger } from './authorized'
 import Sidebar from 'react-sidebar'
 
