@@ -29,17 +29,19 @@ export default function register() {
       return;
     }
 
-    window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+    window.addEventListener('load', onLoadListener);
+  }
+}
 
-      if (!isLocalhost) {
-        // Is not local host. Just register service worker
-        registerValidSW(swUrl);
-      } else {
-        // This is running on localhost. Lets check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl);
-      }
-    });
+function onLoadListener () {
+  const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+
+  if (!isLocalhost) {
+    // Is not local host. Just register service worker
+    registerValidSW(swUrl);
+  } else {
+    // This is running on localhost. Lets check if a service worker still exists or not.
+    checkValidServiceWorker(swUrl);
   }
 }
 
@@ -101,6 +103,7 @@ function checkValidServiceWorker(swUrl) {
 
 export function unregister() {
   if ('serviceWorker' in navigator) {
+    window.removeEventListener('load', onLoadListener)
     navigator.serviceWorker.ready.then(registration => {
       registration.unregister();
     });
