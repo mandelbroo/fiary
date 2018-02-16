@@ -1,4 +1,4 @@
-import registerServiceWorker from './registerServiceWorker'
+import registerServiceWorker, { unregister } from './registerServiceWorker'
 
 const originalFetch = window.fetch
 const originalServiceWorker = navigator.serviceWorker
@@ -20,6 +20,7 @@ describe('register service worker', () => {
   })
 
   afterEach(() => {
+    unregister()
     navigator.serviceWorker = originalServiceWorker
     window.location.reload = originalLocationReload
     window.fetch = originalFetch
@@ -60,5 +61,16 @@ describe('register service worker', () => {
     expect(res.unregister).toBeCalled()
     await unregisterPromise
     expect(window.location.reload).toBeCalled()
+  })
+  it('no connection (covering fetch.catch)', () => {
+    const fakeServiceWorker = {
+      ...originalServiceWorker,
+      ready: Promise.resolve({
+        unregister: jest.fn().mockImplementation(() => unregisterPromise = Promise.resolve({ }))
+      }),
+    }
+    navigator.serviceWorker = fakeServiceWorker
+    registerServiceWorker()
+    window.dispatchEvent(new Event('load'))
   })
 })
