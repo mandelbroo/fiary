@@ -8,15 +8,27 @@ let registerPromise = { }
 let unregisterPromise = { }
 
 const fakeServiceWorker = {
-  register: jest.fn().mockImplementation(() => registerPromise = Promise.resolve({ })),
+  register: jest.fn().mockImplementation(() => registerPromise = Promise.resolve({
+    installing: { state: 'installed' }
+  })),
   ready: Promise.resolve({
     unregister: jest.fn().mockImplementation(() => unregisterPromise = Promise.resolve({ }))
   }),
 }
 
+const fakeFetch = jest.fn()
+  .mockImplementation(() => Promise.resolve({
+    status: 200,
+    headers: {
+      get: jest.fn().mockReturnValue('javascript')
+    }
+  }))
+
 describe('register service worker', () => {
   beforeEach(() => {
     process.env.NODE_ENV = 'production'
+    navigator.serviceWorker = fakeServiceWorker
+    window.fetch = fakeFetch
   })
 
   afterEach(() => {
@@ -27,32 +39,36 @@ describe('register service worker', () => {
     process.env.NODE_ENV = 'test'
   })
 
-  it('successfully', async () => {
-    const fakeFetch = jest.fn()
-      .mockImplementation(() => Promise.resolve({
-        status: 200,
-        headers: {
-          get: jest.fn().mockReturnValue('javascript')
-        }
-      }))
-    navigator.serviceWorker = fakeServiceWorker
-    window.fetch = fakeFetch
-
+  it('register ok', async () => {
     registerServiceWorker()
     window.dispatchEvent(new Event('load'))
     expect(fakeFetch).toBeCalled()
     await registerPromise
     expect(fakeServiceWorker.register).toBeCalledWith('/service-worker.js')
   })
+  it('register fail (for sake of coverage)', async () => {
+    const fakeRegisterFailWorker = {
+      register: jest.fn().mockImplementation(() => Promise.reject('test error')),
+      ready: Promise.resolve({ unregister: jest.fn() }),
+    }
+    navigator.serviceWorker = fakeRegisterFailWorker
+    registerServiceWorker()
+    window.dispatchEvent(new Event('load'))
+  })
+  it('install ok (for sake of coverage)', async () => {
+    registerServiceWorker()
+    window.dispatchEvent(new Event('load'))
+    const registration = await registerPromise
+    registration.onupdatefound()
+    registration.installing.onstatechange() // when content is cached
+    navigator.serviceWorker.controller = { }
+    registration.installing.onstatechange() // not cached
+  })
   it('not found', async () => {
-    process.env.NODE_ENV = 'production'
-
-    const fakeFetch = jest.fn()
+    const fakeNotFoundFetch = jest.fn()
       .mockImplementation(() => Promise.resolve({ status: 404 }))
-    window.fetch = fakeFetch
-    navigator.serviceWorker = fakeServiceWorker
+    window.fetch = fakeNotFoundFetch
     window.location.reload = jest.fn()
-
     registerServiceWorker()
     window.dispatchEvent(new Event('load'))
     expect(fakeFetch).toBeCalled()
@@ -63,13 +79,14 @@ describe('register service worker', () => {
     expect(window.location.reload).toBeCalled()
   })
   it('no connection (covering fetch.catch)', () => {
-    const fakeServiceWorker = {
+    const unregisterMockWorker = {
       ...originalServiceWorker,
       ready: Promise.resolve({
         unregister: jest.fn().mockImplementation(() => unregisterPromise = Promise.resolve({ }))
       }),
     }
-    navigator.serviceWorker = fakeServiceWorker
+    window.fetch = originalFetch
+    navigator.serviceWorker = unregisterMockWorker
     registerServiceWorker()
     window.dispatchEvent(new Event('load'))
   })
