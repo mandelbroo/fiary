@@ -24,12 +24,12 @@ api.get('/users', require('./users'))
 api.get('/tags', require('./tags').get)
 
 if (process.env.NODE_ENV === 'test') {
-  main.get('/with-error', (req, res) => {
-    req.undefinet.method
-  })
+	main.get('/with-error', (req, res) => {
+		req.undefinet.method
+	})
 }
 main.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../../build/index.html'))
+	res.sendFile(path.resolve(__dirname, '../../build/index.html'))
 })
 
 const router = express.Router()

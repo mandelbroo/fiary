@@ -3,26 +3,26 @@
 
  <metadata id="metadata3592">image/svg+xml</metadata>
  <g>
-  <title>background</title>
-  <rect fill="none" id="canvas_background" height="352" width="352" y="-1" x="-1"/>
+	<title>background</title>
+	<rect fill="none" id="canvas_background" height="352" width="352" y="-1" x="-1"/>
  </g>
  <g>
-  <title>Layer 1</title>
-  <g id="g4368" transform="rotate(143 248,162) matrix(0.88522,0,0,0.88522,4.8802,-5.91043) ">
-   <path id="path3560" d="m312.934962,89.888383a199.84679,199.84679 0 0 0 -199.84678,199.84611" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3562" d="m436.445472,213.399613a123.51111,123.51111 0 0 0 -123.51051,-123.51117" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3564" d="m360.111182,289.734493a76.33488,76.33488 0 0 0 76.33429,-76.33487" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3566" d="m312.934962,242.558253a47.17623,47.17623 0 0 0 47.17622,47.17623" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3568" d="m342.093002,213.399613a29.15864,29.15864 0 0 0 -29.15804,29.15864" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3570" d="m360.111182,231.417403a18.01775,18.01775 0 0 0 -18.01818,-18.01779" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <ellipse transform="matrix(1.99603,0,0,1.99603,-1.43271,21.6191) " id="ellipse3572" cy="134.324176" cx="57.374333" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3574" d="m348.969342,242.558253a11.14084,11.14084 0 0 0 11.14184,-11.14087" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3576" d="m342.093002,235.681333a6.87691,6.87691 0 0 0 6.87634,6.87692" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3578" d="m346.356532,231.417403a4.26393,4.26393 0 0 0 -4.26353,4.26393" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3580" d="m348.969342,234.030403a2.61299,2.61299 0 0 0 -2.61281,-2.613" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3582" d="m347.318632,235.681333a1.65094,1.65094 0 0 0 1.65072,-1.65093" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3584" d="m346.356532,234.719233a0.96205,0.96205 0 0 0 0.9621,0.96208" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-   <path id="path3586" d="m347.045162,234.030403a0.68888,0.68888 0 0 0 -0.68863,0.68883" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
-  </g>
+	<title>Layer 1</title>
+	<g id="g4368" transform="rotate(143 248,162) matrix(0.88522,0,0,0.88522,4.8802,-5.91043) ">
+	 <path id="path3560" d="m312.934962,89.888383a199.84679,199.84679 0 0 0 -199.84678,199.84611" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3562" d="m436.445472,213.399613a123.51111,123.51111 0 0 0 -123.51051,-123.51117" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3564" d="m360.111182,289.734493a76.33488,76.33488 0 0 0 76.33429,-76.33487" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3566" d="m312.934962,242.558253a47.17623,47.17623 0 0 0 47.17622,47.17623" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3568" d="m342.093002,213.399613a29.15864,29.15864 0 0 0 -29.15804,29.15864" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3570" d="m360.111182,231.417403a18.01775,18.01775 0 0 0 -18.01818,-18.01779" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <ellipse transform="matrix(1.99603,0,0,1.99603,-1.43271,21.6191) " id="ellipse3572" cy="134.324176" cx="57.374333" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3574" d="m348.969342,242.558253a11.14084,11.14084 0 0 0 11.14184,-11.14087" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3576" d="m342.093002,235.681333a6.87691,6.87691 0 0 0 6.87634,6.87692" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3578" d="m346.356532,231.417403a4.26393,4.26393 0 0 0 -4.26353,4.26393" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3580" d="m348.969342,234.030403a2.61299,2.61299 0 0 0 -2.61281,-2.613" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3582" d="m347.318632,235.681333a1.65094,1.65094 0 0 0 1.65072,-1.65093" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3584" d="m346.356532,234.719233a0.96205,0.96205 0 0 0 0.9621,0.96208" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	 <path id="path3586" d="m347.045162,234.030403a0.68888,0.68888 0 0 0 -0.68863,0.68883" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="11" stroke="#0093bc" fill="none"/>
+	</g>
  </g>
 </svg>

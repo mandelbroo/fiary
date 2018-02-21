@@ -9,12 +9,12 @@ import Logout from './logout'
 
 
 describe('Logout', () => {
-  it('do the stuff', () => {
-    const fakeHistory = {
-      push: jest.fn()
-    }
-    const wrapper = shallow(<Logout history={fakeHistory}/>)
-    expect(fakeHistory.push).toBeCalledWith('/signin')
-    expect(Session.logout).toBeCalled()
-  })
+	it('do the stuff', () => {
+		const fakeHistory = {
+			push: jest.fn()
+		}
+		const wrapper = shallow(<Logout history={fakeHistory}/>)
+		expect(fakeHistory.push).toBeCalledWith('/signin')
+		expect(Session.logout).toBeCalled()
+	})
 })

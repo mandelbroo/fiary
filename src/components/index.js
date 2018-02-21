@@ -8,12 +8,12 @@ import Entries from './entries/entries'
 import RecordDay from './record-day/record-day'
 
 export {
-  Home,
-  Logo,
-  Logout,
-  Navbar,
-  Signin,
-  Signup,
-  Entries,
-  RecordDay,
+	Home,
+	Logo,
+	Logout,
+	Navbar,
+	Signin,
+	Signup,
+	Entries,
+	RecordDay,
 }

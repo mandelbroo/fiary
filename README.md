@@ -1,19 +1,19 @@
 <p align="center">
-  <img width="100"
-  style="margin-left: 25px"
-  src="https://c1.staticflickr.com/5/4711/40019127701_bc47fd41e5.jpg"
-  alt="fiary logo">
+	<img width="100"
+	style="margin-left: 25px"
+	src="https://c1.staticflickr.com/5/4711/40019127701_bc47fd41e5.jpg"
+	alt="fiary logo">
 </p>
 <h1 align="center">fiary</h1>
 <h3 align="center">Your personal financial diary</h3>
 
 <p align="center">
-  <a href="https://travis-ci.org/mandelbroo/fiary">
-    <img src="https://travis-ci.org/mandelbroo/fiary.svg?branch=master" />
-  </a>
-  <a href="https://codecov.io/gh/mandelbroo/fiary">
-    <img src="https://codecov.io/gh/mandelbroo/fiary/branch/master/graph/badge.svg" />
-  </a>
+	<a href="https://travis-ci.org/mandelbroo/fiary">
+		<img src="https://travis-ci.org/mandelbroo/fiary.svg?branch=master" />
+	</a>
+	<a href="https://codecov.io/gh/mandelbroo/fiary">
+		<img src="https://codecov.io/gh/mandelbroo/fiary/branch/master/graph/badge.svg" />
+	</a>
 </p>
 
 

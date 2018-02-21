@@ -1,45 +1,45 @@
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 .App ul {
-  list-style: none;
+	list-style: none;
 }
 
 .App-header {
-  padding: 30px;
+	padding: 30px;
 }
 
 .App-header .title {
-  margin-top: 22px;
-  margin-bottom: 22px;
-  display: block;
-  text-decoration: none;
-  font-size: xx-large;
+	margin-top: 22px;
+	margin-bottom: 22px;
+	display: block;
+	text-decoration: none;
+	font-size: xx-large;
 
 }
 .App-header .title:link {
-  color: #000;
+	color: #000;
 }
 .App-header .title:visited {
-  color: #000;
+	color: #000;
 }
 
 .content {
-  margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 /* links */
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 a:link {
-  color: darkslategrey;
+	color: darkslategrey;
 }
 a:visited {
-  color: darkslategrey;
+	color: darkslategrey;
 }
 a:hover {
-  color: #0093bc;
+	color: #0093bc;
 }
 /* links end*/

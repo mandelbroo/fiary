@@ -5,5 +5,5 @@ import { mount } from 'enzyme'
 import 'jest-localstorage-mock'
 
 it('renders without crashing', () => {
-  const wrapper = mount(<App />)
+	const wrapper = mount(<App />)
 })
