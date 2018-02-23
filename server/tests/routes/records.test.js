@@ -70,9 +70,7 @@ describe('records route', () => {
 				.expect(200)
 				.end(async (err, res) => {
 					expect(res.body.success).toBeTruthy()
-					console.log(res.body)
 					const entry = await Entry.findOne({id: res.body.record.entryId})
-					console.log(entry)
 					expect(entry.day).toBe('12-12-2012')
 					done(err)
 				})
