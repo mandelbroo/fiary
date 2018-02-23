@@ -56,6 +56,27 @@ describe('records route', () => {
 					done(err)
 				})
 		})
+		it('create entry on incoming params', done => {
+			app.post('/api/records')
+				.send({
+					entry: {
+						day: '12-12-2012'
+					},
+					amount: 20,
+					income: false,
+					tags: [{ id: -1, name: Date.now().toString() }]
+				})
+				.set('Authorization', token)
+				.expect(200)
+				.end(async (err, res) => {
+					expect(res.body.success).toBeTruthy()
+					console.log(res.body)
+					const entry = await Entry.findOne({id: res.body.record.entryId})
+					console.log(entry)
+					expect(entry.day).toBe('12-12-2012')
+					done(err)
+				})
+		})
 	})
 	describe('delete /api/records/:id', () => {
 		beforeAll(async () => {

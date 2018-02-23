@@ -1,8 +1,15 @@
 const recordsAdd = require('../services/records-add')
+const entryCreate = require('../services/entry-create')
 const Record = require('../models/record')
 
-exports.post = (req, res) => {
-	recordsAdd.execute(req.body)
+exports.post = async (req, res) => {
+	const user = await req.currentUserPromise
+	let recordParams = req.body
+	if (recordParams.entry) {
+		const entry = await entryCreate(recordParams.entry, user)
+		recordParams = { ...recordParams, entryId: entry.id }
+	}
+	recordsAdd.execute(recordParams)
 		.then(rec => res.send({ success: true, record: rec }) )
 		.catch(err => res.status(422).send({ success: false, message: err.message }))
 }
