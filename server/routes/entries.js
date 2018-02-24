@@ -30,6 +30,8 @@ module.exports = {
 		let entry = await Entry
 			.where({day: req.params.isoDate, user_id: user.id})
 			.fetch({withRelated: ['records','records.tags']})
+		if (!entry)
+			return res.sendStatus(404)
 		res.send(entry)
 	}
 }

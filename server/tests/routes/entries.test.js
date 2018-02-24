@@ -37,7 +37,7 @@ describe('entries', () => {
 		app.get('/api/entries')
 			.set('Authorization', token)
 			.expect(200)
-			.end((err, {body}) => {
+			.end((err, { body }) => {
 				expect(body).toBeDefined()
 				expect(body.length).toBe(2)
 				expect(body.totalCount).toBe(2)
@@ -51,11 +51,11 @@ describe('entries', () => {
 		app.get('/api/entries/' + entry.id)
 			.set('Authorization', token)
 			.expect(200)
-			.end((err, {body}) => {
+			.end((err, { body }) => {
 				expect(body.id).toBe(entry.id)
 				expect(body.userId).toBe(entry.userId)
 				expect(body.day).toBe(entry.day)
-				done()
+				done(err)
 			})
 	})
 	describe('get /api/entries/:isoDate', () => {
@@ -63,22 +63,22 @@ describe('entries', () => {
 			app.get('/api/entries/2017-05-15')
 				.set('Authorization', token)
 				.expect(200)
-				.end((err, {body}) => {
+				.end((err, { body }) => {
 					expect(body).toBeDefined()
 					expect(body.id).toBeDefined()
 					expect(body.userId).toBeDefined()
 					expect(body.day).toBeDefined()
-					done()
+					done(err)
 				})
 			})
 		it('entry not exists', done => {
 			app.get('/api/entries/2015-01-02')
 				.set('Authorization', token)
-				.expect(200)
-				.end((err, {body}) => {
+				.expect(404)
+				.end((err, { body }) => {
 					expect(body).toBeDefined()
 					expect(body).toMatchObject({})
-					done()
+					done(err)
 				})
 			})
 	})
