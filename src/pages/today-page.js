@@ -1,22 +1,19 @@
 import React from 'react'
 import RecordDay from '../components/record-day/record-day'
 import Entry from '../models/entry'
+import Session from '../services/session'
 import { DateTime } from 'luxon'
 
 class TodayPage extends React.Component {
 	entry = this.props.entry || Entry
 	state = { entry: null }
 
-	componentDidMount = async () => {
-		const res = await this.entry.getTodayEntry()
-		if (res.data) {
-			this.setState({
-				entry: {
-					...res.data,
-					records: res.data.records || []
-				},
+	componentDidMount = () => {
+		const user = Session.getUser()
+		this.entry.getTodayEntry(user)
+			.then(entry => {
+				this.setState({ entry: { ...entry, records: entry.records || [] } })
 			})
-		}
 	}
 
 	render = () => {

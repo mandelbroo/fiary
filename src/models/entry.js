@@ -20,7 +20,11 @@ export default class Entry extends Base {
 			{ ...this.config }
 		)
 
-	static getTodayEntry = () => {
-		return Entry.get(`${Entry.endpoint}/${DateTime.local().toISODate()}`)
+	static getTodayEntry = (user) => {
+		const today = DateTime.local().toISODate()
+		return Entry.get(`${Entry.endpoint}/${today}`)
+			.then(res => res.status === 204
+					? { day: today, userId: user.id }
+					: res.entry)
 	}
 }

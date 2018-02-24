@@ -29,9 +29,17 @@ describe('Entry model', () => {
 		expect(res).toMatchObject({success: true})
 		expect(axios.post).toBeCalledWith('entries', fakeData, Entry.config)
 	})
-	it('.getTodayEntry works properly', () => {
+	it('.getTodayEntry return existing today entry', () => {
 		Entry.get = jest.fn().mockImplementation(() => Promise.resolve({success: true}))
 		Entry.getTodayEntry()
 		expect(Entry.get).toBeCalledWith(`entries/${DateTime.local().toISODate()}`)
+	})
+	it('.getTodayEntry reuturns new entry object if entry not exist', async () => {
+		Entry.get = jest.fn().mockImplementation(() => Promise.resolve({status: 204}))
+		const today = await Entry.getTodayEntry({ id: 777 })
+		console.log(today)
+		expect(today.id).not.toBeDefined()
+		expect(today.day).toBe(DateTime.local().toISODate())
+		expect(today.userId).toBe(777)
 	})
 })
