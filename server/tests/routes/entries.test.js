@@ -71,15 +71,13 @@ describe('entries', () => {
 					done()
 				})
 			})
-		it('create entry if not exists', done => {
+		it('entry not exists', done => {
 			app.get('/api/entries/2015-01-02')
 				.set('Authorization', token)
 				.expect(200)
 				.end((err, {body}) => {
 					expect(body).toBeDefined()
-					expect(body.id).toBeDefined()
-					expect(body.userId).toBeDefined()
-					expect(body.day).toBeDefined()
+					expect(body).toMatchObject({})
 					done()
 				})
 			})
