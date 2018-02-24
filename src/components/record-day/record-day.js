@@ -32,6 +32,7 @@ export default class RecordDay extends React.Component {
 			records: this.state.records.concat([finalRecord])
 		})
 		this.recIndex--
+		if (!finalRecord.entryId) finalRecord.entry = { day: this.state.day }
 		const res = await this.record.save(finalRecord)
 		if (res.success) {
 			this.replaceOldRecord(res.record, record)
@@ -45,7 +46,7 @@ export default class RecordDay extends React.Component {
 				newRecord
 			]
 		}
-		if (this.state.id < 1) { newState.id = newRecord.entryId }
+		if (!this.state.id) { newState.id = newRecord.entryId }
 		this.setState(newState)
 	}
 
