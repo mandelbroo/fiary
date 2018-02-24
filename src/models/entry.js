@@ -25,6 +25,6 @@ export default class Entry extends Base {
 		return Entry.get(`${Entry.endpoint}/${today}`)
 			.then(res => res.status === 204
 					? { day: today, userId: user.id }
-					: res.entry)
+					: res.data)
 	}
 }
