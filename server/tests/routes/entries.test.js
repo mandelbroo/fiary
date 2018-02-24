@@ -74,7 +74,7 @@ describe('entries', () => {
 		it('entry not exists', done => {
 			app.get('/api/entries/2015-01-02')
 				.set('Authorization', token)
-				.expect(404)
+				.expect(204)
 				.end((err, { body }) => {
 					expect(body).toBeDefined()
 					expect(body).toMatchObject({})
