@@ -31,7 +31,7 @@ module.exports = {
 			.where({day: req.params.isoDate, user_id: user.id})
 			.fetch({withRelated: ['records','records.tags']})
 		if (!entry)
-			return res.sendStatus(404)
+			return res.sendStatus(204)
 		res.send(entry)
 	}
 }
