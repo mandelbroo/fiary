@@ -61,26 +61,35 @@ export default class Tagger extends Component {
 			this.props.onChange(newTags)
 	}
 
+	get tags() {
+		return this.state.tags.map((tag, index) => (
+			<span key={index} id={tag.id} className='tag'
+				onClick={() => {this.remove(tag.id)}}>
+				{tag.name}
+			</span>
+		))
+	}
+
+	get suggestions() {
+		return this.state.suggestions.map((tag, index) => (
+			<span key={index} className='suggest tag'
+				onClick={() => {this.pickSuggest(tag)}}
+			>
+				{tag.name}
+			</span>
+		))
+	}
+
 	render() {
-		const tags = this.state.tags.map((tag, index) => (
-			<span key={index} id={tag.id} onClick={() => {this.remove(tag.id)}}>
-				{tag.name}
-			</span>
-		))
-		const suggestions = this.state.suggestions.map((tag, index) => (
-			<span key={index} className='suggest' onClick={() => {this.pickSuggest(tag)}}>
-				{tag.name}
-			</span>
-		))
 		return (
 			<div className={`${this.props.className} ${this.classes.main}`}>
-				{suggestions}
+				{this.tags}
 				<input type='text'
-					placeholder='add new tag'
+					placeholder='find a tag'
 					value={this.state.currentValue}
 					onChange={this.change}
 					onKeyDown={this.add} />
-				{tags}
+				{this.suggestions}
 			</div>
 		)
 	}
@@ -95,6 +104,12 @@ const style = {
 			'&:focus': {
 				outline: 'none'
 			}
+		},
+		'& .tag': {
+			borderStyle: 'solid',
+	    borderWidth: '1px',
+	    borderRadius: '3px',
+	    padding: '1px 4px'
 		}
 	}
 }
