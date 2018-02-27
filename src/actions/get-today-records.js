@@ -1,6 +1,8 @@
 import Entry from '../models/entry'
 
-export default {
-  type: 'GET_TODAY_RECORDS',
-  payload: Entry.getTodayEntry()
+export default function getTodayRecords () {
+	return {
+		type: 'GET_TODAY_RECORDS',
+		payload: Entry.getTodayEntry()
+	}
 }
