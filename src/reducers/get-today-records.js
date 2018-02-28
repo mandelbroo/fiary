@@ -15,7 +15,12 @@ export default (
 		  state = { ...state, loading: false, error: action.payload }
 		  break
 		case 'GET_TODAY_RECORDS_FULFILLED':
-			state = { ...state, entry: action.payload }
+			state = {
+				...state,
+				entry: action.payload,
+				loading: false,
+				loaded: true
+			}
 			break
 		default:
 			return state
