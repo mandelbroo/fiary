@@ -9,7 +9,7 @@ export class TodayPage extends React.Component {
 }
 
 export const mapStateToProps = (state) => ({
-	entry: state.today
+	entry: state.today.entry
 })
 export const mapDispatchToProps = (dispatch) => ({
 	dispatchGetRecords: () => dispatch(getTodayRecords())

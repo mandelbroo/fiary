@@ -1,3 +1,6 @@
+import { combineReducers } from 'redux'
 import getTodayRecords from './get-today-records'
 
-export default getTodayRecords
+export default combineReducers({
+	today: getTodayRecords,
+})

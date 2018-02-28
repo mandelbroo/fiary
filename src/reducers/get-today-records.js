@@ -1,6 +1,6 @@
 export default (
 	state = {
-		today: {},
+		entry: {},
 		loaded: false,
 		loading: false,
 		error: ''
@@ -15,7 +15,7 @@ export default (
 		  state = { ...state, loading: false, error: action.payload }
 		  break
 		case 'GET_TODAY_RECORDS_FULFILLED':
-			state = { ...state, today: action.payload }
+			state = { ...state, entry: action.payload }
 			break
 		default:
 			return state
