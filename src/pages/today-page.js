@@ -1,25 +1,20 @@
 import React from 'react'
 import RecordDay from '../components/record-day/record-day'
-import Entry from '../models/entry'
-import Session from '../services/session'
-import { DateTime } from 'luxon'
+import { connect } from 'react-redux'
+import getTodayRecords from '../actions/get-today-records'
 
-class TodayPage extends React.Component {
-	entry = this.props.entry || Entry
-	state = { entry: null }
-
-	componentDidMount = () => {
-		const user = Session.getUser()
-		this.entry.getTodayEntry(user)
-			.then(entry => {
-				this.setState({ entry: { ...entry, records: entry.records || [] } })
-			})
-	}
-
-	render = () => {
-		const day = this.state.entry ? this.state.entry.day : DateTime.local().toISODate()
-		return <RecordDay data={this.state.entry} day={day} />
-	}
+export class TodayPage extends React.Component {
+	componentDidMount = () => this.props.dispatchGetRecords()
+	render = () => <RecordDay data={ this.props.entry } />
 }
 
-export default TodayPage
+export const mapStateToProps = (state) => ({
+	entry: state.today
+})
+export const mapDispatchToProps = (dispatch) => ({
+	dispatchGetRecords: () => dispatch(getTodayRecords())
+})
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(TodayPage)
