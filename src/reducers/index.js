@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux'
-import getTodayRecords from './get-today-records'
+import entriesUpdate from './entries-update'
+import editEntry from './edit-entry'
+import getTodayDate from './get-today-date'
 
 export default combineReducers({
-	today: getTodayRecords,
+	today: getTodayDate,
+	entries: entriesUpdate,
+	editingEntry: editEntry
 })
