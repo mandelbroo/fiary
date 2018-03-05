@@ -1,44 +1,44 @@
-export default (
-	state = {
+export default (state, action) => {
+	let entries = state.entries || {
 		list: [],
 		loaded: false,
 		loading: false,
 		error: ''
-	},
-	action
-) => {
+	}
 	switch (action.type) {
 		case 'ADD_RECORD_FULFILLED':
 			const record = action.payload
-			const oldEntry = state.list.find(e => e.id === record.entryId)
-			const upEntry = {...oldEntry, records: oldEntry.records.concat([record])}
-			state = {
-				...state,
-				list: immutableMerge(state.list, upEntry),
+			const oldEntry = entries.list.find(e => e.day === state.today)
+			let upEntry = { ...oldEntry, records: oldEntry.records.concat([record]) }
+			if (!upEntry.id)
+				upEntry.id = record.entryId
+			entries = {
+				...entries,
+				list: immutableMerge(entries.list, upEntry),
 				loading: false,
 				loaded: true
 			}
 			break
 		case 'ADD_RECORD_PENDING':
 		case 'GET_ENTRIES_PENDING':
-		  state = { ...state, loading: true }
+		  entries = { ...entries, loading: true }
 		  break
 		case 'ADD_RECORD_REJECTED':
 		case 'GET_ENTRIES_REJECTED':
-		  state = { ...state, loading: false, error: action.payload }
+		  entries = { ...entries, loading: false, error: action.payload }
 		  break
 		case 'GET_ENTRIES_FULFILLED':
-			state = {
-				...state,
-				list: immutableMerge(state.list, action.payload),
+			entries = {
+				...entries,
+				list: immutableMerge(entries.list, action.payload),
 				loading: false,
 				loaded: true
 			}
 			break
 		default:
-			return state
+			return entries
 		}
-	return state
+	return entries
 }
 
 function immutableMerge(base, incoming) {

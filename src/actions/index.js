@@ -1,4 +1,4 @@
-import addRecord from './add-record'
+import { addRecord } from './records'
 import editEntry, { clearEdit } from './edit-entry'
 import getEntries from './get-entries'
 import getTodayDate from './get-today-date'

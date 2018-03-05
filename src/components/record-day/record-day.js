@@ -8,11 +8,7 @@ import { addRecord } from '../../actions'
 
 export class RecordDay extends React.Component {
 	add = (record) => {
-		if (!this.props.entry.id)
-			record.entry = this.props.entry
-		else
-			record.entryId = this.props.entry.id
-		this.props.dispatch(addRecord(record))
+		this.props.dispatch(addRecord(record, this.props.entry))
 	}
 	//remove = (record) => this.props.dispatch(removeRecord(record))
 	//removalDialog = (record) => this.props.dispatch(pendingRemoval(record))
@@ -58,6 +54,7 @@ export class RecordDay extends React.Component {
 }
 
 export const mapStateToProps = (state) => {
+	console.log(state)
 	return {
 		entry: state.entries.list.find(e => e.day === state.editingEntry) || {}
 	}
