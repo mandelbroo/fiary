@@ -1,4 +1,3 @@
-// import { browserHistory } from 'react-router';
 
 const middleware = store => next => action  => {    
     if(action.type !== 'PROMISE') {
