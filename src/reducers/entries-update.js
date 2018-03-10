@@ -3,12 +3,13 @@ export default (state, action) => {
 		list: [],
 		loaded: false,
 		loading: false,
-		error: ''
+		error: '',
+		removingRecordId: '',
 	}
 	switch (action.type) {
 		case 'ADD_RECORD_FULFILLED':
 			const record = action.payload
-			const oldEntry = entries.list.find(e => e.day === state.today)
+			const oldEntry = entries.list.find(e => e.day === state.editingEntry)
 			let upEntry = { ...oldEntry, records: oldEntry.records.concat([record]) }
 			if (!upEntry.id)
 				upEntry.id = record.entryId
@@ -24,6 +25,7 @@ export default (state, action) => {
 		  entries = { ...entries, loading: true }
 		  break
 		case 'ADD_RECORD_REJECTED':
+		case 'REMOVE_RECORD_REJECTED':
 		case 'GET_ENTRIES_REJECTED':
 		  entries = { ...entries, loading: false, error: action.payload }
 		  break
@@ -31,6 +33,29 @@ export default (state, action) => {
 			entries = {
 				...entries,
 				list: immutableMerge(entries.list, action.payload),
+				loading: false,
+				loaded: true
+			}
+			break
+		case 'REMOVE_RECORD_PENDING':
+			entries = {
+				...entries,
+				removingRecordId: state.selectedRecord.id,
+				loading: true
+			}
+			break
+		case 'REMOVE_RECORD_FULFILLED':
+			const entry = entries.list.find(e => e.day === state.editingEntry)
+			const newRecords = [].concat(entry.records)
+			newRecords.pop(newRecords.find(r => r.id === entries.removingRecordId))
+			const newEntry = {
+				...entry,
+				records: newRecords
+			}
+			entries = {
+				...entries,
+				list: immutableMerge(entries.list, newEntry),
+				removingRecordId: '',
 				loading: false,
 				loaded: true
 			}

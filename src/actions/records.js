@@ -10,3 +10,24 @@ export function addRecord(record, entry) {
 		payload: Record.save(record).then(res => res.data.record)
 	}
 }
+
+export function removeRecord(record) {
+	return {
+		type: 'REMOVE_RECORD',
+		payload: Record.destroy(record.id)
+	}
+}
+
+export function selectRecord(record) {
+	return {
+		type: 'SELECT_RECORD',
+		payload: record
+	}
+}
+
+export function clearSelectedRecord(record) {
+	return {
+		type: 'CLEAR_SELECTED_RECORD',
+		payload: ''
+	}
+}

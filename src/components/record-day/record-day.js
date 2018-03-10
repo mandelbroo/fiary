@@ -4,24 +4,33 @@ import RecordList from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
 import Dialog from '../dialog/dialog'
 import { DateTime } from 'luxon'
-import { addRecord } from '../../actions'
+import {
+	addRecord,
+	removeRecord,
+	selectRecord,
+	clearSelectedRecord
+} from '../../actions'
 
 export class RecordDay extends React.Component {
-	add = (record) => {
-		this.props.dispatch(addRecord(record, this.props.entry))
-	}
-	//remove = (record) => this.props.dispatch(removeRecord(record))
-	//removalDialog = (record) => this.props.dispatch(pendingRemoval(record))
+
+	add = (record) => this.props.dispatch(addRecord(record, this.props.entry))
+	remove = (record) => this.props.dispatch(removeRecord(record))
+	removalDialog = (record) => this.props.dispatch(selectRecord(record))
+	clearPendingRemoval = () => this.props.dispatch(clearSelectedRecord())
+	componentWillUnmount = () => this.clearPendingRemoval()
 
 	get dialogState () {
-		const record = this.props.pendingRemovalRecord
+		const record = this.props.record
 		if (record) {
 			return {
 				show: true,
 				amount: record.amount,
 				tags: record.tags.map(t => t.name + ' '),
-				action: () => this.remove(record),
-				close: this.props.clearPendingRemoval
+				action: () => {
+					this.remove(record)
+					this.clearPendingRemoval()
+				},
+				close: this.clearPendingRemoval
 			}
 		}
 		return {}
@@ -54,9 +63,9 @@ export class RecordDay extends React.Component {
 }
 
 export const mapStateToProps = (state) => {
-	console.log(state)
 	return {
-		entry: state.entries.list.find(e => e.day === state.editingEntry) || {}
+		entry: state.entries.list.find(e => e.day === state.editingEntry) || {},
+		record: state.selectedRecord
 	}
 }
 
