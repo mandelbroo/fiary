@@ -63,10 +63,14 @@ export class RecordDay extends React.Component {
 }
 
 export const mapStateToProps = (state) => {
-	return {
-		entry: state.entries.list.find(e => e.day === state.editingEntry) || {},
-		record: state.selectedRecord
+	let res = {
+		entry: {},
+		record: state.selectRecord
 	}
+	if (state.entries.list.length > 0) {
+		res.entry = state.entries.list.find(e => e.day === state.editingEntry) || {}
+	}
+	return res
 }
 
 export default connect(mapStateToProps)(RecordDay)
