@@ -4,7 +4,6 @@ import {
 	Logout,
 	Signin,
 	Signup,
-	RecordDay,
 } from './components'
 import TodayPage from './pages/today-page'
 import EntriesPage from './pages/entries-page'
