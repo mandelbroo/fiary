@@ -8,9 +8,9 @@ import {
 } from './components'
 import TodayPage from './pages/today-page'
 import EntriesPage from './pages/entries-page'
+import EntryPage from './pages/entry-page'
 
 const NoMatch = () => <h3>404</h3>
-const EntryPage = ({match}) => <RecordDay id={match.params.entryId} />
 
 const routes = [
 	{ path: '/', component: Home, exact: true },
