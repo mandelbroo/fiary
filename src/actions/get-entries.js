@@ -5,6 +5,6 @@ export default (date) => {
 		type: 'GET_ENTRIES',
 		payload: date
 			? Entry.getByDate(date)
-			: Entry.getAll().then(res => res.collection)
+			: Entry.getAll().then(res => res.data.collection)
 	}
 }
