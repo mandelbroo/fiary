@@ -65,7 +65,7 @@ export class RecordDay extends React.Component {
 export const mapStateToProps = (state) => {
 	let res = {
 		entry: {},
-		record: state.selectRecord
+		record: state.selectedRecord
 	}
 	if (state.entries.list.length > 0) {
 		res.entry = state.entries.list.find(e => e.day === state.editingEntry) || {}
