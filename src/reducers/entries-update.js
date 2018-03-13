@@ -73,6 +73,7 @@ function immutableMerge(base, incoming) {
 }
 
 function immutableMergeItem(array, item) {
+	if (!item) return array
 	const uplist = [item]
 	return uplist.concat(array.filter(i => i.day !== item.day))
 }
