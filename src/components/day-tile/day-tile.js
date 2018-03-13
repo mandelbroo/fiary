@@ -6,7 +6,7 @@ export class DayTile extends React.Component {
 	entry = this.props.entry || {}
 	classes = this.props.classes || {}
 
-	click = () => this.props.click(this.entry.id)
+	click = () => this.props.click(this.entry.day)
 
 	render() {
 		return (

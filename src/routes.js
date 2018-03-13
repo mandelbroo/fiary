@@ -17,7 +17,7 @@ const routes = [
 	{ path: '/signin', component: Signin, exact: true },
 	{ path: '/logout', component: Logout, exact: true },
 	{ path: '/entries', component: EntriesPage, exact: true },
-	{ path: '/entry/:entryId', component: EntryPage },
+	{ path: '/entry/:entryDay', component: EntryPage },
 	{ path: '/today', component: TodayPage, exact: true },
 	{ component: NoMatch }
 ]
