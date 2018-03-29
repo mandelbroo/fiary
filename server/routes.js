@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'test') {
 	})
 }
 main.get('/*', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../../build/index.html'))
+	res.sendFile(path.resolve(__dirname, '../build/index.html'))
 })
 
 const router = express.Router()
