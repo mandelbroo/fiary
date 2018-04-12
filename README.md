@@ -54,13 +54,16 @@ yarn db:migrate
 
 
 #### Run dev frontend watcher on localhost:3000
-`yarn start:dev`
+`yarn dev:front`
 #### Run dev api server on localhost:4000
-`yarn serve:dev`
+`yarn dev:back`
 
 ### Running Unit Tests
-`yarn test`
+```
+yarn test:front
+yarn test:back
+```
 
-(check out index.js to see routes and examples)
+(check out package.json to see the list of available commands)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
