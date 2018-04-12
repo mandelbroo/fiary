@@ -1,19 +1,17 @@
 import React from 'react'
-import Entry from '../../models/entry'
+import { connect } from 'react-redux'
 import DayTile from '../day-tile/day-tile'
+import { getEntries } from '../../actions'
 
-export default class Entries extends React.Component {
-	state = { entries: [] }
-	entry = this.props.entry || Entry
+export class Entries extends React.Component {
+	state = { redirectPath: '' }
 
-	componentDidMount = async () => {
-		const res = await this.entry.getAll()
-		if (res.data)
-			this.setState({entries: res.data.collection})
+	componentDidMount = () => {
+		this.props.dispatch(getEntries())
 	}
 
-	click = (id) => {
-		const path = `/entry/${id}`
+	click = (day) => {
+		const path = `/entry/${day}`
 		this.props.history.push(path)
 		this.setState({ redirectPath: path })
 	}
@@ -23,8 +21,15 @@ export default class Entries extends React.Component {
 			return this.props.redirect(this.state.redirectPath)
 		}
 		return <div>{
-			this.state.entries.map((entry, ix) =>
+			this.props.entries.map((entry, ix) =>
 				<DayTile entry={entry} click={this.click} key={ix}/>)
 		}</div>
 	}
 }
+
+const mapStateToProps = (state) => {
+	return {
+		entries: state.entries.list
+	}
+}
+export default connect(mapStateToProps)(Entries)

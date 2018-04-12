@@ -5,6 +5,8 @@ import {Logo, Navbar} from './components'
 import Authorized from './components/authorized/authorized'
 import Session from './services/session'
 import './App.css'
+import { Provider } from 'react-redux'
+import store from './store'
 
 const Footer = () => (
 	<footer>made by vitalii@funemployed</footer>
@@ -33,9 +35,11 @@ export class App extends React.Component {
 
 class RouteApp extends React.Component {
 	render = () => (
-		<BrowserRouter>
-			<Route component={App} />
-		</BrowserRouter>
+		<Provider store={ store }>
+			<BrowserRouter>
+				<Route component={ App } />
+			</BrowserRouter>
+		</Provider>
 	)
 }
 

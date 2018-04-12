@@ -36,10 +36,8 @@ describe('Entry model', () => {
 	})
 	it('.getTodayEntry reuturns new entry object if entry not exist', async () => {
 		Entry.get = jest.fn().mockImplementation(() => Promise.resolve({status: 204}))
-		const today = await Entry.getTodayEntry({ id: 777 })
-		console.log(today)
+		const today = await Entry.getTodayEntry()
 		expect(today.id).not.toBeDefined()
 		expect(today.day).toBe(DateTime.local().toISODate())
-		expect(today.userId).toBe(777)
 	})
 })
