@@ -12,12 +12,14 @@ import {
 } from '../../actions'
 
 export class RecordDay extends React.Component {
+	get entry () { return this.props.entry || {} }
+	get dispatch () { return this.props.dispatch }
 
-	add = (record) => this.props.dispatch(addRecord(record, this.props.entry))
-	remove = (record) => this.props.dispatch(removeRecord(record))
-	removalDialog = (record) => this.props.dispatch(selectRecord(record))
-	clearPendingRemoval = () => this.props.dispatch(clearSelectedRecord())
-	componentWillUnmount = () => this.clearPendingRemoval()
+	add = (record) => this.dispatch(addRecord(record, this.entry))
+	remove = (record) => this.dispatch(removeRecord(record))
+	selectRecord = (record) => this.dispatch(selectRecord(record))
+	clearSelectedRecord = () => this.dispatch(clearSelectedRecord())
+	componentWillUnmount = () => this.clearSelectedRecord()
 
 	get dialogState () {
 		const record = this.props.record
@@ -28,22 +30,22 @@ export class RecordDay extends React.Component {
 				tags: record.tags.map(t => t.name + ' '),
 				action: () => {
 					this.remove(record)
-					this.clearPendingRemoval()
+					this.clearSelectedRecord()
 				},
-				close: this.clearPendingRemoval
+				close: this.clearSelectedRecord
 			}
 		}
 		return {}
 	}
 
-	get weekday () { return DateTime.fromISO(this.props.entry.day).weekdayLong }
+	get weekday () { return DateTime.fromISO(this.entry.day).weekdayLong }
 
 	render = () => (
 		<div>
 			<h1>{ this.weekday }</h1>
-			<h5>{ this.props.entry.day }</h5>
-			<RecordList data={ this.props.entry.records }
-				onRemove={ this.removalDialog } />
+			<h5>{ this.entry.day }</h5>
+			<RecordList data={ this.entry.records }
+				onRemove={ this.selectRecord } />
 			<div className="w3-bottom">
 				<RecordNew onSubmit={ this.add } />
 			</div>
