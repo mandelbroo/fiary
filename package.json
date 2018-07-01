@@ -25,7 +25,8 @@
 		"db:restore": "yarn db:drop && yarn db:create && pg_restore -U fiary -d fiary_dev latest.dump --verbose --clean --no-acl --no-owner",
 		"deploy:test:migrate": "heroku run npm run db:migrate",
 		"eject": "react-scripts eject",
-		"routes": "node scripts/routes.js"
+		"routes": "node scripts/routes.js",
+		"postpublish" : "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags"
 	},
 	"dependencies": {
 		"axios": "^0.16.2",
