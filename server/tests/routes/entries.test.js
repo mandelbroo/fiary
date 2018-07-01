@@ -26,15 +26,16 @@ describe('entries', () => {
 				userId: citizen.id,
 				day: DateTime.local().toISODate()
 			}),
-			Entry.create({
+			Entry.findOrCreate({
 				userId: citizen.id,
-				day: DateTime.fromISO('2017-05-15').toISODate()
+				day: '2017-05-15'
 			}),
 		])
 	})
 
-	it('get /api/entries', done => {
-		app.get('/api/entries')
+	describe('get /api/entries', () => {
+		it('success case', done => {
+			app.get('/api/entries')
 			.set('Authorization', token)
 			.expect(200)
 			.end((err, { body }) => {
@@ -44,8 +45,39 @@ describe('entries', () => {
 				expect(body.collection).toBeDefined()
 				expect(body.collection.length).toEqual(2)
 				done(err)
+			})
+		})
+
+		it('order by day desc', async() => {
+			const firstDay = '2012-01-01';
+			const secondDay = '2010-02-02';
+			const scenario = await Promise.all([
+				Entry.create({
+					userId: citizen.id,
+					day: firstDay
+				}),
+				Entry.create({
+					userId: citizen.id,
+					day: secondDay
+				}),
+			])
+			app.get('/api/entries')
+			.set('Authorization', token)
+			.expect(200)
+			.end(async (err, { body }) => {
+				expect(body.length).toBe(4)
+				const indexes = await Promise.all([
+					body.collection.findIndex(el => el.day === firstDay),
+					body.collection.findIndex(el => el.day === secondDay),
+				])
+				expect(indexes[0] < indexes[1]).toBe(true)
+				await Promise.all(
+					scenario.map(entry => entry.destroy())
+				)
+			})
 		})
 	})
+
 	it('get /api/entries/:id', done => {
 		const entry = entries[0]
 		app.get('/api/entries/' + entry.id)

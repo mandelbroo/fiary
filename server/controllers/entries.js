@@ -7,7 +7,7 @@ module.exports = {
 		Entry
 			.query(qb => {
 				qb.where('entries.user_id', '=', user.id)
-				qb.orderBy('entries.id', 'DESC')
+				qb.orderBy('entries.day', 'DESC')
 			})
 			.fetchPage({
 				pageSize: 15,
