@@ -1,6 +1,8 @@
 import React from 'react'
-import injectSheet from 'react-jss'
 import RecordList from '../record-list/record-list'
+
+import injectSheet from 'react-jss'
+import styles from './styles.js'
 
 export class DayTile extends React.Component {
 	entry = this.props.entry || {}
@@ -17,11 +19,4 @@ export class DayTile extends React.Component {
 	}
 }
 
-const style = {
-	tile: {
-		boxShadow: '1px 1px 1px 1px lightgrey',
-		margin: '10px 5%'
-	}
-}
-
-export default injectSheet(style)(DayTile)
+export default injectSheet(styles)(DayTile)

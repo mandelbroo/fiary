@@ -40,15 +40,13 @@ export class RecordDay extends React.Component {
 
 	get weekday () { return DateTime.fromISO(this.entry.day).weekdayLong }
 
-	render = () => (
-		<div>
+	render() {
+		return (<div>
 			<h1>{ this.weekday }</h1>
 			<h5>{ this.entry.day }</h5>
 			<RecordList data={ this.entry.records }
 				onRemove={ this.selectRecord } />
-			<div className="w3-bottom">
-				<RecordNew onSubmit={ this.add } />
-			</div>
+			<RecordNew onSubmit={ this.add } />
 			<Dialog show={ this.dialogState.show }
 				onAction={ this.dialogState.action }
 				onActionText='Remove'
@@ -60,8 +58,9 @@ export class RecordDay extends React.Component {
 				<br />
 				<span> Are you sure?</span>
 			</Dialog>
-		</div>
-	)
+		</div>)
+	}
+
 }
 
 export const mapStateToProps = (state) => {
