@@ -21,4 +21,5 @@ module.exports = {
 	like: (value) => knex('tags')
 		.where('name', 'like', `${value}%`)
 		.select('id', 'name')
+		.limit(5)
 }
