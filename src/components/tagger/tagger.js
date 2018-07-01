@@ -38,6 +38,8 @@ export default class Tagger extends Component {
 				const response = await this.state.suggestPromise
 				this.setState({suggestions: response.data})
 			}, 300)
+		} else {
+			this.clear()
 		}
 	}
 
@@ -99,7 +101,6 @@ const style = {
 	main: {
 		'& input': {
 			fontSize: 20,
-			width: '90%',
 			borderStyle: 'none',
 			'&:focus': {
 				outline: 'none'
