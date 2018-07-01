@@ -11,7 +11,12 @@ export default class User {
 			}
 			return res.data
 		} catch(err) {
-			return err.response.data
+			return err.response
+				? err.response.data
+				:  {
+					success: false,
+					message: "Service is not accessible. Please try later"
+				}
 		}
 	}
 
