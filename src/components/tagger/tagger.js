@@ -40,7 +40,7 @@ export default class Tagger extends Component {
 				const response = await this.state.suggestPromise
 				this.setState({suggestions: response.data})
 			}, 300)
-		} else {
+		} else if (!target.value) {
 			this.clear()
 		}
 	}
