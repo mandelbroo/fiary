@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
+
 import {jss} from 'react-jss'
+import styles from './styles'
 
 export default class Tagger extends Component {
 	state = {
@@ -7,7 +9,7 @@ export default class Tagger extends Component {
 		currentValue: '',
 		suggestions: []
 	}
-	classes = jss.createStyleSheet(style).attach().classes
+	classes = jss.createStyleSheet(styles).attach().classes
 
 	add = (event) => {
 		if (event.key === 'Enter') {
@@ -94,23 +96,5 @@ export default class Tagger extends Component {
 				{this.suggestions}
 			</div>
 		)
-	}
-}
-
-const style = {
-	main: {
-		'& input': {
-			fontSize: 20,
-			borderStyle: 'none',
-			'&:focus': {
-				outline: 'none'
-			}
-		},
-		'& .tag': {
-			borderStyle: 'solid',
-	    borderWidth: '1px',
-	    borderRadius: '3px',
-	    padding: '1px 4px'
-		}
 	}
 }
