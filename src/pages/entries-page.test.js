@@ -3,6 +3,7 @@ import '../config/enzyme'
 import { mount } from 'enzyme'
 import EntriesPage, {redirect} from './entries-page'
 import { Redirect } from 'react-router-dom'
+import { Provider } from 'react-redux'
 import 'jest-localstorage-mock'
 
 jest.mock('axios', () => ({
@@ -10,8 +11,17 @@ jest.mock('axios', () => ({
 }))
 
 describe('EntriesPage', () => {
+	const fakeStore = {
+		dispatch: jest.fn(),
+		getState: jest.fn().mockImplementation(() => ({ entries: { list: [] } })),
+		subscribe: jest.fn(),
+	}
+
 	it('render ok', () => {
-		const wrapper = mount(<EntriesPage />)
+		const wrapper = mount(
+			<Provider store={fakeStore}>
+				<EntriesPage />
+			</Provider>)
 	})
 	it('redirect ok', async () => {
 		const result = redirect('/path')
