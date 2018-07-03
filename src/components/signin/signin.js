@@ -22,7 +22,7 @@ export default class Signin extends React.Component {
 		event.preventDefault()
 		const res = await this.user.signin(this.state)
 		if (res.success)
-			this.props.history.push('/')
+			this.props.history.push('/today')
 		else
 			this.props.history.push('/signin', {error: res.message})
 	}
