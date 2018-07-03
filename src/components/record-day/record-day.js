@@ -2,8 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import RecordList from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
+import DayHeader from '../day-header'
 import Dialog from '../dialog/dialog'
-import { DateTime } from 'luxon'
+
 import {
 	addRecord,
 	removeRecord,
@@ -38,12 +39,9 @@ export class RecordDay extends React.Component {
 		return {}
 	}
 
-	get weekday () { return DateTime.fromISO(this.entry.day).weekdayLong }
-
-	render() {
-		return (<div>
-			<h1>{ this.weekday }</h1>
-			<h5>{ this.entry.day }</h5>
+	render() { return (
+		<React.Fragment>
+			<DayHeader entry={this.entry} />
 			<RecordList data={ this.entry.records }
 				onRemove={ this.selectRecord } />
 			<RecordNew onSubmit={ this.add } />
@@ -58,9 +56,8 @@ export class RecordDay extends React.Component {
 				<br />
 				<span> Are you sure?</span>
 			</Dialog>
-		</div>)
+		</React.Fragment>)
 	}
-
 }
 
 export const mapStateToProps = (state) => {
