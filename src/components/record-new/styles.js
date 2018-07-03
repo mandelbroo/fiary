@@ -49,14 +49,15 @@ export default {
 		}
 	},
 	left: {
-		// width: '40%',
-		// display: 'table-cell',
 		'& div': {
 			textAlign: 'center'
 		}
 	},
 	right: {
-		display: 'table-cell'
+		display: 'table-cell',
+		'& input': {
+			width: '89%',
+		}
 	},
 	button: {
 		display: 'table-cell',
