@@ -2,24 +2,7 @@ import React from 'react'
 import RecordView from '../record-view/record-view'
 import injectSheet from 'react-jss'
 
-const style = {
-	list: {
-		paddingLeft: 0,
-		margin: 0
-	},
-	noRecords: {
-		color: 'lightgrey'
-	},
-	listItem: {
-		padding: '5px',
-		'& div': {
-			display: 'inline-block'
-		},
-		'& span': {
-			display: 'inline-block'
-		}
-	},
-}
+import styles from './styles'
 
 const NoRecords = (className) => <span className={className}>no records yet</span>
 
@@ -52,4 +35,4 @@ export class RecordList extends React.Component {
 	}
 }
 
-export default injectSheet(style)(RecordList)
+export default injectSheet(styles)(RecordList)
