@@ -47,6 +47,7 @@
 		"luxon": "^0.3.0",
 		"morgan-body": "^0.10.9",
 		"pg": "^7.3.0",
+		"prop-types": "^15.6.2",
 		"react": "^16.2.0",
 		"react-dom": "^16.2.0",
 		"react-jss": "^8.6.0",
