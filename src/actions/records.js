@@ -18,6 +18,20 @@ export function removeRecord(record) {
 	}
 }
 
+export function editRecord(record) {
+	return {
+		type: 'EDIT_RECORD',
+		payload: record
+	}
+}
+
+export function cancelEditRecord(record) {
+	return {
+		type: 'CANCEL_EDIT_RECORD',
+		payload: ''
+	}
+}
+
 export function selectRecord(record) {
 	return {
 		type: 'SELECT_RECORD',
