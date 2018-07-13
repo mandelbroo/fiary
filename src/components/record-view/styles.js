@@ -1,6 +1,7 @@
 export default {
 	container: {
 		position: 'relative',
+		cursor: 'pointer',
 	},
 	plus: {
 		color: 'green',
