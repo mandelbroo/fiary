@@ -1,7 +1,6 @@
 export default {
 	list: {
 		paddingLeft: 0,
-		margin: 0,
 		width: '500px',
 		margin: '0 auto',
 	},
@@ -16,5 +15,8 @@ export default {
 		'& span': {
 			display: 'inline-block'
 		}
+	},
+	removeButton: {
+		cursor: 'pointer',
 	},
 }
