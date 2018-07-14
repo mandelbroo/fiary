@@ -4,6 +4,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"proxy": "http://localhost:4000/api",
+	"engines": {
+		"node": "10.6.0"
+	},
 	"scripts": {
 		"start": "react-scripts build && NODE_ENV=production node server/app.js",
 		"build": "react-scripts build",
