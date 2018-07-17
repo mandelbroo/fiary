@@ -33,7 +33,7 @@
 	},
 	"dependencies": {
 		"axios": "^0.16.2",
-		"bcrypt": "^1.0.3",
+		"bcrypt": "^3.0.0",
 		"body-parser": "^1.17.2",
 		"bookshelf": "^0.10.4",
 		"bookshelf-camelcase": "https://github.com/mandelbroo/bookshelf-camelcase",
