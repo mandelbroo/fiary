@@ -6,7 +6,7 @@ module.exports = {
 			database : process.env.DB_NAME || 'fiary_dev',
 			host : process.env.DB_HOST || '127.0.0.1',
 			password : process.env.DB_PASS || 'verysecret',
-			user : process.env.DB_USER || 'postgres',
+			user : process.env.DB_USER || 'fiary',
 		},
 		migrations: {
 			directory: './db/migrations'
@@ -22,7 +22,7 @@ module.exports = {
 			database : process.env.DB_NAME || 'fiary_test',
 			host : process.env.DB_HOST || '127.0.0.1',
 			password : process.env.DB_PASS || 'verysecret',
-			user : process.env.DB_USER || 'postgres',
+			user : process.env.DB_USER || 'fiary',
 		},
 		pool: {
 			min: 2,
@@ -40,7 +40,7 @@ module.exports = {
 			database : process.env.DB_NAME || 'fiary_prod',
 			host : process.env.DB_HOST || '127.0.0.1',
 			password : process.env.DB_PASS || 'verysecret',
-			user : process.env.DB_USER || 'postgres',
+			user : process.env.DB_USER || 'fiary',
 		},
 		pool: {
 			min: 2,
