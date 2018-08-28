@@ -70,6 +70,7 @@
 		"eslint-plugin-prettier": "^2.6.2",
 		"jest": "^21.2.1",
 		"jest-localstorage-mock": "^2.2.0",
+		"nodemon": "^1.18.3",
 		"supertest": "^3.0.0"
 	}
 }
