@@ -2,7 +2,6 @@ export default {
 	modal: {
 		width: '90%',
 		height: '25%',
-		marginTop: '50%',
 		zIndex: 11,
 		border: 'none',
 		display: 'block',
@@ -32,7 +31,8 @@ export default {
 		backgroundColor: 'rgba(0, 0, 0, 0.3)',
 	},
 	show: {
-		display: 'block'
+		display: 'flex',
+		alignItems: 'center',
 	},
 	hide: {
 		display: 'none'
