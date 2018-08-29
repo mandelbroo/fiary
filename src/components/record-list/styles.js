@@ -1,7 +1,6 @@
 export default {
 	list: {
 		paddingLeft: 0,
-		width: '500px',
 		margin: '0 auto',
 	},
 	noRecords: {
