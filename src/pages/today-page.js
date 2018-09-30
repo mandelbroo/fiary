@@ -1,21 +1,27 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
 import RecordDay from '../components/record-day/record-day'
-import store from '../store'
-import {
-	clearEdit,
-	editEntry,
-	getEntries,
-	getTodayDate,
-} from '../actions'
+import { clearEdit, editEntry, getEntries, getTodayDate } from '../actions'
 import { DateTime } from 'luxon'
 
-export default class TodayPage extends React.Component {
-	componentDidMount = () => {
-		const today = DateTime.local().toISODate()
-		store.dispatch(getTodayDate())
-		store.dispatch(getEntries(today))
-		store.dispatch(editEntry(today))
-	}
-	componentWillUnmount = () => store.dispatch(clearEdit())
-	render = () => <RecordDay />
+export class TodayPage extends React.Component {
+  componentDidMount = () => {
+    const { dispatch } = this.props
+    const today = DateTime.local().toISODate()
+    dispatch(getTodayDate())
+    dispatch(getEntries(today))
+    dispatch(editEntry(today))
+  }
+
+  componentWillUnmount = () => this.props.dispatch(clearEdit())
+
+  render = () => <RecordDay />
 }
+
+TodayPage.propTypes = {
+  dispatch: PropTypes.func,
+}
+
+export default connect()(TodayPage)
