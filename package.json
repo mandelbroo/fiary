@@ -5,7 +5,7 @@
   "private": true,
   "proxy": "http://localhost:4000/api",
   "engines": {
-    "node": "10.9.0"
+    "node": "10.6.0"
   },
   "scripts": {
     "start": "react-scripts build && NODE_ENV=production node server/app.js",
@@ -67,6 +67,7 @@
     "dotenv": "^4.0.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "eslint-plugin-jest": "^21.23.0",
     "eslint-plugin-prettier": "^2.6.2",
     "jest": "^21.2.1",
     "jest-localstorage-mock": "^2.2.0",
