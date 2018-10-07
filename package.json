@@ -13,7 +13,7 @@
     "deploy:test": "git push heroku master",
     "dev:front": "react-scripts start",
     "dev:back": "NODE_ENV=development LOGGER=true nodemon server/app.js",
-    "test": "NODE_ENV=test jest server/ --forceExit --verbose --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test": "NODE_ENV=test jest server/ --detectOpenHandles --forceExit --verbose --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test:front": "react-scripts test --env=jsdom",
     "test:front:cov": "react-scripts test --env=jsdom --coverage",
     "test:back": "NODE_ENV=test jest server/ --watch --verbose",
@@ -64,6 +64,7 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "dotenv": "^4.0.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
