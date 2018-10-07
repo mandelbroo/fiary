@@ -6,69 +6,79 @@ import DayHeader from '../day-header'
 import Dialog from '../dialog/dialog'
 
 import {
-	addRecord,
-	removeRecord,
-	selectRecord,
-	clearSelectedRecord
+  addRecord,
+  removeRecord,
+  selectRecord,
+  clearSelectedRecord,
 } from '../../actions'
 
 export class RecordDay extends React.Component {
-	get entry () { return this.props.entry || {} }
-	get dispatch () { return this.props.dispatch }
+  componentWillUnmount = () => this.clearSelectedRecord()
 
-	add = (record) => this.dispatch(addRecord(record, this.entry))
-	remove = (record) => this.dispatch(removeRecord(record))
-	selectRecord = (record) => this.dispatch(selectRecord(record))
-	clearSelectedRecord = () => this.dispatch(clearSelectedRecord())
-	componentWillUnmount = () => this.clearSelectedRecord()
+  get entry() {
+    return this.props.entry || {}
+  }
+  get dispatch() {
+    return this.props.dispatch
+  }
 
-	get dialogState () {
-		const record = this.props.record
-		if (record) {
-			return {
-				show: true,
-				amount: record.amount,
-				tags: record.tags.map(t => t.name + ' '),
-				action: () => {
-					this.remove(record)
-					this.clearSelectedRecord()
-				},
-				close: this.clearSelectedRecord
-			}
-		}
-		return {}
-	}
+  add = (record) => this.dispatch(addRecord(record, this.entry))
+  remove = (record) => this.dispatch(removeRecord(record))
+  selectRecord = (record) => this.dispatch(selectRecord(record))
+  clearSelectedRecord = () => this.dispatch(clearSelectedRecord())
 
-	render() { return (
-		<React.Fragment>
-			<DayHeader entry={this.entry} />
-			<RecordList data={ this.entry.records }
-				onRemove={ this.selectRecord } />
-			<RecordNew onSubmit={ this.add } />
-			<Dialog show={ this.dialogState.show }
-				onAction={ this.dialogState.action }
-				onActionText='Remove'
-				onClose={ this.dialogState.close }
-			>
-				<b>{this.dialogState.amount} {this.dialogState.tags}</b>
-				<br />
-				<span>to be removed</span>
-				<br />
-				<span> Are you sure?</span>
-			</Dialog>
-		</React.Fragment>)
-	}
+  get dialogState() {
+    const record = this.props.record
+    if (record) {
+      return {
+        show: true,
+        amount: record.amount,
+        tags: record.tags.map((t) => t.name + ' '),
+        action: () => {
+          this.remove(record)
+          this.clearSelectedRecord()
+        },
+        close: this.clearSelectedRecord,
+      }
+    }
+    return {}
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <DayHeader entry={this.entry} />
+        <RecordList data={this.entry.records} onRemove={this.selectRecord} />
+        <RecordNew onSubmit={this.add} />
+        <Dialog
+          show={this.dialogState.show}
+          onAction={this.dialogState.action}
+          onActionText="Remove"
+          onClose={this.dialogState.close}
+        >
+          <b>
+            {this.dialogState.amount} {this.dialogState.tags}
+          </b>
+          <br />
+          <span>to be removed</span>
+          <br />
+          <span> Are you sure?</span>
+        </Dialog>
+      </React.Fragment>
+    )
+  }
 }
 
 export const mapStateToProps = (state) => {
-	let res = {
-		entry: {},
-		record: state.selectedRecord
-	}
-	if (state.entries.list.length > 0) {
-		res.entry = state.entries.list.find(e => e.day === state.editingEntry) || {}
-	}
-	return res
+  let res = {
+    entry: {},
+    record: state.selectedRecord,
+  }
+  if (state.entries.list.length > 0) {
+    res.entry =
+      state.entries.list.find((e) => e.day === state.editingEntry) || {}
+  }
+  return res
 }
 
 export default connect(mapStateToProps)(RecordDay)
