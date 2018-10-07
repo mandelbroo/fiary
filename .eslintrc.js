@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   root: true,
@@ -6,8 +6,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
+    'plugin:jest/recommended',
   ],
-  plugins: ['react', 'prettier'],
+  plugins: ['react', 'prettier', 'jest'],
   parser: 'babel-eslint',
   settings: {
     'import/resolver': {
@@ -84,6 +85,11 @@ module.exports = {
     'import/extensions': 1,
     'react/self-closing-comp': 1,
     'react/sort-comp': 1,
+    'jest/no-disabled-tests': 'warn',
+    'jest/no-focused-tests': 'error',
+    'jest/no-identical-title': 'error',
+    'jest/prefer-to-have-length': 'warn',
+    'jest/valid-expect': 'error',
   },
   globals: {},
-};
+}

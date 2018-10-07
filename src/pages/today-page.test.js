@@ -1,29 +1,52 @@
 import React from 'react'
 import '../config/enzyme'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 
 import RecordDay from '../components/record-day/record-day'
 import ConnectedTodayPage from './today-page'
 import { Provider } from 'react-redux'
+import { DateTime } from 'luxon'
 
-jest.mock('../actions/get-today-records')
-import getRecordsAction from '../actions/get-today-records'
-
+jest.mock('../actions', () => ({
+  clearEdit: jest.fn().mockImplementation(() => ({ type: 'T', payload: {} })),
+  clearSelectedRecord: jest
+    .fn()
+    .mockImplementation(() => ({ type: 'T', payload: {} })),
+  editEntry: jest.fn().mockImplementation(() => ({ type: 'T', payload: {} })),
+  getEntries: jest.fn().mockImplementation(() => ({ type: 'T', payload: {} })),
+  getTodayDate: jest
+    .fn()
+    .mockImplementation(() => ({ type: 'T', payload: {} })),
+}))
+import { clearEdit, editEntry, getEntries, getTodayDate } from '../actions'
 
 const fakeStore = {
-	dispatch: jest.fn(),
-	getState: jest.fn().mockImplementation(() => ({ today: {}})),
-	subscribe: jest.fn(),
+  dispatch: jest.fn(),
+  getState: jest.fn().mockImplementation(() => ({
+    selectedRecord: { tags: [] },
+    entries: { list: [] },
+  })),
+  subscribe: jest.fn(),
 }
 
 describe('TodayPage', () => {
-	it('load today records', async () => {
-		const wrapper = mount(
-			<Provider store={ fakeStore }>
-				<ConnectedTodayPage />
-			</Provider>)
-		expect(fakeStore.dispatch).toBeCalled()
-		expect(getRecordsAction).toBeCalled()
-		expect(wrapper.find(RecordDay).length).toBe(1)
-	})
+  const wrapper = mount(
+    <Provider store={fakeStore}>
+      <ConnectedTodayPage />
+    </Provider>
+  )
+
+  it('load today records', () => {
+    const today = DateTime.local().toISODate()
+    expect(fakeStore.dispatch).toBeCalled()
+    expect(getTodayDate).toBeCalled()
+    expect(getEntries).toBeCalledWith(today)
+    expect(editEntry).toBeCalledWith(today)
+    expect(wrapper.find(RecordDay)).toHaveLength(1)
+  })
+
+  it('clears on unmount', () => {
+    wrapper.unmount()
+    expect(clearEdit).toBeCalled()
+  })
 })
