@@ -3,6 +3,8 @@ node_js:
   - '10.6.0'
 services:
   - postgresql
+addons:
+  postgresql: '10'
 before_script:
   - yarn db:create && yarn db:migrate
 script:
