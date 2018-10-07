@@ -16,3 +16,5 @@ install:
   - yarn
 env:
   - JWT_SECRET=ASDasj212nsdaj!@Dadj121daja!@DADad DB_PASS= DB_USER=postgres NODE_ENV=test
+  global:
+    - PGPORT=5433
