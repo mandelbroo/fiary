@@ -17,7 +17,7 @@
     "test:front": "react-scripts test --env=jsdom",
     "test:front:cov": "react-scripts test --env=jsdom --coverage",
     "test:back": "NODE_ENV=test jest server/ --watch --verbose",
-    "test:back:cov": "NODE_ENV=test jest server/ --coverage",
+    "test:back:cov": "NODE_ENV=test jest server/ --coverage --detectOpenHandles",
     "see:cov": "xdg-open coverage/lcov-report/index.html > /dev/null 2>&1 &",
     "seq": "node_modules/.bin/knex",
     "db:create": "node db/utils/create.js",
