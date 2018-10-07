@@ -14,7 +14,7 @@
     "dev:front": "react-scripts start",
     "dev:back": "NODE_ENV=development LOGGER=true nodemon server/app.js",
     "test": "NODE_ENV=test jest server/ --forceExit --verbose --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "test:front": "react-scripts test --env=jsdom --verbose",
+    "test:front": "react-scripts test --env=jsdom",
     "test:front:cov": "react-scripts test --env=jsdom --coverage",
     "test:back": "NODE_ENV=test jest server/ --watch --verbose",
     "test:back:cov": "NODE_ENV=test jest server/ --coverage",
