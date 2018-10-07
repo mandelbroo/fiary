@@ -3,12 +3,6 @@ node_js:
   - '10.6.0'
 services:
   - postgresql
-addons:
-  postgresql: '10'
-  apt:
-    packages:
-      - postgresql-10
-      - postgresql-client-10
 before_script:
   - yarn db:create && yarn db:migrate
 script:
@@ -19,4 +13,4 @@ script:
 install:
   - yarn
 env:
-  - JWT_SECRET=ASDasj212nsdaj!@Dadj121daja!@DADad DB_PASS= DB_USER=postgres NODE_ENV=test PGPORT=5433
+  - JWT_SECRET=ASDasj212nsdaj!@Dadj121daja!@DADad DB_PASS= DB_USER=postgres NODE_ENV=test
