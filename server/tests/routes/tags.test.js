@@ -5,12 +5,11 @@ const server = require('../../app').listen()
 const app = require('supertest').agent(server)
 
 describe('tags', () => {
-  let tags
+  let tags = [{ name: 'abc' }, { name: 'abcd' }, { name: 'aaa' }]
   let user
   let token
 
   beforeAll(async () => {
-    tags = [{ name: 'abc' }, { name: 'abcd' }, { name: 'aaa' }]
     user = await User.findOrCreate({
       username: 'riter',
       email: 'riter@tag.org',
@@ -20,10 +19,11 @@ describe('tags', () => {
   })
 
   afterAll(async () => {
-    knex('tags')
+    await knex('tags')
       .whereIn('name', tags.map((tag) => tag.name))
-      .del(),
-      await Promise.all([User.connection.destroy()])
+      .del()
+    await User.connection.destroy()
+    server.close()
   })
 
   it('look up for tags', async (done) => {
