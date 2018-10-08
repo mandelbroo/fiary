@@ -20,12 +20,10 @@ describe('tags', () => {
   })
 
   afterAll(async () => {
-    await Promise.all([
-      User.connection.destroy(),
-      knex('tags')
-        .whereIn('name', tags.map((tag) => tag.name))
-        .del(),
-    ])
+    knex('tags')
+      .whereIn('name', tags.map((tag) => tag.name))
+      .del(),
+      await Promise.all([User.connection.destroy()])
   })
 
   it('look up for tags', async (done) => {
