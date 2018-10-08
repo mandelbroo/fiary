@@ -1,12 +1,13 @@
 const jwtGenerate = require('../../utils/jwt-generate')
 const knex = require('../../../db/connection')
-const Tag = require('../../models/tag')
 const User = require('../../models/user')
 const server = require('../../app').listen()
 const app = require('supertest').agent(server)
 
 describe('tags', () => {
-  let tags, user, token
+  let tags
+  let user
+  let token
 
   beforeAll(async () => {
     tags = [{ name: 'abc' }, { name: 'abcd' }, { name: 'aaa' }]
@@ -18,10 +19,14 @@ describe('tags', () => {
     token = jwtGenerate(user.attributes)
   })
 
-  afterAll(() =>
-    knex('tags')
-      .whereIn('name', tags.map((tag) => tag.name))
-      .del())
+  afterAll(async () => {
+    await Promise.all([
+      User.connection.destroy(),
+      knex('tags')
+        .whereIn('name', tags.map((tag) => tag.name))
+        .del(),
+    ])
+  })
 
   it('look up for tags', async (done) => {
     await knex('tags').insert(tags, 'id')
