@@ -30,7 +30,7 @@ describe('Signup', () => {
       .simulate('change', { target: { name: 'password', value: 'secret' } })
     wrapper.find('form').simulate('submit', { preventDefault: () => {} })
     await promise
-    expect(fakeHistory.push).toBeCalledWith('/today')
+    expect(fakeHistory.push).toBeCalledWith('/')
     const params = {
       email: 'some@mail',
       password: 'secret',
@@ -41,15 +41,13 @@ describe('Signup', () => {
   it('unsuccessful sign up', async () => {
     let promise = {}
     const fakeUser = {
-      signup: jest
-        .fn()
-        .mockImplementation(
-          () =>
-            (promise = Promise.resolve({
-              success: false,
-              message: 'some error',
-            }))
-        ),
+      signup: jest.fn().mockImplementation(
+        () =>
+          (promise = Promise.resolve({
+            success: false,
+            message: 'some error',
+          }))
+      ),
     }
     const fakeHistory = { push: jest.fn() }
     const wrapper = mount(<Signup user={fakeUser} history={fakeHistory} />)
