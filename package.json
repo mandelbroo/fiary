@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.17.2",
     "bookshelf": "^0.10.4",
