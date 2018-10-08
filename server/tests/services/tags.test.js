@@ -2,9 +2,7 @@ const tagger = require('../../services/tags')
 const Tag = require('../../models/tag')
 
 describe('tags service', () => {
-  afterAll(async () => {
-    await Tag.connection.destroy()
-  })
+  afterAll(async () => await Tag.connection.destroy())
 
   describe('.post([{ name }])', () => {
     it('defined', () => expect(tagger.post).toBeDefined())

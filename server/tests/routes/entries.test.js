@@ -6,12 +6,10 @@ const app = require('supertest').agent(server)
 const { DateTime } = require('luxon')
 
 describe('entries', () => {
-  let citizen
-  let token
-  let entries
+  let citizen, entries, token
 
   afterAll(async () => {
-    await Promise.all([Entry.connection.destroy(), User.connection.destroy()])
+    await User.connection.destroy()
     server.close()
   })
 
