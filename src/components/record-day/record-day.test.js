@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme'
 import { RecordDay } from './record-day'
 import RecordList from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
+import DayHeader from '../day-header'
 import Dialog from '../dialog/dialog'
 import 'jest-localstorage-mock'
 
@@ -27,14 +28,16 @@ describe('RecordDay', () => {
   it('render RecordList and RecordNew', () => {
     const wrapper = shallow(<RecordDay />)
     expect(
-      wrapper.containsAllMatchingElements([<RecordList />, <RecordNew />])
+      wrapper.containsAllMatchingElements([
+        <DayHeader />,
+        <RecordList />,
+        <RecordNew />,
+      ])
     ).toBe(true)
   })
   it('render list of records based on entry prop', () => {
     const wrapper = mount(<RecordDay entry={fakeEntry} />)
     expect(wrapper.find('li')).toHaveLength(2)
-    expect(wrapper.text()).toContain('+' + fakeEntry.records[0].amount)
-    expect(wrapper.text()).toContain('-' + fakeEntry.records[1].amount)
   })
   it('add record dispatch', () => {
     const fakeDispatch = jest.fn()
