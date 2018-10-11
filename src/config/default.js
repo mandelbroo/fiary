@@ -1,3 +1,3 @@
 export default {
-  serverUrl: 'http://fiary.me/api',
+  serverUrl: 'https://fiary.me/api',
 }
