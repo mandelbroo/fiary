@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import RecordList from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
@@ -10,10 +11,16 @@ import {
   removeRecord,
   selectRecord,
   clearSelectedRecord,
+  getEntries,
 } from '../../actions'
+import Record from '../../models/record'
 
 export class RecordDay extends React.Component {
   componentWillUnmount = () => this.clearSelectedRecord()
+  componentWillMount = () => {
+    const { entry } = this.props
+    if (entry && !entry.id && getEntries) this.dispatch(getEntries(entry.day))
+  }
 
   get entry() {
     return this.props.entry || {}
@@ -69,14 +76,22 @@ export class RecordDay extends React.Component {
   }
 }
 
+RecordDay.PropTypes = {
+  entry: PropTypes.object.isRequired,
+  record: PropTypes.object.isRequired,
+}
+
 export const mapStateToProps = (state) => {
+  const { entries, selectedRecord, editingEntry } = state
   let res = {
-    entry: {},
-    record: state.selectedRecord,
+    entry: {
+      day: editingEntry,
+      records: [],
+    },
+    record: selectedRecord,
   }
-  if (state.entries.list.length > 0) {
-    res.entry =
-      state.entries.list.find((e) => e.day === state.editingEntry) || {}
+  if (entries.list.length > 0) {
+    res.entry = entries.list.find((e) => e.day === editingEntry) || res.entry
   }
   return res
 }
