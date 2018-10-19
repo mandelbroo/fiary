@@ -3,7 +3,7 @@ import { Home, Logout, Signin, Signup } from './components'
 import TodayPage from './pages/today-page'
 import EntriesPage from './pages/entries-page'
 import EntryPage from './pages/entry-page'
-import CalendarPage from 'pages/calendar-page'
+import CalendarPage from './pages/calendar-page'
 
 const NoMatch = () => <h3>404</h3>
 
