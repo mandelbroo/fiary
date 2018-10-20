@@ -1,7 +1,8 @@
 const repl = require('repl')
 
 const replServer = repl.start({
-	prompt: 'fiary > ',
+  prompt: 'fiary > ',
 })
 
-replServer.context.Record = require('../server/models/record')
+const models = require('../server/models')
+Object.assign(replServer.context, models)

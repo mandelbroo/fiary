@@ -29,7 +29,8 @@
     "deploy:test:migrate": "heroku run npm run db:migrate",
     "eject": "react-scripts eject",
     "routes": "node scripts/routes.js",
-    "postpublish": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags"
+    "postpublish": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags",
+    "repl": "NODE_ENV=development node --experimental-repl-await scripts/repl.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
