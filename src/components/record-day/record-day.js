@@ -13,14 +13,13 @@ import {
   clearSelectedRecord,
   getEntries,
 } from '../../actions'
-import Record from '../../models/record'
 
 export class RecordDay extends React.Component {
-  componentWillUnmount = () => this.clearSelectedRecord()
   componentWillMount = () => {
     const { entry } = this.props
     if (entry && !entry.id && getEntries) this.dispatch(getEntries(entry.day))
   }
+  componentWillUnmount = () => this.clearSelectedRecord()
 
   get entry() {
     return this.props.entry || {}
