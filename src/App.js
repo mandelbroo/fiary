@@ -1,44 +1,47 @@
 import React from 'react'
-import RouterRender from './router-render'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import injectSheet from 'react-jss'
+
+import RouterRender from './router-render'
 import { Logo, Navbar } from './components'
 import Authorized from './components/authorized/authorized'
 import Session from './services/session'
-import './App.css'
-import { Provider } from 'react-redux'
 import store from './store'
-
-const Footer = () => <footer>made by vitalii@funemployed</footer>
-
-const Guest = (
-  <div className="App">
-    <div className="App-header">
-      <Logo />
-      <Link className="title" to="/">
-        fiary
-      </Link>
-      <span className="App-header-essence">Your personal financial diary</span>
-    </div>
-    <Navbar />
-    <div className="content">
-      <RouterRender />
-    </div>
-    <Footer />
-  </div>
-)
+import './global.css'
+import styles from './App.style'
 
 export class App extends React.Component {
-  render = () => (Session.getUser() ? <Authorized /> : Guest)
-}
+  Guest = () => {
+    const { classes } = this.props
 
-class RouteApp extends React.Component {
+    return (
+      <div className={classes.wrapper}>
+        <div className={classes.header}>
+          <Logo />
+          <div className={classes.titleWrapper}>
+            <Link className="title" to="/">
+              fiary
+            </Link>
+          </div>
+          <span>Your personal financial diary</span>
+        </div>
+        <Navbar />
+        <div className={classes.content}>
+          <RouterRender />
+        </div>
+        <footer>made by vitalii@funemployed</footer>
+      </div>
+    )
+  }
+
   render = () => (
     <Provider store={store}>
       <BrowserRouter>
-        <Route component={App} />
+        <Route>{Session.getUser() ? Authorized : this.Guest}</Route>
       </BrowserRouter>
     </Provider>
   )
 }
 
-export default RouteApp
+export default injectSheet(styles)(App)
