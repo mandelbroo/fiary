@@ -8,13 +8,6 @@ ul {
 	list-style: none;
 }
 
-.App-header .title:link {
-	color: #000;
-}
-.App-header .title:visited {
-	color: #000;
-}
-
 /* links */
 a {
 	text-decoration: none;

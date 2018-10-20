@@ -38,7 +38,7 @@ export class App extends React.Component {
   render = () => (
     <Provider store={store}>
       <BrowserRouter>
-        <Route>{Session.getUser() ? Authorized : this.Guest}</Route>
+        <Route>{Session.getUser() ? <Authorized /> : this.Guest}</Route>
       </BrowserRouter>
     </Provider>
   )

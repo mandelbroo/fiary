@@ -12,6 +12,13 @@ export default {
     display: 'block',
     textDecoration: 'none',
     fontSize: '30px',
+    letterSpacing: '2px',
+    '& a': {
+      color: '#000',
+    },
+    '& a:visited': {
+      color: '#000',
+    },
   },
   content: {
     marginBottom: '30px',
