@@ -19,7 +19,7 @@ const OVERRIDE = {
 }
 
 class Authorized extends React.Component {
-  state = { sidebarOpen: true }
+  state = { sidebarOpen: false }
 
   openSidebar = () => this.setState({ sidebarOpen: !this.state.sidebarOpen })
 
