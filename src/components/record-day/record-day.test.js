@@ -13,6 +13,7 @@ jest.mock('../../actions', () => ({
   removeRecord: jest.fn(),
   selectRecord: jest.fn(),
   clearSelectedRecord: jest.fn(),
+  getEntries: jest.fn(),
 }))
 import actions from '../../actions'
 
@@ -36,7 +37,7 @@ describe('RecordDay', () => {
     ).toBe(true)
   })
   it('render list of records based on entry prop', () => {
-    const wrapper = mount(<RecordDay entry={fakeEntry} />)
+    const wrapper = mount(<RecordDay entry={fakeEntry} dispatch={jest.fn()} />)
     expect(wrapper.find('li')).toHaveLength(2)
   })
   it('add record dispatch', () => {
@@ -83,7 +84,6 @@ describe('RecordDay', () => {
     expect(actions.clearSelectedRecord).toBeCalled()
   })
   it('unmount call clear selected record', () => {
-    const fakeRecord = { amount: 101 }
     const fakeDispatch = jest.fn()
     const wrapper = shallow(
       <RecordDay entry={fakeEntry} dispatch={fakeDispatch} />

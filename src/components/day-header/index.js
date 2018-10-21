@@ -1,21 +1,21 @@
 import React from 'react'
 import { DateTime } from 'luxon'
+import injectSheet from 'react-jss'
 
-import { jss } from 'react-jss'
+import { dateFormat } from 'consts/formats'
 import styles from './styles'
 
 export class DayHeader extends React.Component {
-	get weekday () { return DateTime.fromISO(this.props.entry.day).weekdayLong }
-
-	render() {
-		const classes = jss.createStyleSheet(styles).attach().classes
-		return (
-			<div className={classes.container}>
-				<h3 className={classes.heading}>{ this.weekday }</h3>
-				<h5>{ this.props.entry.day }</h5>
-			</div>
-		)
-	}
+  render() {
+    const { classes, entry } = this.props
+    const date = DateTime.fromISO(entry.day)
+    return (
+      <div className={classes.container}>
+        <h3 className={classes.heading}>{date.weekdayLong}</h3>
+        <h5>{date.toFormat(dateFormat)}</h5>
+      </div>
+    )
+  }
 }
 
-export default DayHeader
+export default injectSheet(styles)(DayHeader)

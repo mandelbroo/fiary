@@ -16,22 +16,15 @@ import {
 
 export class RecordDay extends React.Component {
   componentWillMount = () => {
-    const { entry } = this.props
-    if (entry && !entry.id && getEntries) this.dispatch(getEntries(entry.day))
+    const { entry, dispatch } = this.props
+    if (entry && !entry.id) dispatch(getEntries(entry.day))
   }
   componentWillUnmount = () => this.clearSelectedRecord()
 
-  get entry() {
-    return this.props.entry || {}
-  }
-  get dispatch() {
-    return this.props.dispatch
-  }
-
-  add = (record) => this.dispatch(addRecord(record, this.entry))
-  remove = (record) => this.dispatch(removeRecord(record))
-  selectRecord = (record) => this.dispatch(selectRecord(record))
-  clearSelectedRecord = () => this.dispatch(clearSelectedRecord())
+  add = (record) => this.props.dispatch(addRecord(record, this.props.entry))
+  remove = (record) => this.props.dispatch(removeRecord(record))
+  selectRecord = (record) => this.props.dispatch(selectRecord(record))
+  clearSelectedRecord = () => this.props.dispatch(clearSelectedRecord())
 
   get dialogState() {
     const record = this.props.record
@@ -51,10 +44,14 @@ export class RecordDay extends React.Component {
   }
 
   render() {
+    const { entry } = this.props
     return (
       <React.Fragment>
-        <DayHeader entry={this.entry} />
-        <RecordList data={this.entry.records} onRemove={this.selectRecord} />
+        <DayHeader entry={entry} />
+        <RecordList
+          records={entry.records || []}
+          onRemove={this.selectRecord}
+        />
         <RecordNew onSubmit={this.add} />
         <Dialog
           show={this.dialogState.show}
@@ -77,6 +74,7 @@ export class RecordDay extends React.Component {
 
 RecordDay.propTypes = {
   entry: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
 }
 
 export const mapStateToProps = (state) => {
