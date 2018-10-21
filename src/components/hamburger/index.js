@@ -4,8 +4,6 @@ import injectSheet from 'react-jss'
 import styles from './styles'
 
 class Hamburger extends React.Component {
-  // classes = `w3-container w3-cell w3-bar-item w3-button ${this.props.classes}`
-
   render() {
     const { classes, onClick } = this.props
     return (

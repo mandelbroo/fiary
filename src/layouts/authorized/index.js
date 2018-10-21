@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import injectSheet from 'react-jss'
 import Sidebar from 'react-sidebar'
+import injectSheet from 'react-jss'
 
 import RoutesRender from 'config/routes-render'
 import TabBar from 'components/tab-bar/tab-bar'
@@ -14,7 +14,7 @@ import styles from './styles'
 
 const OVERRIDE = {
   overlay: { zIndex: 11 },
-  sidebar: { zIndex: 12 },
+  sidebar: { zIndex: 12, width: '70%' },
 }
 
 class Authorized extends React.Component {
@@ -25,20 +25,19 @@ class Authorized extends React.Component {
 
   get sidebarContent() {
     const { classes } = this.props
-    // const classes = `w3-light-grey w3-bar-block ${classes.side}`
     return (
-      <div className={classes.side}>
-        <h3 className="w3-bar-item w3-button">
+      <ul className={classes.side}>
+        <li className={classes.logo}>
           <img src={logo} alt="fiary logo" />
-          fiary
-        </h3>
-        <Link className="w3-bar-item w3-button" to="/">
-          Home
-        </Link>
-        <Link className="w3-bar-item w3-button" to="/logout">
-          Logout
-        </Link>
-      </div>
+          <h3 className={classes.title}>fiary</h3>
+        </li>
+        <li className={classes.item}>
+          <Link to="/">Home</Link>
+        </li>
+        <li className={classes.item}>
+          <Link to="/logout">Logout</Link>
+        </li>
+      </ul>
     )
   }
 
