@@ -1,15 +1,24 @@
 import React from 'react'
-import RecordDay from '../components/record-day/record-day'
 import { connect } from 'react-redux'
-import { clearEdit, editEntry } from '../actions'
+import PropTypes from 'prop-types'
+
+import { clearEdit, editEntry } from 'actions'
+import RecordDay from 'components/record-day/record-day'
 
 class EntryPage extends React.Component {
   componentDidMount = () => {
     const { match, dispatch } = this.props
     dispatch(editEntry(match.params.entryDay))
   }
+
   componentWillUnmount = () => this.props.dispatch(clearEdit())
+
   render = () => <RecordDay />
 }
 
-export default connect(EntryPage)
+EntryPage.propTypes = {
+  match: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+}
+
+export default connect()(EntryPage)

@@ -1,40 +1,49 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import DayTile from '../day-tile/day-tile'
-import { getEntries } from '../../actions'
-
 import injectSheet from 'react-jss'
-import styles from './styles.js'
+import PropTypes from 'prop-types'
+
+import DayTile from 'components/day-tile/day-tile'
+import { getEntries } from 'actions'
+import styles from './styles'
 
 export class Entries extends React.Component {
-	state = { redirectPath: '' }
-	classes = this.props.classes || {}
+  state = { redirectPath: '' }
 
-	componentDidMount = () => {
-		this.props.dispatch(getEntries())
-	}
+  componentDidMount = () => this.props.dispatch(getEntries())
 
-	click = (day) => {
-		const path = `/entry/${day}`
-		this.props.history.push(path)
-		this.setState({ redirectPath: path })
-	}
+  click = (day) => {
+    const path = `/entry/${day}`
+    this.props.history.push(path)
+    this.setState({ redirectPath: path })
+  }
 
-	render() {
-		if (this.state.redirectPath) {
-			return this.props.redirect(this.state.redirectPath)
-		}
-		return <div className={ this.classes.container }>{
-			this.props.entries.map((entry, ix) =>
-				<DayTile entry={entry} click={this.click} key={ix}/>)
-		}</div>
-	}
+  render() {
+    const { redirectPath } = this.state
+    if (redirectPath) return redirect(redirectPath)
+    const { classes, entries, redirect } = this.props
+    return (
+      <div className={classes.container}>
+        {entries.map((entry, ix) => (
+          <DayTile entry={entry} click={this.click} key={ix} />
+        ))}
+      </div>
+    )
+  }
+}
+
+Entries.propTypes = {
+  classes: PropTypes.object.isRequired,
+  redirect: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  entries: PropTypes.array,
 }
 
 const mapStateToProps = (state) => {
-	return {
-		entries: state.entries.list
-	}
+  return {
+    entries: state.entries.list,
+  }
 }
 
 export default injectSheet(styles)(connect(mapStateToProps)(Entries))
