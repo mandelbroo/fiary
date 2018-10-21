@@ -22,6 +22,7 @@ class Authorized extends React.Component {
 
   onSetSidebarOpen = (open) => this.setState({ sidebarOpen: open })
   openSidebar = () => this.onSetSidebarOpen(true)
+  closeSidebar = () => this.onSetSidebarOpen(false)
 
   get sidebarContent() {
     const { classes } = this.props
@@ -32,7 +33,9 @@ class Authorized extends React.Component {
           <h3 className={classes.title}>fiary</h3>
         </li>
         <li className={classes.item}>
-          <Link to="/">Home</Link>
+          <Link to="/" onClick={this.closeSidebar}>
+            Home
+          </Link>
         </li>
         <li className={classes.item}>
           <Link to="/logout">Logout</Link>
