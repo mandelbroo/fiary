@@ -1,6 +1,5 @@
 import React from 'react'
 import RecordDay from '../components/record-day/record-day'
-// import store from '../config/store'
 import { connect } from 'react-redux'
 import { clearEdit, editEntry } from '../actions'
 

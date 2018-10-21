@@ -1,15 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import injectSheet from 'react-jss'
+import cn from 'classnames'
+
 import styles from './styles'
 
 class Hamburger extends React.Component {
+  state = { active: false }
+
+  click = () => {
+    this.props.onClick()
+    this.setState({ active: !this.state.active })
+  }
+
   render() {
-    const { classes, onClick } = this.props
+    const { classes } = this.props
+    const { active } = this.state
     return (
-      <span onClick={onClick} className={classes.wrapper}>
-        ☰
-      </span>
+      <div onClick={this.click} className={classes.wrapper}>
+        <div className={cn(classes.inner, active ? 'active' : '')} />
+      </div>
     )
   }
 }

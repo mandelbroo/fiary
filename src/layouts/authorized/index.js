@@ -11,18 +11,17 @@ import logo from 'components/logo/logo.svg'
 import Session from 'services/session'
 import Logout from 'components/logout/logout'
 import styles from './styles'
+import { zIndexOverlay, zIndexSidebar } from 'components/consts-styles'
 
 const OVERRIDE = {
-  overlay: { zIndex: 11 },
-  sidebar: { zIndex: 12, width: '70%' },
+  overlay: { zIndex: zIndexOverlay },
+  sidebar: { zIndex: zIndexSidebar, width: '100%' },
 }
 
 class Authorized extends React.Component {
-  state = { sidebarOpen: false }
+  state = { sidebarOpen: true }
 
-  onSetSidebarOpen = (open) => this.setState({ sidebarOpen: open })
-  openSidebar = () => this.onSetSidebarOpen(true)
-  closeSidebar = () => this.onSetSidebarOpen(false)
+  openSidebar = () => this.setState({ sidebarOpen: !this.state.sidebarOpen })
 
   get sidebarContent() {
     const { classes } = this.props
@@ -33,7 +32,7 @@ class Authorized extends React.Component {
           <h3 className={classes.title}>fiary</h3>
         </li>
         <li className={classes.item}>
-          <Link to="/" onClick={this.closeSidebar}>
+          <Link to="/" onClick={this.openSidebar}>
             Home
           </Link>
         </li>
