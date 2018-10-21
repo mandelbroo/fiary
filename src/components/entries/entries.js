@@ -19,9 +19,9 @@ export class Entries extends React.Component {
   }
 
   render() {
+    const { classes, entries, redirect } = this.props
     const { redirectPath } = this.state
     if (redirectPath) return redirect(redirectPath)
-    const { classes, entries, redirect } = this.props
     return (
       <div className={classes.container}>
         {entries.map((entry, ix) => (
