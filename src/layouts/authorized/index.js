@@ -50,7 +50,7 @@ class Authorized extends React.Component {
       <Sidebar
         sidebar={this.sidebarContent}
         open={this.state.sidebarOpen}
-        onSetOpen={this.onSetSidebarOpen}
+        onSetOpen={this.openSidebar}
         styles={OVERRIDE}
       >
         <div className="App">
