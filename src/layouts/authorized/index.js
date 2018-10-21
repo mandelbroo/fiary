@@ -55,7 +55,7 @@ class Authorized extends React.Component {
       >
         <div className="App">
           <Hamburger onClick={this.openSidebar} classes={classes.hamburger} />
-          <TabBar className="w3-cell" />
+          <TabBar />
           <div className="content">
             <RoutesRender />
           </div>

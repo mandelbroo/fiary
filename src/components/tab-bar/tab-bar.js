@@ -1,5 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import injectSheet from 'react-jss'
+import PropTypes from 'prop-types'
+
+const style = {
+  itemsWrapper: {
+    padding: '15px',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  item: {
+    fontSize: '20px',
+    padding: '10px',
+    '&:not(last-of-type)': {
+      marginRight: '30px',
+    },
+  },
+}
 
 export const PATHS = [
   { name: 'Today', path: 'today' },
@@ -7,15 +24,23 @@ export const PATHS = [
   { name: 'Add', path: 'calendar' },
 ]
 
-export default class TabBar extends React.Component {
+class TabBar extends React.Component {
   render() {
-    const items = PATHS.map((item, index) => (
-      <Link className="w3-bar-item w3-button" key={index} to={`/${item.path}`}>
-        {item.name}
-      </Link>
-    ))
+    const { classes } = this.props
     return (
-      <div className={`w3-bar w3-black ${this.props.className}`}>{items}</div>
+      <div className={classes.itemsWrapper}>
+        {PATHS.map((item, index) => (
+          <Link className={classes.item} key={index} to={`/${item.path}`}>
+            {item.name}
+          </Link>
+        ))}
+      </div>
     )
   }
 }
+
+TabBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default injectSheet(style)(TabBar)
