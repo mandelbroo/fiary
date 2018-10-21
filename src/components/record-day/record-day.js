@@ -75,9 +75,8 @@ export class RecordDay extends React.Component {
   }
 }
 
-RecordDay.PropTypes = {
+RecordDay.propTypes = {
   entry: PropTypes.object.isRequired,
-  record: PropTypes.object.isRequired,
 }
 
 export const mapStateToProps = (state) => {

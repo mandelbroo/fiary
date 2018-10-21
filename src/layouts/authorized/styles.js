@@ -13,7 +13,4 @@ export default {
       },
     },
   },
-  hamburger: {
-    paddingLeft: '20px',
-  },
 }

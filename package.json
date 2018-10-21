@@ -8,14 +8,14 @@
     "node": "10.6.0"
   },
   "scripts": {
-    "start": "react-scripts build && NODE_ENV=production node server/app.js",
+    "start": "react-scripts build && NODE_ENV=production NODE_PATH=src/ node server/app.js",
     "build": "react-scripts build",
     "deploy:test": "git push heroku master",
-    "dev:front": "react-scripts start",
+    "dev:front": "NODE_PATH=src/ react-scripts start",
     "dev:back": "NODE_ENV=development LOGGER=true nodemon server/app.js",
     "test": "NODE_ENV=test jest server/ --detectOpenHandles --forceExit --verbose --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "test:front": "react-scripts test --env=jsdom --verbose",
-    "test:front:cov": "react-scripts test --env=jsdom --coverage",
+    "test:front": "NODE_PATH=src/ react-scripts test --env=jsdom --verbose",
+    "test:front:cov": "NODE_PATH=src/ react-scripts test --env=jsdom --coverage",
     "test:back": "NODE_ENV=test jest server/ --watch --verbose --detectOpenHandles",
     "test:back:cov": "NODE_ENV=test jest server/ --coverage --detectOpenHandles",
     "see:cov": "xdg-open coverage/lcov-report/index.html > /dev/null 2>&1 &",

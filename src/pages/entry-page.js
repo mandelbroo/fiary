@@ -1,15 +1,16 @@
 import React from 'react'
 import RecordDay from '../components/record-day/record-day'
-import store from '../store'
+// import store from '../config/store'
+import { connect } from 'react-redux'
 import { clearEdit, editEntry } from '../actions'
 
 class EntryPage extends React.Component {
   componentDidMount = () => {
-    const { match } = this.props
-    store.dispatch(editEntry(match.params.entryDay))
+    const { match, dispatch } = this.props
+    dispatch(editEntry(match.params.entryDay))
   }
-  componentWillUnmount = () => store.dispatch(clearEdit())
+  componentWillUnmount = () => this.props.dispatch(clearEdit())
   render = () => <RecordDay />
 }
 
-export default EntryPage
+export default connect(EntryPage)
