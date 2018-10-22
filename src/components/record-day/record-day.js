@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import RecordList from 'components/record-list/record-list'
 import RecordNew from 'components/record-new/record-new'
 import DayHeader from 'components/day-header'
-import Dialog from 'components/dialog/dialog'
 
 export class RecordDay extends React.Component {
   componentWillUnmount = () => this.props.clearSelectedRecord()
@@ -14,44 +13,23 @@ export class RecordDay extends React.Component {
     addRecord(record, entry)
   }
 
-  get dialogState() {
-    const { selectedRecord, clearSelectedRecord, removeRecord } = this.props
-    if (selectedRecord) {
-      return {
-        show: true,
-        amount: selectedRecord.amount,
-        tags: selectedRecord.tags.map((t) => t.name + ' '),
-        action: () => {
-          removeRecord(selectedRecord)
-          clearSelectedRecord()
-        },
-        close: clearSelectedRecord,
-      }
-    }
-    return {}
-  }
-
   render() {
-    const { entry, selectRecord } = this.props
+    const {
+      entry,
+      removeRecord,
+      selectRecord,
+      clearSelectedRecord,
+    } = this.props
     return (
       <React.Fragment>
         <DayHeader entry={entry} />
-        <RecordList records={entry.records || []} onRemove={selectRecord} />
+        <RecordList
+          records={entry.records || []}
+          onRemoveClick={selectRecord}
+          onRemoveCancel={clearSelectedRecord}
+          onRemove={removeRecord}
+        />
         <RecordNew onSubmit={this.onAddRecord} />
-        <Dialog
-          show={this.dialogState.show}
-          onAction={this.dialogState.action}
-          onActionText="Remove"
-          onClose={this.dialogState.close}
-        >
-          <b>
-            {this.dialogState.amount} {this.dialogState.tags}
-          </b>
-          <br />
-          <span>to be removed</span>
-          <br />
-          <span> Are you sure?</span>
-        </Dialog>
       </React.Fragment>
     )
   }

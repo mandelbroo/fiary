@@ -1,36 +1,36 @@
 import React from 'react'
-import RecordView from '../record-view/record-view'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 
+import RecordView from '../record-view/record-view'
+import RemoveButton from './remove-button'
 import styles from './styles'
 
 export class RecordList extends React.Component {
+  state = {
+    clicked: false,
+  }
+
   NoRecords = (classes) => <div className={classes}>no records yet</div>
 
-  CrossButton = (clickFunc) => {
-    const { classes } = this.props
-    return (
-      <button className={classes.removeButton} onClick={clickFunc}>
-        <span role="img" aria-label="close">
-          ❌
-        </span>
-      </button>
-    )
-  }
-
-  removeButton = (item) => {
-    const { onRemove } = this.props
-    if (onRemove) return this.CrossButton(() => onRemove(item))
-  }
-
   render() {
-    const { classes, records } = this.props
+    const {
+      classes,
+      records,
+      onRemoveClick,
+      onRemoveCancel,
+      onRemove,
+    } = this.props
     const list = records
-      ? records.map((r, ix) => (
+      ? records.map((rec, ix) => (
           <li key={ix} className={classes.listItem}>
-            <RecordView data={r} />
-            {this.removeButton(r, classes)}
+            <RecordView data={rec} />
+            <RemoveButton
+              record={rec}
+              onClick={onRemoveClick}
+              onCancel={onRemoveCancel}
+              onApprove={onRemove}
+            />
           </li>
         ))
       : []
@@ -42,7 +42,9 @@ export class RecordList extends React.Component {
 RecordList.propTypes = {
   classes: PropTypes.object.isRequired,
   records: PropTypes.array,
-  onRemove: PropTypes.func,
+  onRemove: PropTypes.func.isRequired,
+  onRemoveClick: PropTypes.func.isRequired,
+  onRemoveCancel: PropTypes.func.isRequired,
 }
 
 export default injectSheet(styles)(RecordList)

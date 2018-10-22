@@ -33,6 +33,8 @@
     "repl": "NODE_ENV=development node --experimental-repl-await scripts/repl.js"
   },
   "dependencies": {
+    "@material-ui/core": "^3.3.0",
+    "@material-ui/icons": "^3.0.1",
     "axios": "^0.16.2",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.17.2",
