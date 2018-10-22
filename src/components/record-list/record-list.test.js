@@ -11,20 +11,20 @@ describe('RecordList', () => {
     expect(wrapper.children()).toHaveLength(0)
   })
   it('data prop set state', () => {
-    const wrap = mount(<RecordList data={data} />)
+    const wrap = mount(<RecordList records={data} />)
     const recordViews = wrap.find('RecordView')
     expect(recordViews).toHaveLength(2)
     expect(recordViews.first().props().data).toMatchObject(data[0])
     expect(recordViews.last().props().data).toMatchObject(data[1])
   })
   it('show "no records" text', () => {
-    const wrap = mount(<RecordList data={[]} />)
+    const wrap = mount(<RecordList records={[]} />)
     expect(wrap.find('span').text()).toBe('no records yet')
   })
   it('remove item', () => {
     const fakeRemoveHandler = jest.fn()
     const wrapper = mount(
-      <RecordList onRemove={fakeRemoveHandler} data={data} />
+      <RecordList onRemove={fakeRemoveHandler} records={data} />
     )
     const removeButtons = wrapper.find('button')
     expect(removeButtons).toHaveLength(2)

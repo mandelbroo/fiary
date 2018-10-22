@@ -17,7 +17,7 @@ import {
 export class RecordDay extends React.Component {
   componentWillMount = () => {
     const { entry, dispatch } = this.props
-    if (entry && !entry.id) dispatch(getEntries(entry.day))
+    if (entry && !entry.id && dispatch) dispatch(getEntries(entry.day))
   }
   componentWillUnmount = () => this.clearSelectedRecord()
 

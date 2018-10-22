@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
+import { DateTime } from 'luxon'
 
 import DayTile from 'components/day-tile/day-tile'
 import { getEntries } from 'actions'
@@ -18,15 +19,34 @@ export class Entries extends React.Component {
     this.setState({ redirectPath: path })
   }
 
+  renderDayTilesList = (entries) => {
+    if (entries.length > 0) {
+      let monthsDivider = []
+      return entries.map((entry, ix) => {
+        const tile = <DayTile entry={entry} click={this.click} key={ix} />
+        const month = DateTime.fromISO(entry.day).monthLong
+        if (!monthsDivider.includes(month)) {
+          monthsDivider.push(month)
+          return (
+            <React.Fragment>
+              {`--${month}`}
+              {tile}
+            </React.Fragment>
+          )
+        }
+        return tile
+      })
+    } else return <div>no entries</div>
+  }
+
   render() {
     const { classes, entries, redirect } = this.props
     const { redirectPath } = this.state
     if (redirectPath) return redirect(redirectPath)
+
     return (
       <div className={classes.container}>
-        {entries.map((entry, ix) => (
-          <DayTile entry={entry} click={this.click} key={ix} />
-        ))}
+        {this.renderDayTilesList(entries)}
       </div>
     )
   }

@@ -27,7 +27,7 @@ const fakeEntry = {
 
 describe('RecordDay', () => {
   it('render RecordList and RecordNew', () => {
-    const wrapper = shallow(<RecordDay />)
+    const wrapper = shallow(<RecordDay dispatch={jest.fn()} />)
     expect(
       wrapper.containsAllMatchingElements([
         <DayHeader />,
