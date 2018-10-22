@@ -28,7 +28,7 @@ export class Entries extends React.Component {
         if (!monthsDivider.includes(month)) {
           monthsDivider.push(month)
           return (
-            <React.Fragment>
+            <React.Fragment key={ix}>
               {`--${month}`}
               {tile}
             </React.Fragment>
