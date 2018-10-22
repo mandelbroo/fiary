@@ -1,7 +1,10 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import Calendar from 'react-calendar'
-const { DateTime } = require('luxon')
+import { DateTime } from 'luxon'
+import injectSheet from 'react-jss'
+
+import styles from './styles'
 
 class CalendarDay extends React.Component {
   state = { path: false }
@@ -15,11 +18,18 @@ class CalendarDay extends React.Component {
 
   render() {
     const { path } = this.state
+    const { classes } = this.props
     let comp = null
     if (path) comp = <Redirect to={path} />
-    else comp = <Calendar onClickDay={this.redirectDay} />
+    else
+      comp = (
+        <Calendar
+          className={classes.calendarWrapper}
+          onClickDay={this.redirectDay}
+        />
+      )
     return comp
   }
 }
 
-export default CalendarDay
+export default injectSheet(styles)(CalendarDay)
