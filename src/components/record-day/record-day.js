@@ -28,7 +28,7 @@ export class RecordDay extends React.Component {
         close: clearSelectedRecord,
       }
     }
-    return { show: true }
+    return {}
   }
 
   render() {
