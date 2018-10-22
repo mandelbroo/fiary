@@ -4,6 +4,7 @@ export default {
   },
   noRecords: {
     color: 'lightgrey',
+    textAlign: 'center',
   },
   listItem: {
     padding: '5px',

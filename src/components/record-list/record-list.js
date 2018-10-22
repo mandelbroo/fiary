@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import styles from './styles'
 
 export class RecordList extends React.Component {
-  NoRecords = (classes) => <span className={classes}>no records yet</span>
+  NoRecords = (classes) => <div className={classes}>no records yet</div>
 
   CrossButton = (clickFunc) => {
     const { classes } = this.props
