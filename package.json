@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "react-scripts build && NODE_ENV=production NODE_PATH=src/ node server/app.js",
-    "build": "react-scripts build",
+    "build": "NODE_PATH=src/ react-scripts build",
     "deploy:test": "git push heroku master",
     "dev:front": "NODE_PATH=src/ react-scripts start",
     "dev:back": "NODE_ENV=development LOGGER=true nodemon server/app.js",
