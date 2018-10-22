@@ -21,8 +21,6 @@ export class RecordList extends React.Component {
 
   removeButton = (item) => {
     const { onRemove } = this.props
-    console.log({ item })
-
     if (onRemove) return this.CrossButton(() => onRemove(item))
   }
 

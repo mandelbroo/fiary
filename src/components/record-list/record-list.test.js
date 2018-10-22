@@ -19,7 +19,7 @@ describe('RecordList', () => {
   })
   it('show "no records" text', () => {
     const wrap = mount(<RecordList records={[]} />)
-    expect(wrap.find('span').text()).toBe('no records yet')
+    expect(wrap.find('div').text()).toBe('no records yet')
   })
   it('remove item', () => {
     const fakeRemoveHandler = jest.fn()

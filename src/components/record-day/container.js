@@ -44,7 +44,6 @@ export const mapStateToProps = (state) => {
   if (entries.list.length > 0) {
     res.entry = entries.list.find((e) => e.day === editingEntry) || res.entry
   }
-  console.log('mapStateToProps', res)
   return res
 }
 
