@@ -12,6 +12,7 @@ export class RecordDay extends React.Component {
   onAddRecord = (record) => {
     const { entry, addRecord } = this.props
     addRecord(record, entry)
+    console.log('here')
   }
 
   get dialogState() {

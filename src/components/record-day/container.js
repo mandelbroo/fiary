@@ -12,13 +12,6 @@ import {
 } from 'actions'
 
 class RecordDayContainer extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: props.error,
-    }
-  }
-
   render() {
     return <RecordDayComponent {...this.props} />
   }
@@ -49,7 +42,12 @@ export const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   dispatch,
-  addRecord: (...args) => dispatch(addRecord(...args)),
+  // addRecord: (...args) => dispatch(addRecord(...args)),
+  addRecord: (...args) => {
+    console.log(args)
+
+    dispatch(addRecord(...args))
+  },
   getEntries: (...args) => dispatch(getEntries(...args)),
   removeRecord: (...args) => dispatch(removeRecord(...args)),
   selectRecord: (...args) => dispatch(selectRecord(...args)),

@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../config/enzyme'
+import 'config/enzyme'
 import { shallow, mount } from 'enzyme'
 import { RecordDay } from './record-day'
 import RecordList from '../record-list/record-list'
@@ -15,7 +15,7 @@ jest.mock('../../actions', () => ({
   clearSelectedRecord: jest.fn(),
   getEntries: jest.fn(),
 }))
-import actions from '../../actions'
+import actions from 'actions'
 
 const fakeEntry = {
   day: '',
@@ -27,75 +27,59 @@ const fakeEntry = {
 
 describe('RecordDay', () => {
   it('render RecordList and RecordNew', () => {
-    const wrapper = shallow(<RecordDay dispatch={jest.fn()} />)
+    const wrapper = shallow(
+      <RecordDay dispatch={jest.fn()} entry={fakeEntry} {...actions} />
+    )
     expect(
       wrapper.containsAllMatchingElements([
-        <DayHeader />,
-        <RecordList />,
-        <RecordNew />,
+        <DayHeader key={1} />,
+        <RecordList key={2} />,
+        <RecordNew key={3} />,
       ])
     ).toBe(true)
   })
   it('render list of records based on entry prop', () => {
-    const wrapper = mount(<RecordDay entry={fakeEntry} dispatch={jest.fn()} />)
+    const wrapper = mount(
+      <RecordDay entry={fakeEntry} dispatch={jest.fn()} {...actions} />
+    )
     expect(wrapper.find('li')).toHaveLength(2)
   })
   it('add record dispatch', () => {
-    const fakeDispatch = jest.fn()
     const fakeRecord = { amount: 99 }
-    const wrapper = shallow(
-      <RecordDay entry={fakeEntry} dispatch={fakeDispatch} />
-    )
-    wrapper.instance().add(fakeRecord)
-    expect(fakeDispatch).toBeCalled()
+    const wrapper = shallow(<RecordDay entry={fakeEntry} {...actions} />)
+    wrapper.instance().props.addRecord(fakeRecord, fakeEntry)
     expect(actions.addRecord).toBeCalledWith(fakeRecord, fakeEntry)
   })
   it('remove record dispatch', () => {
-    const fakeDispatch = jest.fn()
     const fakeEntry = {
       day: '',
       records: [{ amount: 99, tags: ['aaa'] }],
     }
-    const wrapper = shallow(
-      <RecordDay entry={fakeEntry} dispatch={fakeDispatch} />
-    )
-    wrapper.instance().remove(fakeEntry.records[0])
-    expect(fakeDispatch).toBeCalled()
+    const wrapper = shallow(<RecordDay entry={fakeEntry} {...actions} />)
+    wrapper.instance().props.removeRecord(fakeEntry.records[0])
     expect(actions.removeRecord).toBeCalledWith(fakeEntry.records[0])
   })
   it('select record dispatch', () => {
     const fakeRecord = { amount: 101 }
-    const fakeDispatch = jest.fn()
-    const wrapper = shallow(
-      <RecordDay entry={fakeEntry} dispatch={fakeDispatch} />
-    )
-    wrapper.instance().selectRecord(fakeRecord)
-    expect(fakeDispatch).toBeCalled()
+    const wrapper = shallow(<RecordDay entry={fakeEntry} {...actions} />)
+    wrapper.instance().props.selectRecord(fakeRecord)
     expect(actions.selectRecord).toBeCalledWith(fakeRecord)
   })
   it('clear selected record dispatch', () => {
-    const fakeDispatch = jest.fn()
-    const wrapper = shallow(
-      <RecordDay entry={fakeEntry} dispatch={fakeDispatch} />
-    )
-    wrapper.instance().clearSelectedRecord()
-    expect(fakeDispatch).toBeCalled()
+    const wrapper = shallow(<RecordDay entry={fakeEntry} {...actions} />)
+    wrapper.instance().props.clearSelectedRecord()
     expect(actions.clearSelectedRecord).toBeCalled()
   })
   it('unmount call clear selected record', () => {
-    const fakeDispatch = jest.fn()
-    const wrapper = shallow(
-      <RecordDay entry={fakeEntry} dispatch={fakeDispatch} />
-    )
+    const wrapper = shallow(<RecordDay entry={fakeEntry} {...actions} />)
     wrapper.unmount()
-    expect(fakeDispatch).toBeCalled()
     expect(actions.clearSelectedRecord).toBeCalled()
   })
   it('show removal dialog', () => {
     const fakeRecord = { amount: 88, tags: [{ name: 'spending' }] }
-    const wrapper = shallow(<RecordDay entry={fakeEntry} record={fakeRecord} />)
+    const wrapper = shallow(
+      <RecordDay entry={fakeEntry} record={fakeRecord} {...actions} />
+    )
     expect(wrapper.containsMatchingElement(Dialog)).toBe(true)
   })
-  it.skip('dialog approve removing', () => {})
-  it.skip('dialog cancel removing', () => {})
 })
