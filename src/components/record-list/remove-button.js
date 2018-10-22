@@ -36,15 +36,17 @@ class RemoveButton extends React.PureComponent {
       )
     }
     return (
-      <button
-        className={classes.removeButton}
-        onClick={() => {
-          this.setState({ clicked: true })
-          onClick(record)
-        }}
-      >
-        <DeleteIcon />
-      </button>
+      <div className={classes.removeWrapper}>
+        <button
+          className={classes.removeButton}
+          onClick={() => {
+            this.setState({ clicked: true })
+            onClick(record)
+          }}
+        >
+          <DeleteIcon />
+        </button>
+      </div>
     )
   }
 }
