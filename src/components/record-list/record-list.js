@@ -7,10 +7,6 @@ import RemoveButton from './remove-button'
 import styles from './styles'
 
 export class RecordList extends React.Component {
-  state = {
-    clicked: false,
-  }
-
   NoRecords = (classes) => <div className={classes}>no records yet</div>
 
   render() {
@@ -21,8 +17,10 @@ export class RecordList extends React.Component {
       onRemoveCancel,
       onRemove,
     } = this.props
-    const list = records
-      ? records.map((rec, ix) => (
+    if (records.length === 0) return this.NoRecords(classes.noRecords)
+    return (
+      <ul className={classes.list}>
+        {records.map((rec, ix) => (
           <li key={ix} className={classes.listItem}>
             <RecordView data={rec} />
             <RemoveButton
@@ -32,10 +30,9 @@ export class RecordList extends React.Component {
               onApprove={onRemove}
             />
           </li>
-        ))
-      : []
-    const content = list.length > 0 ? list : this.NoRecords(classes.noRecords)
-    return <ul className={classes.list}>{content}</ul>
+        ))}
+      </ul>
+    )
   }
 }
 
