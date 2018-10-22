@@ -1,11 +1,11 @@
 import React from 'react'
-import '../config/enzyme'
+import 'config/enzyme'
 import { mount } from 'enzyme'
-
-import RecordDay from '../components/record-day'
-import ConnectedTodayPage from './today-page'
 import { Provider } from 'react-redux'
 import { DateTime } from 'luxon'
+
+import RecordDay from 'components/record-day'
+import ConnectedTodayPage from './today-page'
 
 jest.mock('../actions', () => ({
   clearEdit: jest.fn().mockImplementation(() => ({ type: 'T', payload: {} })),
@@ -18,7 +18,7 @@ jest.mock('../actions', () => ({
     .fn()
     .mockImplementation(() => ({ type: 'T', payload: {} })),
 }))
-import { clearEdit, editEntry, getEntries, getTodayDate } from '../actions'
+import { clearEdit, editEntry, getEntries } from 'actions'
 
 const fakeStore = {
   dispatch: jest.fn(),
@@ -39,7 +39,6 @@ describe('TodayPage', () => {
   it('load today records', () => {
     const today = DateTime.local().toISODate()
     expect(fakeStore.dispatch).toBeCalled()
-    expect(getTodayDate).toBeCalled()
     expect(getEntries).toBeCalledWith(today)
     expect(editEntry).toBeCalledWith(today)
     expect(wrapper.find(RecordDay)).toHaveLength(1)
