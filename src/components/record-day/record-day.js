@@ -1,58 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import RecordList from '../record-list/record-list'
-import RecordNew from '../record-new/record-new'
-import DayHeader from '../day-header'
-import Dialog from '../dialog/dialog'
 
-import {
-  addRecord,
-  removeRecord,
-  selectRecord,
-  clearSelectedRecord,
-  getEntries,
-} from '../../actions'
+import RecordList from 'components/record-list/record-list'
+import RecordNew from 'components/record-new/record-new'
+import DayHeader from 'components/day-header'
+import Dialog from 'components/dialog/dialog'
 
 export class RecordDay extends React.Component {
-  componentWillMount = () => {
-    const { entry, dispatch } = this.props
-    if (entry && !entry.id && dispatch) dispatch(getEntries(entry.day))
-  }
-  componentWillUnmount = () => this.clearSelectedRecord()
+  componentWillUnmount = () => this.props.clearSelectedRecord()
 
-  add = (record) => this.props.dispatch(addRecord(record, this.props.entry))
-  remove = (record) => this.props.dispatch(removeRecord(record))
-  selectRecord = (record) => this.props.dispatch(selectRecord(record))
-  clearSelectedRecord = () => this.props.dispatch(clearSelectedRecord())
+  onAddRecord = (record) => {
+    const { entry, addRecord } = this.props
+    addRecord(record, entry)
+  }
 
   get dialogState() {
-    const record = this.props.record
-    if (record) {
+    const { selectedRecord, clearSelectedRecord, removeRecord } = this.props
+    if (selectedRecord) {
       return {
         show: true,
-        amount: record.amount,
-        tags: record.tags.map((t) => t.name + ' '),
+        amount: selectedRecord.amount,
+        tags: selectedRecord.tags.map((t) => t.name + ' '),
         action: () => {
-          this.remove(record)
-          this.clearSelectedRecord()
+          removeRecord(selectedRecord)
+          clearSelectedRecord()
         },
-        close: this.clearSelectedRecord,
+        close: clearSelectedRecord,
       }
     }
-    return {}
+    return { show: true }
   }
 
   render() {
-    const { entry } = this.props
+    const { entry, selectRecord } = this.props
     return (
       <React.Fragment>
         <DayHeader entry={entry} />
-        <RecordList
-          records={entry.records || []}
-          onRemove={this.selectRecord}
-        />
-        <RecordNew onSubmit={this.add} />
+        <RecordList records={entry.records || []} onRemove={selectRecord} />
+        <RecordNew onSubmit={this.onAddRecord} />
         <Dialog
           show={this.dialogState.show}
           onAction={this.dialogState.action}
@@ -74,22 +59,11 @@ export class RecordDay extends React.Component {
 
 RecordDay.propTypes = {
   entry: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  selectedRecord: PropTypes.object,
+  addRecord: PropTypes.func.isRequired,
+  selectRecord: PropTypes.func.isRequired,
+  removeRecord: PropTypes.func.isRequired,
+  clearSelectedRecord: PropTypes.func.isRequired,
 }
 
-export const mapStateToProps = (state) => {
-  const { entries, selectedRecord, editingEntry } = state
-  let res = {
-    entry: {
-      day: editingEntry,
-      records: [],
-    },
-    record: selectedRecord,
-  }
-  if (entries.list.length > 0) {
-    res.entry = entries.list.find((e) => e.day === editingEntry) || res.entry
-  }
-  return res
-}
-
-export default connect(mapStateToProps)(RecordDay)
+export default RecordDay

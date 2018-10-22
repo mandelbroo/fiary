@@ -9,6 +9,7 @@ export default {
   listItem: {
     padding: '5px',
     fontSize: '20px',
+    display: 'flex',
   },
   removeButton: {
     cursor: 'pointer',

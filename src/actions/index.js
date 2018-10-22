@@ -6,7 +6,6 @@ import {
 } from './records'
 import editEntry, { clearEdit } from './edit-entry'
 import getEntries from './get-entries'
-import getTodayDate from './get-today-date'
 
 export {
   addRecord,
@@ -14,7 +13,6 @@ export {
   clearSelectedRecord,
   editEntry,
   getEntries,
-  getTodayDate,
   selectRecord,
   removeRecord,
 }

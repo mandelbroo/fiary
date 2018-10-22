@@ -2,7 +2,7 @@ import React from 'react'
 import '../config/enzyme'
 import { mount } from 'enzyme'
 
-import RecordDay from '../components/record-day/record-day'
+import RecordDay from '../components/record-day'
 import ConnectedTodayPage from './today-page'
 import { Provider } from 'react-redux'
 import { DateTime } from 'luxon'

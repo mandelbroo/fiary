@@ -74,7 +74,6 @@ describe('RecordDay', () => {
     expect(actions.selectRecord).toBeCalledWith(fakeRecord)
   })
   it('clear selected record dispatch', () => {
-    const fakeRecord = { amount: 101 }
     const fakeDispatch = jest.fn()
     const wrapper = shallow(
       <RecordDay entry={fakeEntry} dispatch={fakeDispatch} />

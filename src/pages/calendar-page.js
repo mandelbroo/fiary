@@ -7,10 +7,12 @@ class CalendarDay extends React.Component {
   state = { path: false }
 
   redirectDay = (day) => {
+    const { history } = this.props
     const path = `/entry/${DateTime.fromMillis(Date.parse(day)).toISODate()}`
-    this.props.history.push(path)
+    history.push(path)
     this.setState({ path })
   }
+
   render() {
     const { path } = this.state
     let comp = null
