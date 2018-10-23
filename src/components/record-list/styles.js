@@ -11,6 +11,7 @@ export default {
   noRecords: {
     color: 'lightgrey',
     textAlign: 'center',
+    padding: '20px 0',
   },
   listItem: {
     padding: '5px 0',
