@@ -5,7 +5,6 @@ import { RecordDay } from './record-day'
 import RecordList from '../record-list/record-list'
 import RecordNew from '../record-new/record-new'
 import DayHeader from '../day-header'
-import Dialog from '../dialog/dialog'
 import 'jest-localstorage-mock'
 
 jest.mock('../../actions', () => ({
@@ -74,12 +73,5 @@ describe('RecordDay', () => {
     const wrapper = shallow(<RecordDay entry={fakeEntry} {...actions} />)
     wrapper.unmount()
     expect(actions.clearSelectedRecord).toBeCalled()
-  })
-  it('show removal dialog', () => {
-    const fakeRecord = { amount: 88, tags: [{ name: 'spending' }] }
-    const wrapper = shallow(
-      <RecordDay entry={fakeEntry} record={fakeRecord} {...actions} />
-    )
-    expect(wrapper.containsMatchingElement(Dialog)).toBe(true)
   })
 })
