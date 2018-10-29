@@ -1,3 +1,3 @@
 export default {
-  serverUrl: process.env.API_URL || 'https://fiary.me/api',
+  serverUrl: process.env.REACT_APP_API_URL || 'https://fiary.me/api',
 }
