@@ -6,8 +6,9 @@ export default class User {
   static async post(path, data) {
     try {
       const res = await axios.post(config.serverUrl + path, data)
-      if (res.data.success) {
-        Session.authorize(res.data)
+      const { success, user, token } = res.data
+      if (success) {
+        Session.authorize(user, token)
       }
       return res.data
     } catch (err) {

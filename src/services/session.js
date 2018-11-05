@@ -3,11 +3,11 @@ import jwtDecode from 'jwt-decode'
 const now = () => Date.now().valueOf() / 1000
 
 export default class Session {
-  static authorize(res) {
-    const decoded = jwtDecode(res.token)
+  static authorize(user, token) {
+    const decoded = jwtDecode(token)
     if (decoded.exp > now()) {
-      Store.setItem('token', res.token)
-      this.setUser(res.user)
+      Store.setItem('token', token)
+      this.setUser(user)
     }
   }
   static authToken() {
