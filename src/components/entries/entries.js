@@ -19,7 +19,7 @@ export class Entries extends React.Component {
     this.setState({ redirectPath: path })
   }
 
-  renderDayTilesList = (entries) => {
+  renderDayTilesList = (entries, classes) => {
     if (entries.length > 0) {
       let monthsDivider = []
       return entries.map((entry, ix) => {
@@ -29,7 +29,7 @@ export class Entries extends React.Component {
           monthsDivider.push(month)
           return (
             <React.Fragment key={ix}>
-              {`--${month}`}
+              <span className={classes.month}>{month}</span>
               {tile}
             </React.Fragment>
           )
@@ -46,7 +46,7 @@ export class Entries extends React.Component {
 
     return (
       <div className={classes.container}>
-        {this.renderDayTilesList(entries)}
+        {this.renderDayTilesList(entries, classes)}
       </div>
     )
   }
