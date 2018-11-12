@@ -40,7 +40,6 @@ export default (state, action) => {
     case 'GET_ENTRY_BY_DATE_FULFILLED':
     case 'GET_ENTRIES_FULFILLED':
       const { collection, ...args } = action.payload
-      console.log({ args })
 
       entries = {
         ...entries,
