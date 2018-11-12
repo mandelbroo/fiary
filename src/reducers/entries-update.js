@@ -37,7 +37,6 @@ export default (state, action) => {
     case 'GET_ENTRY_BY_DATE_REJECTED':
       entries = { ...entries, loading: false, error: action.payload }
       break
-    case 'GET_ENTRY_BY_DATE_FULFILLED':
     case 'GET_ENTRIES_FULFILLED':
       const { collection, ...args } = action.payload
 
@@ -47,6 +46,14 @@ export default (state, action) => {
         loading: false,
         loaded: true,
         ...args,
+      }
+      break
+    case 'GET_ENTRY_BY_DATE_FULFILLED':
+      entries = {
+        ...entries,
+        list: immutableMerge(entries.list, action.payload),
+        loading: false,
+        loaded: true,
       }
       break
     case 'REMOVE_RECORD_PENDING':
