@@ -2,14 +2,16 @@ const Entry = require('../models/entry')
 const apiRes = require('./api-response')
 
 const getAll = async (req, res) => {
+  const { page, size } = req.query
   const user = await req.currentUserPromise
+
   Entry.query((q) => {
     q.where('entries.user_id', '=', user.id)
     q.orderBy('entries.day', 'DESC')
   })
     .fetchPage({
-      pageSize: 15,
-      page: 1,
+      pageSize: size,
+      page: page,
       withRelated: ['records', 'records.tags'],
     })
     .then((entries) => {
