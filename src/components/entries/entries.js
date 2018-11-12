@@ -3,12 +3,25 @@ import { connect } from 'react-redux'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import { DateTime } from 'luxon'
+import cn from 'classnames'
+import _ from 'lodash'
 
 import DayTile from 'components/day-tile/day-tile'
 import { getEntries } from 'actions/entries'
 import styles from './styles'
 
 export class Entries extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    redirect: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    entries: PropTypes.array,
+    loading: PropTypes.bool,
+    page: PropTypes.number,
+    maxPage: PropTypes.number,
+  }
+
   state = { redirectPath: '' }
 
   componentDidMount = () => this.props.dispatch(getEntries())
@@ -52,14 +65,20 @@ export class Entries extends React.Component {
   }
 
   render() {
-    const { classes, entries, redirect, loading } = this.props
     const { redirectPath } = this.state
+    const { redirect } = this.props
     if (redirectPath) return redirect(redirectPath)
+
+    const { classes, entries, loading, maxPage, page } = this.props
+    const canLoadMore = page < maxPage
 
     return (
       <div className={classes.container}>
         {this.renderDayTilesList(entries, classes)}
-        <button className={classes.button} onClick={this.onShowMore}>
+        <button
+          className={cn(classes.button, canLoadMore ? '' : 'disabled')}
+          onClick={canLoadMore ? this.onShowMore : () => {}}
+        >
           {loading ? 'Loading...' : 'Show More'}
         </button>
       </div>
@@ -67,17 +86,9 @@ export class Entries extends React.Component {
   }
 }
 
-Entries.propTypes = {
-  classes: PropTypes.object.isRequired,
-  redirect: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-  entries: PropTypes.array,
-}
-
 const mapStateToProps = (state) => {
   return {
-    entries: state.entries.list,
+    entries: _.orderBy(state.entries.list, 'day', ['desc']),
     page: state.entries.page,
     maxPage: state.entries.totalPages,
     loading: state.entries.loading,

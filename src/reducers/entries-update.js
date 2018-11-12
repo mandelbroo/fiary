@@ -91,5 +91,6 @@ function immutableMergeItem(array, item) {
 }
 function immutableMergeArr(base, incoming) {
   const incValues = incoming.map((i) => i.day)
-  return incoming.concat(base.filter((i) => !incValues.includes(i.day)))
+  const unchanged = base.filter((i) => !incValues.includes(i.day))
+  return [].concat(unchanged, incoming)
 }

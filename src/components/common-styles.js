@@ -19,4 +19,11 @@ export const button = {
     fontSize: '20px',
     padding: '10px 20px',
   },
+  '&.disabled': {
+    color: 'grey',
+    '&:focus': {
+      border: `solid 1px lightgray`,
+      boxShadow: 'none',
+    },
+  },
 }
