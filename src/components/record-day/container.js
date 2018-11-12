@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import RecordDayComponent from './record-day'
+import { getEntries } from 'actions/entries'
 import {
   addRecord,
   removeRecord,
   selectRecord,
   clearSelectedRecord,
-  getEntries,
-} from 'actions'
+} from 'actions/records'
 
 class RecordDayContainer extends React.PureComponent {
   render() {

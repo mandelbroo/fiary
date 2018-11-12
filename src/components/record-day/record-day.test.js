@@ -7,14 +7,13 @@ import RecordNew from '../record-new/record-new'
 import DayHeader from '../day-header'
 import 'jest-localstorage-mock'
 
-jest.mock('../../actions', () => ({
+jest.mock('actions/records', () => ({
   addRecord: jest.fn(),
   removeRecord: jest.fn(),
   selectRecord: jest.fn(),
   clearSelectedRecord: jest.fn(),
-  getEntries: jest.fn(),
 }))
-import actions from 'actions'
+import actions from 'actions/records'
 
 const fakeEntry = {
   day: '',

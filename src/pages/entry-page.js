@@ -2,18 +2,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { clearEdit, editEntry, getEntries } from 'actions'
+import { editEntryClear, editEntry, getEntryByDate } from 'actions/entries'
 import RecordDay from 'components/record-day'
 
 class EntryPage extends React.Component {
   componentDidMount = () => {
     const { match, dispatch } = this.props
     const day = match.params.entryDay
-    dispatch(getEntries(day))
+    dispatch(getEntryByDate(day))
     dispatch(editEntry(day))
   }
 
-  componentWillUnmount = () => this.props.dispatch(clearEdit())
+  componentWillUnmount = () => this.props.dispatch(editEntryClear())
 
   render = () => <RecordDay />
 }

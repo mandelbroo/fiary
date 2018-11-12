@@ -7,18 +7,16 @@ import { DateTime } from 'luxon'
 import RecordDay from 'components/record-day'
 import ConnectedTodayPage from './today-page'
 
-jest.mock('../actions', () => ({
-  clearEdit: jest.fn().mockImplementation(() => ({ type: 'T', payload: {} })),
-  clearSelectedRecord: jest
+jest.mock('actions/entries', () => ({
+  editEntryClear: jest
     .fn()
     .mockImplementation(() => ({ type: 'T', payload: {} })),
   editEntry: jest.fn().mockImplementation(() => ({ type: 'T', payload: {} })),
-  getEntries: jest.fn().mockImplementation(() => ({ type: 'T', payload: {} })),
-  getTodayDate: jest
+  getEntryByDate: jest
     .fn()
     .mockImplementation(() => ({ type: 'T', payload: {} })),
 }))
-import { clearEdit, editEntry, getEntries } from 'actions'
+import { editEntryClear, editEntry, getEntryByDate } from 'actions/entries'
 
 const fakeStore = {
   dispatch: jest.fn(),
@@ -39,13 +37,13 @@ describe('TodayPage', () => {
   it('load today records', () => {
     const today = DateTime.local().toISODate()
     expect(fakeStore.dispatch).toBeCalled()
-    expect(getEntries).toBeCalledWith(today)
+    expect(getEntryByDate).toBeCalledWith(today)
     expect(editEntry).toBeCalledWith(today)
     expect(wrapper.find(RecordDay)).toHaveLength(1)
   })
 
   it('clears on unmount', () => {
     wrapper.unmount()
-    expect(clearEdit).toBeCalled()
+    expect(editEntryClear).toBeCalled()
   })
 })

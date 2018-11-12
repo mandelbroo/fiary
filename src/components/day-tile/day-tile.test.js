@@ -12,13 +12,13 @@ describe('DayTile', () => {
   const classes = {}
 
   it('success mount', () => {
-    mount(<DayTile click={() => {}} entry={fakeEntry} classes={classes} />)
+    mount(<DayTile onClick={() => {}} entry={fakeEntry} classes={classes} />)
   })
   it('call provided click handler', () => {
     const fakeClick = jest.fn()
 
     const wrapper = mount(
-      <DayTile click={fakeClick} entry={fakeEntry} classes={classes} />
+      <DayTile onClick={fakeClick} entry={fakeEntry} classes={classes} />
     )
     wrapper.simulate('click')
     expect(fakeClick).toBeCalledWith(fakeEntry.day)

@@ -5,6 +5,8 @@ export default (state, action) => {
     loading: false,
     error: '',
     removingRecordId: '',
+    page: 1,
+    totalPages: 0,
   }
   const record = action.payload
   switch (action.type) {
@@ -26,19 +28,26 @@ export default (state, action) => {
       break
     case 'ADD_RECORD_PENDING':
     case 'GET_ENTRIES_PENDING':
+    case 'GET_ENTRY_BY_DATE_PENDING':
       entries = { ...entries, loading: true }
       break
     case 'ADD_RECORD_REJECTED':
     case 'REMOVE_RECORD_REJECTED':
     case 'GET_ENTRIES_REJECTED':
+    case 'GET_ENTRY_BY_DATE_REJECTED':
       entries = { ...entries, loading: false, error: action.payload }
       break
+    case 'GET_ENTRY_BY_DATE_FULFILLED':
     case 'GET_ENTRIES_FULFILLED':
+      const { collection, ...args } = action.payload
+      console.log({ args })
+
       entries = {
         ...entries,
-        list: immutableMerge(entries.list, action.payload),
+        list: immutableMerge(entries.list, collection),
         loading: false,
         loaded: true,
+        ...args,
       }
       break
     case 'REMOVE_RECORD_PENDING':

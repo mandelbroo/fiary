@@ -3,18 +3,18 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import RecordDay from 'components/record-day'
-import { clearEdit, editEntry, getEntries } from 'actions'
+import { editEntryClear, editEntry, getEntryByDate } from 'actions/entries'
 import { DateTime } from 'luxon'
 
 export class TodayPage extends React.Component {
   componentDidMount = () => {
     const { dispatch } = this.props
     const today = DateTime.local().toISODate()
-    dispatch(getEntries(today))
+    dispatch(getEntryByDate(today))
     dispatch(editEntry(today))
   }
 
-  componentWillUnmount = () => this.props.dispatch(clearEdit())
+  componentWillUnmount = () => this.props.dispatch(editEntryClear())
 
   render = () => <RecordDay />
 }

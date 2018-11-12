@@ -7,8 +7,8 @@ import styles from './styles'
 
 export class DayTile extends React.Component {
   onClick = () => {
-    const { click, entry } = this.props
-    click(entry.day)
+    const { onClick, entry } = this.props
+    onClick(entry.day)
   }
 
   sum = (records, income = false) => {
@@ -44,7 +44,7 @@ export class DayTile extends React.Component {
 }
 
 DayTile.propTypes = {
-  click: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   entry: PropTypes.object.isRequired,
 }

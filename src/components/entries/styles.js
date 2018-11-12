@@ -1,4 +1,5 @@
-import { DESKTOP } from '../consts-styles'
+import { DESKTOP, MOBILE } from '../consts-styles'
+import { button } from '../common-styles'
 
 export default {
   container: {
@@ -6,6 +7,16 @@ export default {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+    },
+  },
+  button: {
+    ...button,
+    display: 'block',
+    margin: '40px auto',
+    width: '200px',
+    textTransform: 'none',
+    [MOBILE]: {
+      fontSize: '16px',
     },
   },
   month: {

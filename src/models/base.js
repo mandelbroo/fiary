@@ -15,6 +15,10 @@ export default class Base {
     }
   }
 
+  static getPaged(page = 1, size = 15) {
+    return this.get(`${this.endpoint}?page=${page}&size=${size}`)
+  }
+
   static getAll() {
     return this.get(this.endpoint)
   }

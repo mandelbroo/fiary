@@ -1,11 +1,11 @@
 import React from 'react'
-import '../../config/enzyme'
-import { shallow, mount } from 'enzyme'
+import 'config/enzyme'
+import { mount } from 'enzyme'
 import { Entries } from './entries'
-import DayTile from '../day-tile/day-tile'
+import DayTile from 'components/day-tile/day-tile'
 
-jest.mock('../../actions', () => ({ getEntries: jest.fn() }))
-import actions from '../../actions'
+jest.mock('actions/entries', () => ({ getEntries: jest.fn() }))
+import { getEntries } from 'actions/entries'
 
 describe('Entries component', () => {
   const fakeDispatch = jest.fn()
@@ -22,7 +22,7 @@ describe('Entries component', () => {
       />
     )
     expect(fakeDispatch).toBeCalled()
-    expect(actions.getEntries).toBeCalled()
+    expect(getEntries).toBeCalled()
   })
 
   it('clicking on day entry redirects to its page', async () => {
