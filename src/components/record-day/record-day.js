@@ -10,7 +10,10 @@ export class RecordDay extends React.Component {
 
   onAddRecord = (record) => {
     const { entry, addRecord } = this.props
-    addRecord(record, entry)
+    const { id, day } = entry
+    if (id) record.entryId = id
+    if (!record.entryId) record.entry = { day }
+    addRecord(record)
   }
 
   render() {

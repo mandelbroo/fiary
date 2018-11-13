@@ -12,30 +12,30 @@ import {
 } from 'actions/records'
 
 class RecordDayContainer extends React.PureComponent {
+  static propTypes = {
+    addRecord: PropTypes.func.isRequired,
+    removeRecord: PropTypes.func.isRequired,
+    selectRecord: PropTypes.func.isRequired,
+    clearSelectedRecord: PropTypes.func.isRequired,
+    getEntries: PropTypes.func.isRequired,
+  }
+
   render() {
     return <RecordDayComponent {...this.props} />
   }
 }
 
-RecordDayContainer.propTypes = {
-  addRecord: PropTypes.func.isRequired,
-  removeRecord: PropTypes.func.isRequired,
-  selectRecord: PropTypes.func.isRequired,
-  clearSelectedRecord: PropTypes.func.isRequired,
-  getEntries: PropTypes.func.isRequired,
-}
-
 export const mapStateToProps = (state) => {
-  const { entries, selectedRecord, editingEntry } = state
+  const { entries, selectedRecord, selectedEntry } = state
   let res = {
     entry: {
-      day: editingEntry,
+      day: selectedEntry,
       records: [],
     },
     selectedRecord,
   }
-  if (entries.list.length > 0) {
-    res.entry = entries.list.find((e) => e.day === editingEntry) || res.entry
+  if (entries.length > 0) {
+    res.entry = entries.find((e) => e.day === selectedEntry) || res.entry
   }
   return res
 }

@@ -1,59 +1,85 @@
 import React from 'react'
-import Tagger from '../tagger/tagger'
-import TagsFinder from '../../services/tags-finder'
-
+import PropTypes from 'prop-types'
 import injectSheet from 'react-jss'
+
+import Tagger from 'components/tagger/tagger'
+import TagsFinder from 'services/tags-finder'
 import styles from './styles'
 
-export class RecordNew extends React.Component {
-	state = this.props.data
-		? this.props.data
-		: {
-			amount: '',
-			income: false,
-			tags: []
-		}
-	classes = this.props.classes || {}
+const DEFAULT_STATE = {
+  amount: '',
+  income: false,
+  tags: [],
+}
 
-	onSubmit = (event) => {
-		event.preventDefault()
-		this.props.onSubmit(this.state)
-		this.clearState()
-	}
+export class RecordNew extends React.PureComponent {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    record: PropTypes.object,
+    onSubmit: PropTypes.func.isRequired,
+  }
 
-	clearState = () => {
-		this.setState({amount: '', income: false, tags: []})
-		this.refs.tagger.clear()
-	}
+  state = DEFAULT_STATE
 
-	tagsChange = (newState) => this.setState({tags: newState})
+  onSubmit = (e) => {
+    e.preventDefault()
+    if (this.state.tags.length > 0) {
+      this.props.onSubmit(this.state)
+      this.clearState()
+    }
+  }
 
-	render() {
-		const symbolClass = this.state.income ? this.classes.plus : this.classes.minus
-		return (
-			<div className={ this.classes.container }>
-				<form onSubmit={this.onSubmit} className={this.classes.form}>
-					<div className={this.classes.left}>
-						<label className={symbolClass}>
-							<input type='checkbox'
-								className={this.classes.check}
-								checked={this.state.income}
-								onChange={({target}) => this.setState({income: target.checked})} />
-						</label>
-						<input type='number' min='0' max='999999' step='0.01' required
-							className={this.classes.amount + ' w3-input'}
-							placeholder='amount'
-							value={this.state.amount}
-							onChange={({target}) => this.setState({amount: target.value})} />
-					</div>
-					<Tagger className={this.classes.right}
-						onChange={this.tagsChange} ref='tagger' service={TagsFinder}/>
-					<div className={this.classes.button}>
-						<input type='submit' value='✓' />
-					</div>
-				</form>
-			</div>)
-	}
+  clearState = () => {
+    this.setState(DEFAULT_STATE)
+    this.refs.tagger.clear()
+  }
+
+  tagsChange = (newState) => this.setState({ tags: newState })
+
+  render() {
+    const { classes } = this.props
+    const symbolClass = this.state.income ? classes.plus : classes.minus
+    return (
+      <div className={classes.container}>
+        <form onSubmit={this.onSubmit} className={classes.form}>
+          <div className={classes.left}>
+            <label className={symbolClass}>
+              <input
+                type="checkbox"
+                className={classes.check}
+                checked={this.state.income}
+                onChange={({ target }) =>
+                  this.setState({ income: target.checked })
+                }
+              />
+            </label>
+            <input
+              type="number"
+              min="0"
+              max="999999"
+              step="0.01"
+              required
+              className={classes.amount}
+              placeholder="amount"
+              value={this.state.amount}
+              onChange={({ target }) =>
+                this.setState({ amount: Number.parseFloat(target.value) })
+              }
+            />
+          </div>
+          <Tagger
+            className={classes.right}
+            onChange={this.tagsChange}
+            ref="tagger"
+            service={TagsFinder}
+          />
+          <div className={classes.button}>
+            <input type="submit" value="✓" />
+          </div>
+        </form>
+      </div>
+    )
+  }
 }
 
 export default injectSheet(styles)(RecordNew)
