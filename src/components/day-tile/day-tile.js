@@ -13,9 +13,12 @@ export class DayTile extends React.Component {
 
   sum = (records, income = false) => {
     return records.reduce((acc, rec) => {
-      if (rec.income === income) return acc + Number.parseFloat(rec.amount)
+      if (rec.income === income)
+        return Number.parseFloat(
+          (acc + Number.parseFloat(rec.amount)).toFixed(2)
+        )
       return acc
-    }, 0.0)
+    }, 0)
   }
 
   render() {
