@@ -29,7 +29,7 @@
     "db:backup:prod": "pg_dump --clean fiary_prod -F c > tmp/$(date +%F).dump",
     "db:restore": "yarn db:drop && yarn db:create && pg_restore -U fiary -d fiary_dev latest.dump --verbose --clean --no-acl --no-owner",
     "deploy:test:migrate": "heroku run npm run db:migrate",
-    "deploy": "git pull && yarn && yarn build && pm2 restart app",
+    "deploy": "git pull && yarn && NODE_ENV=production yarn db:migrate && yarn build && pm2 restart app",
     "eject": "react-scripts eject",
     "routes": "node scripts/routes.js",
     "postpublish": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags",
