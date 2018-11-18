@@ -51,12 +51,11 @@ exports.update = async (req, res, next) => {
 
     return res.send({
       success: true,
-      args: req.body,
       record: {
-        id: record.id,
-        entryId: record.entryId,
-        income: record.income,
-        amount: record.amount,
+        id: updRecord.id,
+        entryId: updRecord.entryId,
+        income: updRecord.income,
+        amount: updRecord.amount,
         tags: updTags.map((t) => ({ id: t.id, name: t.name })),
       },
     })
