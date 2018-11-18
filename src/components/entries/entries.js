@@ -87,12 +87,12 @@ export class Entries extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { entries } = state
+  const { entries, page, totalPages, loading } = state
   return {
     entries: _.orderBy(entries, 'day', ['desc']),
-    page: entries.page,
-    maxPage: entries.totalPages,
-    loading: entries.loading,
+    page: page,
+    maxPage: totalPages,
+    loading: loading,
   }
 }
 
