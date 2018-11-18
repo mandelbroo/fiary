@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../config/enzyme'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import { RecordList } from './record-list'
 
 const records = [
@@ -28,8 +28,8 @@ describe('RecordList', () => {
     const wrap = mount(<RecordList {...{ ...args }} />)
     const recordViews = wrap.find('RecordView')
     expect(recordViews).toHaveLength(2)
-    expect(recordViews.first().props().data).toMatchObject(records[0])
-    expect(recordViews.last().props().data).toMatchObject(records[1])
+    expect(recordViews.first().props().record).toMatchObject(records[0])
+    expect(recordViews.last().props().record).toMatchObject(records[1])
   })
   it('remove item', () => {
     const onRemove = jest.fn()

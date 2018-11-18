@@ -25,6 +25,13 @@ export default (store = DEFAULT_STATE, action) => {
         entries: addRecord(entries, selectedEntry, action.payload),
         loading: false,
       }
+    case 'UPDATE_RECORD_FULFILLED':
+      const newEntries = removeRecord(entries, selectedEntry, action.payload.id)
+      return {
+        ...store,
+        entries: addRecord(newEntries, selectedEntry, action.payload),
+        loading: false,
+      }
     case 'ADD_RECORD_PENDING':
     case 'GET_ENTRIES_PENDING':
     case 'GET_ENTRY_BY_DATE_PENDING':
@@ -43,9 +50,12 @@ export default (store = DEFAULT_STATE, action) => {
         ...args,
       }
     case 'GET_ENTRY_BY_DATE_FULFILLED':
+      const { amount, ...record } = { ...action.payload }
+      record.amount =
+        typeof amount === 'string' ? Number.parseFloat(amount) : amount
       return {
         ...store,
-        entries: immutableMerge(entries, action.payload),
+        entries: immutableMerge(entries, record),
         loading: false,
       }
     case 'REMOVE_RECORD_PENDING':

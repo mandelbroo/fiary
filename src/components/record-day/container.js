@@ -6,6 +6,7 @@ import RecordDayComponent from './record-day'
 import { getEntries } from 'actions/entries'
 import {
   addRecord,
+  updateRecord,
   removeRecord,
   selectRecord,
   clearSelectedRecord,
@@ -43,6 +44,7 @@ export const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   dispatch,
   addRecord: (...args) => dispatch(addRecord(...args)),
+  updateRecord: (...args) => dispatch(updateRecord(...args)),
   getEntries: (...args) => dispatch(getEntries(...args)),
   removeRecord: (...args) => dispatch(removeRecord(...args)),
   selectRecord: (...args) => dispatch(selectRecord(...args)),
