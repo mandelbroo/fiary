@@ -2,6 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
+import TodayIcon from '@material-ui/icons/Today'
+import DateRangeIcon from '@material-ui/icons/DateRange'
+import ViewListIcon from '@material-ui/icons/ViewList'
 
 const style = {
   itemsWrapper: {
@@ -19,9 +22,9 @@ const style = {
 }
 
 export const PATHS = [
-  { name: 'Today', path: 'today' },
-  { name: 'All', path: 'entries' },
-  { name: 'Add', path: 'calendar' },
+  { name: <TodayIcon />, path: 'today' },
+  { name: <ViewListIcon />, path: 'entries' },
+  { name: <DateRangeIcon />, path: 'calendar' },
 ]
 
 class TabBar extends React.Component {
