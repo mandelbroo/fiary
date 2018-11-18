@@ -1,4 +1,4 @@
-const recordsAdd = require('../../services/records-add')
+const recordsAdd = require('../../services/records')
 const Entry = require('../../models/entry')
 const Tag = require('../../models/tag')
 const User = require('../../models/user')
