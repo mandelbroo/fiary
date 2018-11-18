@@ -4,8 +4,10 @@ export const screenMinWidth = (width) =>
   `@media screen and (min-width: ${width}px)`
 export const screenMaxWidth = (width) =>
   `@media screen and (max-width: ${width}px)`
-export const screenMaxHeight = (width) =>
-  `@media screen and (max-height: ${width}px)`
+export const screenMaxHeight = (height) =>
+  `@media screen and (max-height: ${height}px)`
+export const screenMinHeight = (height) =>
+  `@media screen and (min-height: ${height}px)`
 export const INPUT_FONT_SIZE = 20
 
 export const colorBrand = '#0093bc'

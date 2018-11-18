@@ -1,4 +1,10 @@
-import { DESKTOP, MOBILE, zIndexModal } from 'components/consts-styles'
+import {
+  DESKTOP,
+  MOBILE,
+  zIndexModal,
+  screenMaxHeight,
+  screenMinHeight,
+} from 'components/consts-styles'
 
 export default {
   shadow: {
@@ -43,6 +49,14 @@ export default {
   childWrapper: {
     width: '100%',
     height: '100%',
+    [screenMaxHeight(500)]: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    [screenMinHeight(500)]: {
+      marginTop: '20%',
+    },
   },
   closeButton: {
     border: 0,
