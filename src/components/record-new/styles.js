@@ -1,4 +1,4 @@
-import { DESKTOP, MOBILE, colorBrand } from '../consts-styles'
+import { DESKTOP, colorBrand } from '../consts-styles'
 
 const AMOUNT_FONT_SIZE = '3rem'
 
@@ -63,6 +63,11 @@ export default {
     '& svg': {
       fontSize: 42,
       fill: colorBrand,
+    },
+    '&.disabled': {
+      '& svg': {
+        fill: 'grey',
+      },
     },
   },
 }

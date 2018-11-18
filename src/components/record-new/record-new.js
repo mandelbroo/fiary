@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import injectSheet from 'react-jss'
 import SendIcon from '@material-ui/icons/Send'
+import cn from 'classnames'
 
 import Tagger from 'components/tagger/tagger'
 import TagsFinder from 'services/tags-finder'
@@ -70,6 +71,7 @@ export class RecordNew extends React.PureComponent {
   render() {
     const { classes } = this.props
     const { amount, income, tags } = this.state
+    const disabled = tags.length === 0 || !amount
     return (
       <div className={classes.container}>
         <form onSubmit={(e) => e.preventDefault()} className={classes.form}>
@@ -88,29 +90,18 @@ export class RecordNew extends React.PureComponent {
             className={classes.amountInput}
             value={amount}
             ref={this.setAmountRef}
-            // onKeyDown={({ key }) => {
-            // key === 'Backspace' &&
-            //   amount < 10 &&
-            //   this.setState({ amount: 0 })
-            // }}
             onChange={this.onAmountChange}
           />
-          {/* <input
-            type="tel"
-            min="0"
-            max="999999"
-            step="1"
-            required
-            value={amount}
-            onChange={this.onAmountChange}
-          /> */}
           <Tagger
             onChange={this.tagsChange}
             ref="tagger"
             tags={tags}
             service={TagsFinder}
           />
-          <button className={classes.sendButton} onClick={this.onSubmit}>
+          <button
+            className={cn(classes.sendButton, disabled ? 'disabled' : '')}
+            onClick={disabled ? () => {} : this.onSubmit}
+          >
             <SendIcon />
           </button>
         </form>
