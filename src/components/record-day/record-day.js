@@ -21,7 +21,7 @@ export class RecordDay extends React.Component {
   }
 
   state = {
-    showCreateRecord: true,
+    showCreateRecord: false,
   }
 
   componentWillUnmount = () => this.props.clearSelectedRecord()
@@ -37,6 +37,7 @@ export class RecordDay extends React.Component {
       if (!record.entryId) record.entry = { day }
       addRecord(record)
     }
+    this.toggleCreateRecord()
   }
 
   toggleCreateRecord = (record) => {

@@ -3,7 +3,7 @@ import Record from '../models/record'
 export function addRecord(record) {
   return {
     type: 'ADD_RECORD',
-    payload: Record.create(record).then((res) => res.data.record),
+    payload: Record.create(record).then(({ data: { record } }) => record),
   }
 }
 
