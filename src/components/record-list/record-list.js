@@ -7,6 +7,15 @@ import RemoveButton from './remove-button'
 import styles from './styles'
 
 export class RecordList extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    records: PropTypes.array,
+    onRemove: PropTypes.func.isRequired,
+    onRemoveClick: PropTypes.func.isRequired,
+    onRemoveCancel: PropTypes.func.isRequired,
+    onRecordClick: PropTypes.func.isRequired,
+  }
+
   NoRecords = (classes) => <div className={classes}>no records yet</div>
 
   render() {
@@ -16,13 +25,14 @@ export class RecordList extends React.Component {
       onRemoveClick,
       onRemoveCancel,
       onRemove,
+      onRecordClick,
     } = this.props
     if (records.length === 0) return this.NoRecords(classes.noRecords)
     return (
       <ul className={classes.list}>
         {records.map((rec, ix) => (
           <li key={ix} className={classes.listItem}>
-            <RecordView data={rec} />
+            <RecordView record={rec} onClick={onRecordClick} />
             <RemoveButton
               record={rec}
               onClick={onRemoveClick}
@@ -34,14 +44,6 @@ export class RecordList extends React.Component {
       </ul>
     )
   }
-}
-
-RecordList.propTypes = {
-  classes: PropTypes.object.isRequired,
-  records: PropTypes.array,
-  onRemove: PropTypes.func.isRequired,
-  onRemoveClick: PropTypes.func.isRequired,
-  onRemoveCancel: PropTypes.func.isRequired,
 }
 
 export default injectSheet(styles)(RecordList)

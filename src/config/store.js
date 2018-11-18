@@ -8,8 +8,7 @@ import rootReducer from 'reducers'
 const configStore = () => {
   if (process.env.NODE_ENV === 'production')
     return createStore(rootReducer, applyMiddleware(promise(), thunk))
-  else
-    return createStore(rootReducer, applyMiddleware(promise(), thunk, logger))
+  return createStore(rootReducer, applyMiddleware(promise(), thunk, logger))
 }
 
 export default configStore()

@@ -1,22 +1,33 @@
 export default {
   main: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     '& input': {
       fontSize: 20,
       borderStyle: 'none',
+      display: 'inline-block',
+      width: 150,
+      marginBottom: 10,
       '&:focus': {
         outline: 'none',
       },
     },
     '& .tag': {
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      borderRadius: '3px',
-      display: 'inline-block',
+      fontSize: 20,
+      border: 'solid 1px black',
+      borderRadius: 3,
       cursor: 'pointer',
-      padding: '1px 4px',
-      '&:not(:first-child)': {
-        marginRight: '10px',
+      padding: '8px',
+      display: 'inline-block',
+      marginBottom: 10,
+      '&:not(:last-child)': {
+        marginRight: 10,
       },
+    },
+    '& .suggest': {
+      border: 'solid 1px grey',
+      color: 'grey',
     },
   },
 }

@@ -1,4 +1,6 @@
-import { DESKTOP, MOBILE, INPUT_FONT_SIZE } from '../consts-styles'
+import { DESKTOP, MOBILE, colorBrand } from '../consts-styles'
+
+const AMOUNT_FONT_SIZE = '3rem'
 
 export default {
   container: {
@@ -6,72 +8,61 @@ export default {
       display: 'flex',
       justifyContent: 'center',
     },
-    [MOBILE]: {
-      bottom: 0,
-      position: 'fixed',
-      width: '100%',
-      zIndex: 1,
-    },
   },
   form: {
-    backgroundColor: 'white',
-    padding: '5px',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
     '& input': {
       'border-style': 'none',
     },
   },
   plus: {
-    fontSize: INPUT_FONT_SIZE,
-    padding: '5px',
-    '&::after': {
-      color: 'green',
-      content: '"+"',
-    },
+    color: 'green',
   },
   minus: {
-    fontSize: INPUT_FONT_SIZE,
-    padding: '5px',
-    '&::after': {
-      content: '"−"',
-    },
+    color: 'red',
+  },
+  currency: {
+    fontSize: '2rem',
   },
   check: {
     height: '0px',
     width: '0px',
   },
   amount: {
-    fontSize: INPUT_FONT_SIZE,
-    width: '80%',
-    display: 'inline-block',
-    padding: 0,
-    marginLeft: '6px',
+    fontSize: AMOUNT_FONT_SIZE,
+    height: '75px',
+    width: '100%',
+    textAlign: 'center',
+    position: 'absolute',
+    left: 0,
+  },
+  amountInput: {
+    fontSize: AMOUNT_FONT_SIZE,
+    height: '75px',
+    width: '100%',
+    background: 'transparent',
+    caretColor: 'transparent',
+    color: 'transparent',
+    textAlign: 'center',
     '&:focus': {
       outline: 'none',
     },
   },
-  left: {
-    '& div': {
-      textAlign: 'center',
+  sendButton: {
+    border: 0,
+    backgroundColor: 'transparent',
+    padding: 0,
+    marginTop: '20px',
+    '&:focus': {
+      outline: 'none',
     },
-  },
-  right: {
-    display: 'table-cell',
-    '& input': {
-      width: '89%',
-    },
-  },
-  button: {
-    display: 'table-cell',
-    '& input': {
-      display: 'block',
-      width: '40px',
-      backgroundColor: 'white',
-      color: '#0093bc',
-      fontSize: INPUT_FONT_SIZE + 6,
-      padding: 0,
-      '&:focus': {
-        outline: 'none',
-      },
+    '& svg': {
+      fontSize: 42,
+      fill: colorBrand,
     },
   },
 }

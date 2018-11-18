@@ -1,4 +1,7 @@
 export default {
+  app: {
+    height: '100%',
+  },
   side: {
     width: '100%',
     height: '100%',

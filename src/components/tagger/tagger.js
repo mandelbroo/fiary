@@ -1,22 +1,36 @@
 import React, { Component } from 'react'
 import propTypes from 'prop-types'
+import injectSheet from 'react-jss'
+import cn from 'classnames'
 
-import { jss } from 'react-jss'
 import styles from './styles'
 
-class Tagger extends Component {
-  state = {
-    tags: this.props.tags || [],
-    currentValue: '',
-    suggestions: [],
-  }
-  classes = jss.createStyleSheet(styles).attach().classes
+const DEFAULT_STATE = {
+  tags: [],
+  currentValue: '',
+  suggestions: [],
+}
 
-  add = (event) => {
+class Tagger extends Component {
+  static propTypes = {
+    className: propTypes.string,
+    classes: propTypes.object.isRequired,
+    service: propTypes.object,
+    tags: propTypes.array,
+    onChange: propTypes.func,
+  }
+
+  state = DEFAULT_STATE
+
+  componentWillReceiveProps({ tags }) {
+    if (tags) this.setState({ tags: tags })
+  }
+
+  add = (e) => {
     const { currentValue: val, tags } = this.state
     const { onChange } = this.props
-    if (event.key === 'Enter') {
-      event.preventDefault()
+    if (e.key === 'Enter') {
+      e.preventDefault()
       if (val && val.length > 0) {
         const newTag = {
           id: -(tags.length + 1),
@@ -28,7 +42,7 @@ class Tagger extends Component {
           currentValue: '',
         })
         if (onChange) this.props.onChange(newTags)
-      }
+      } else this.setState({ suggestions: [] })
     }
   }
 
@@ -43,7 +57,7 @@ class Tagger extends Component {
         this.setState({ suggestions: response.data })
       }, 300)
     } else if (!target.value) {
-      this.clear()
+      this.setState({ suggestions: [] })
     }
   }
 
@@ -54,16 +68,13 @@ class Tagger extends Component {
     if (onChange) onChange(newTags)
   }
 
-  clear = () => this.setState({ tags: [], currentValue: '', suggestions: [] })
+  clear = () => this.setState(DEFAULT_STATE)
 
   pickSuggest = (tag) => {
     const { onChange } = this.props
     const newTags = this.state.tags.concat([tag])
-    this.setState({
-      tags: newTags,
-      suggestions: [],
-      currentValue: '',
-    })
+    this.setState({ suggestions: [], currentValue: '' })
+    this.refs.input.focus()
     if (onChange) onChange(newTags)
   }
 
@@ -93,27 +104,24 @@ class Tagger extends Component {
   }
 
   render() {
+    const { className, classes } = this.props
     return (
-      <div className={`${this.props.className} ${this.classes.main}`}>
-        {this.tags}
-        <input
-          type="text"
-          placeholder="find a tag"
-          value={this.state.currentValue}
-          onChange={this.change}
-          onKeyDown={this.add}
-        />
-        {this.suggestions}
+      <div className={cn(classes.main, className)}>
+        <div>
+          {this.tags}
+          <input
+            type="text"
+            placeholder="find a tag"
+            value={this.state.currentValue}
+            onChange={this.change}
+            onKeyDown={this.add}
+            ref="input"
+          />
+        </div>
+        <div>{this.suggestions}</div>
       </div>
     )
   }
 }
 
-Tagger.propTypes = {
-  className: propTypes.string,
-  service: propTypes.object,
-  tags: propTypes.array,
-  onChange: propTypes.func,
-}
-
-export default Tagger
+export default injectSheet(styles)(Tagger)

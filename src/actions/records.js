@@ -3,7 +3,14 @@ import Record from '../models/record'
 export function addRecord(record) {
   return {
     type: 'ADD_RECORD',
-    payload: Record.save(record).then((res) => res.data.record),
+    payload: Record.create(record).then((res) => res.data.record),
+  }
+}
+
+export function updateRecord(record) {
+  return {
+    type: 'UPDATE_RECORD',
+    payload: Record.update(record).then(({ data: { record } }) => record),
   }
 }
 

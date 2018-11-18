@@ -1,15 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import injectSheet from 'react-jss'
+import SendIcon from '@material-ui/icons/Send'
 
 import Tagger from 'components/tagger/tagger'
 import TagsFinder from 'services/tags-finder'
 import styles from './styles'
 
 const DEFAULT_STATE = {
-  amount: '',
+  amount: 0,
   income: false,
   tags: [],
+  default: true,
 }
 
 export class RecordNew extends React.PureComponent {
@@ -21,61 +23,96 @@ export class RecordNew extends React.PureComponent {
 
   state = DEFAULT_STATE
 
-  onSubmit = (e) => {
-    e.preventDefault()
-    if (this.state.tags.length > 0) {
-      this.props.onSubmit(this.state)
+  static getDerivedStateFromProps(props, state) {
+    const { record } = props
+    if (record && state.default) return { ...record, default: false }
+    return null
+  }
+
+  onAmountChange = ({ target: { value } }) => {
+    const newVal =
+      value && value.length > 1 && !value.includes('.') && value.startsWith('0')
+        ? value.substr(1, value.length - 1)
+        : value
+    this.setState({ amount: newVal })
+  }
+
+  onAmountTap = () => {
+    this.amountInput.focus()
+    this.setState({ income: !this.state.income })
+  }
+
+  onSubmit = () => {
+    const { amount } = this.state
+    const resultAmount = Number.parseFloat(Number.parseFloat(amount).toFixed(2))
+    if (resultAmount && this.state.tags.length > 0) {
+      const { id, income, tags, entryId } = this.state
+      this.props.onSubmit({
+        id,
+        amount: resultAmount,
+        income,
+        tags,
+        entryId,
+      })
       this.clearState()
     }
   }
 
-  clearState = () => {
-    this.setState(DEFAULT_STATE)
-    this.refs.tagger.clear()
+  clearState = () => this.setState(DEFAULT_STATE)
+
+  setAmountRef = (input) => {
+    input && input.focus() && input.select()
+    this.amountInput = input
   }
 
   tagsChange = (newState) => this.setState({ tags: newState })
 
   render() {
     const { classes } = this.props
-    const symbolClass = this.state.income ? classes.plus : classes.minus
+    const { amount, income, tags } = this.state
     return (
       <div className={classes.container}>
-        <form onSubmit={this.onSubmit} className={classes.form}>
-          <div className={classes.left}>
-            <label className={symbolClass}>
-              <input
-                type="checkbox"
-                className={classes.check}
-                checked={this.state.income}
-                onChange={({ target }) =>
-                  this.setState({ income: target.checked })
-                }
-              />
-            </label>
-            <input
-              type="number"
-              min="0"
-              max="999999"
-              step="0.01"
-              required
-              className={classes.amount}
-              placeholder="amount"
-              value={this.state.amount}
-              onChange={({ target }) =>
-                this.setState({ amount: Number.parseFloat(target.value) })
-              }
-            />
-          </div>
+        <form onSubmit={(e) => e.preventDefault()} className={classes.form}>
+          <span className={classes.amount} onClick={this.onAmountTap}>
+            <span className={income ? classes.plus : classes.minus}>
+              {amount}
+            </span>
+            <span className={classes.currency}>₴</span>
+          </span>
+          <input
+            type="tel"
+            min="0"
+            max="999999"
+            step="1"
+            required
+            className={classes.amountInput}
+            value={amount}
+            ref={this.setAmountRef}
+            // onKeyDown={({ key }) => {
+            // key === 'Backspace' &&
+            //   amount < 10 &&
+            //   this.setState({ amount: 0 })
+            // }}
+            onChange={this.onAmountChange}
+          />
+          {/* <input
+            type="tel"
+            min="0"
+            max="999999"
+            step="1"
+            required
+            value={amount}
+            onChange={this.onAmountChange}
+          /> */}
           <Tagger
-            className={classes.right}
             onChange={this.tagsChange}
             ref="tagger"
+            tags={tags}
             service={TagsFinder}
           />
-          <div className={classes.button}>
-            <input type="submit" value="✓" />
-          </div>
+          <button className={classes.sendButton} onClick={this.onSubmit}>
+            <SendIcon />
+          </button>
         </form>
       </div>
     )

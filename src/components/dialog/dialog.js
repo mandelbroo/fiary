@@ -1,51 +1,69 @@
 import React from 'react'
-import { jss } from 'react-jss'
-import STYLE from './dialog.style.js'
+import PropTypes from 'prop-types'
+import injectStylesheet from 'react-jss'
+import cn from 'classnames'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
-export default class Dialog extends React.Component {
-	state = { show: this.props.show }
-	style = jss.createStyleSheet(STYLE).attach().classes
+import styles from './styles'
 
-	action = () => {
-		this.props.onAction()
-		this.hide()
-	}
+export class Dialog extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    show: PropTypes.bool.isRequired,
+    onAction: PropTypes.func,
+    onClose: PropTypes.func,
+    onActionText: PropTypes.string,
+    children: PropTypes.any,
+  }
 
-	hide = () => {
-		this.setState({ show: !this.state.show })
-		if (this.props.onClose)
-			this.props.onClose()
-	}
+  state = { show: this.props.show }
 
-	willHide = ({target}) => {
-		if (target.className.includes('shadow')) {
-			this.hide()
-		}
-	}
+  componentWillReceiveProps = ({ show }) => {
+    if (this.state.show !== show) {
+      this.setState({ show })
+    }
+  }
 
-	componentWillReceiveProps = (newProps) => {
-		if (this.state.show !== newProps.show) {
-			this.setState({ show: newProps.show })
-		}
-	}
+  action = () => {
+    this.props.onAction()
+    this.hide()
+  }
 
-	render = () => {
-		const showClass = this.style[this.state.show ? 'show' : 'hide']
-		const actionButton = this.props.onAction
-			? <button onClick={ this.action }>{ this.props.onActionText }</button>
-			: ''
-		return (
-			<div className={`${this.style.shadow} ${showClass}`} onClick={this.willHide}>
-				<dialog className={this.style.modal}>
-					<section>
-						{ this.props.children }
-					</section>
-					<div>
-						{ actionButton }
-						<button onClick={ this.hide }>Close</button>
-					</div>
-				</dialog>
-			</div>
-		)
-	}
+  hide = () => {
+    const { onClose } = this.props
+    this.setState({ show: !this.state.show })
+    if (onClose) onClose()
+  }
+
+  willHide = ({ target }) => {
+    if (target.className.includes && target.className.includes('shadow')) {
+      this.hide()
+    }
+  }
+
+  render = () => {
+    const { classes, onAction, onActionText, children } = this.props
+    const { show } = this.state
+    const showClass = classes[show ? 'show' : 'hide']
+    const actionButton = onAction ? (
+      <button onClick={this.action}>{onActionText}</button>
+    ) : (
+      ''
+    )
+    return (
+      <div className={cn(classes.shadow, showClass)} onClick={this.willHide}>
+        <dialog className={classes.modal}>
+          <section className={classes.childWrapper}>{children}</section>
+          <div>
+            {actionButton}
+            <button className={classes.closeButton} onClick={this.hide}>
+              <ArrowBackIcon />
+            </button>
+          </div>
+        </dialog>
+      </div>
+    )
+  }
 }
+
+export default injectStylesheet(styles)(Dialog)
