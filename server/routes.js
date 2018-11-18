@@ -25,6 +25,7 @@ api.get(
 )
 
 api.post('/records', recordsController.post)
+api.patch('/records', recordsController.update)
 api.delete('/records/:id(\\d+)/', recordsController.destroy)
 
 api.get('/users', usersController)
