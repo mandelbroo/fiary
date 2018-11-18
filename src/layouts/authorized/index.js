@@ -53,7 +53,7 @@ class Authorized extends React.Component {
         onSetOpen={this.openSidebar}
         styles={OVERRIDE}
       >
-        <div className="App">
+        <div className={classes.app}>
           <Hamburger onClick={this.openSidebar} classes={classes.hamburger} />
           <TabBar />
           <div className="content">
