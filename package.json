@@ -20,6 +20,7 @@
     "test:back:cov": "NODE_ENV=test jest server/ --coverage --detectOpenHandles",
     "see:cov": "xdg-open coverage/lcov-report/index.html > /dev/null 2>&1 &",
     "seq": "node_modules/.bin/knex",
+    "gen:migrate": "knex migrate:make rename_me",
     "db:create": "node db/utils/create.js",
     "db:drop": "node db/utils/drop.js",
     "db:migrate": "node_modules/.bin/knex migrate:latest",
