@@ -9,6 +9,7 @@ const entriesController = require('./controllers/entries')
 const recordsController = require('./controllers/records')
 const usersController = require('./controllers/users')
 const tagsController = require('./controllers/tags')
+const stats = require('./controllers/stats')
 
 const routesPublic = require('./routes-public')
 
@@ -17,6 +18,7 @@ api.use(bodyParser.urlencoded({ extended: false }))
 api.use(routesPublic)
 api.use(authorize)
 
+api.get('/monthly', stats.monthly)
 api.get('/entries', entriesController.getAll)
 api.get('/entries/:id(\\d+)/', entriesController.getById)
 api.get(
