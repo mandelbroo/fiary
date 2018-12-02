@@ -19,6 +19,7 @@ api.use(routesPublic)
 api.use(authorize)
 
 api.get('/monthly', stats.monthly)
+api.get('/annual', stats.annual)
 api.get('/entries', entriesController.getAll)
 api.get('/entries/:id(\\d+)/', entriesController.getById)
 api.get(

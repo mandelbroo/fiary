@@ -14,3 +14,14 @@ exports.monthly = async (req, res) => {
     .orderByRaw('year desc, month desc')
   res.send({ stats })
 }
+
+exports.annual = async (req, res) => {
+  const user = await req.currentUserPromise
+  const stats = await knex('entries')
+    .join('records', 'entries.id', '=', 'records.entry_id')
+    .select(knex.raw('extract(year from day::date) as year, sum(amount)'))
+    .where('entries.user_id', user.id)
+    .groupByRaw('extract(year from day::DATE)')
+    .orderByRaw('year desc')
+  res.send({ stats })
+}
