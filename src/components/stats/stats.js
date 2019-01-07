@@ -52,29 +52,31 @@ class StatsComponent extends React.Component {
   }
 
   renderAnnual(rawData) {
-    const preData = {
-      income: Number.parseInt(rawData.income),
-      expenses: Number.parseInt(rawData.expenses),
+    if (rawData) {
+      const preData = {
+        income: Number.parseInt(rawData.income),
+        expenses: Number.parseInt(rawData.expenses),
+      }
+      const total = preData.income + preData.expenses
+      const percentage = {
+        income: Number.parseInt(preData.income / (total / 100)),
+        expenses: Number.parseInt(preData.expenses / (total / 100)),
+      }
+      const data = {
+        labels: [`income ${preData.income}`, `expenses ${preData.expenses}`],
+        series: [{ value: percentage.income }, { value: percentage.expenses }],
+      }
+      const options = {
+        donut: true,
+        donutWidth: 40,
+        // donutSolid: true,
+        startAngle: 270,
+        total: 200,
+        showLabel: true,
+        // stretch: true,
+      }
+      new Chartist.Pie('#annual', data, options)
     }
-    const total = preData.income + preData.expenses
-    const percentage = {
-      income: Number.parseInt(preData.income / (total / 100)),
-      expenses: Number.parseInt(preData.expenses / (total / 100)),
-    }
-    const data = {
-      labels: [`income ${preData.income}`, `expenses ${preData.expenses}`],
-      series: [{ value: percentage.income }, { value: percentage.expenses }],
-    }
-    const options = {
-      donut: true,
-      donutWidth: 40,
-      // donutSolid: true,
-      startAngle: 270,
-      total: 200,
-      showLabel: true,
-      // stretch: true,
-    }
-    new Chartist.Pie('#annual', data, options)
   }
 
   renderMonths(rawData) {
