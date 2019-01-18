@@ -18,9 +18,6 @@ export default {
     zIndex: zIndexModal,
   },
   modal: {
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
     left: 0,
     display: 'flex',
     flexDirection: 'column',
@@ -33,8 +30,11 @@ export default {
       width: '500px',
       minHeight: '30px',
       padding: '20px',
+      position: 'relative',
     },
     [MOBILE]: {
+      top: '50%',
+      transform: 'translateY(-50%)',
       width: '100%',
       height: '100%',
     },
@@ -53,9 +53,6 @@ export default {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    [screenMinHeight(500)]: {
-      marginTop: '20%',
     },
   },
   closeButton: {
