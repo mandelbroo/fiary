@@ -32,16 +32,14 @@ export class Entries extends React.Component {
     this.setState({ redirectPath: path })
   }
 
-  onShowMore = () => {
-    const { page } = this.props
-    this.props.dispatch(getEntries(page + 1))
-  }
+  onShowMore = () => this.props.dispatch(getEntries(this.props.page + 1))
 
   renderDayTilesList = (entries, classes) => {
+    let toRender = <div>no entries</div>
     if (entries.length > 0) {
       let monthsDivider = []
-      return entries.map((entry, ix) => {
-        const tile = (
+      toRender = entries.map((entry, ix) => {
+        let tile = (
           <DayTile
             entry={entry}
             onClick={this.onDayClick}
@@ -52,7 +50,7 @@ export class Entries extends React.Component {
         const month = DateTime.fromISO(entry.day).monthLong
         if (!monthsDivider.includes(month)) {
           monthsDivider.push(month)
-          return (
+          tile = (
             <React.Fragment key={ix}>
               <span className={classes.month}>{month}</span>
               {tile}
@@ -61,13 +59,13 @@ export class Entries extends React.Component {
         }
         return tile
       })
-    } else return <div>no entries</div>
+    }
+    return toRender
   }
 
   render() {
     const { redirectPath } = this.state
-    const { redirect } = this.props
-    if (redirectPath) return redirect(redirectPath)
+    if (redirectPath) return this.props.redirect(redirectPath)
 
     const { classes, entries, loading, maxPage, page } = this.props
     const canLoadMore = page < maxPage
