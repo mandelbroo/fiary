@@ -35,7 +35,9 @@
     "eject": "react-scripts eject",
     "routes": "node scripts/routes.js",
     "postpublish": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags",
-    "repl": "NODE_ENV=development node --experimental-repl-await scripts/repl.js"
+    "repl": "NODE_ENV=development node --experimental-repl-await scripts/repl.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@material-ui/core": "^3.3.0",
@@ -73,7 +75,8 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "dotenv": "^4.0.0",
@@ -91,5 +94,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "snyk": true
 }
