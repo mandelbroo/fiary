@@ -41,7 +41,7 @@
     "@material-ui/core": "^3.3.0",
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.16.2",
-    "bcrypt": "^3.0.0",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.17.2",
     "bookshelf": "^0.10.4",
     "bookshelf-camelcase": "https://github.com/mandelbroo/bookshelf-camelcase",
