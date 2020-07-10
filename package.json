@@ -57,7 +57,7 @@
     "jsonwebtoken": "^8.0.0",
     "jwt-decode": "^2.2.0",
     "knex": "^0.14.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.16",
     "luxon": "^0.3.0",
     "morgan-body": "^0.10.9",
     "pg": "^7.5.0",
