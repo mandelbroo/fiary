@@ -43,7 +43,7 @@
     "axios": "^0.16.2",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.17.2",
-    "bookshelf": "^0.10.4",
+    "bookshelf": "^0.14.0",
     "bookshelf-camelcase": "https://github.com/mandelbroo/bookshelf-camelcase",
     "bookshelf-cascade-delete": "^2.0.1",
     "bookshelf-modelbase": "^2.10.4",
